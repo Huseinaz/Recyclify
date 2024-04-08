@@ -5,10 +5,8 @@
 <!-- project philosophy -->
 <img src="./readme/title2.svg"/>
 
-> A web application dedicated to promoting and facilitating recycling efforts in local communities, Recycle Connect aims to make recycling easier and more accessible for everyone.
->
 > Recycle Connect provides users with the tools to Find Recycling Centers, Share Recycling Tips, Participate in Discussions and get Notification to  Stay informed about local events and initiatives related to recycling in your area.
-> We believe in creating a greener future by empowering individuals to take simple yet impactful actions. Join us in our mission to make recycling a part of everyday life!
+> We believe in creating a greener future by empowering individuals to take simple yet impactful actions.
 
 ### User Stories
 - As a user, I want to easily locate nearby recycling centers, so I can conveniently drop off my recyclables.
