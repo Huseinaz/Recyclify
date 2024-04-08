@@ -5,12 +5,11 @@
 <!-- project philosophy -->
 <img src="./readme/title2.svg"/>
 
-> Recycle Connect provides users with the tools to Find Recycling Centers, Share Recycling Tips, Participate in Discussions and get Notification to  Stay informed about local events and initiatives related to recycling in your area.
+> Recyclify provides users with the tools to Find Recycling Centers, Share Recycling Tips, Participate in Discussions and get Notification to  Stay informed about local events and initiatives related to recycling in your area.
 > We believe in creating a greener future by empowering individuals to take simple yet impactful actions.
 
 ### User Stories
 - As a user, I want to easily locate nearby recycling centers, so I can conveniently drop off my recyclables.
-- As a user, I want to share my recycling tips with others, so I can contribute to a more sustainable community.
 - As a user, I want to engage in discussions about recycling practices, so I can learn from others and share my insights.
 - As a user, I want to receive notifications about local recycling events and initiatives, so I can stay informed and participate in eco-friendly activities.
 
