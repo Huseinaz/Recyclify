@@ -5,14 +5,22 @@
 <!-- project philosophy -->
 <img src="./readme/title2.svg"/>
 
-> A web application dedicated to promoting and facilitating recycling efforts in local communities, Recycle Connect aims to make recycling easier and more accessible for everyone.
->
-> Recycle Connect provides users with the tools to Find Recycling Centers, Share Recycling Tips, Participate in Discussions and get Notification to  Stay informed about local events and initiatives related to recycling in your area.
-> We believe in creating a greener future by empowering individuals to take simple yet impactful actions. Join us in our mission to make recycling a part of everyday life!
+> Recyclify is a platform that provides users with the tools to Find Recycling Centers, Share Recycling Tips, Participate in Discussions, and get Notifications to Stay informed about local events and initiatives related to recycling in your area.
 
-### User Stories
+> We believe in creating a greener future by empowering individuals to take simple yet impactful actions through our platform.
+
+### User Stories:
+
+#### Admin:
+
+- As an admin, I should manage and update the list of recycling centers available on the platform, ensuring that users have accurate and up-to-date information.
+- As an admin, I should moderate discussions and user-generated content to ensure that the platform maintains a positive and informative environment for users.
+- As an admin, I should create and schedule notifications for upcoming local recycling events and initiatives, keeping users informed and engaged.
+- As an admin, I should view analytics and insights on user activity, such as popular recycling tips and active discussion topics, to improve the platform's content and features.
+
+#### User:
+
 - As a user, I want to easily locate nearby recycling centers, so I can conveniently drop off my recyclables.
-- As a user, I want to share my recycling tips with others, so I can contribute to a more sustainable community.
 - As a user, I want to engage in discussions about recycling practices, so I can learn from others and share my insights.
 - As a user, I want to receive notifications about local recycling events and initiatives, so I can stay informed and participate in eco-friendly activities.
 
