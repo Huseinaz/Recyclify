@@ -5,24 +5,24 @@
 <!-- project philosophy -->
 <img src="./readme/title2.svg"/>
 
-> Recyclify is a platform that provides users with the tools to Find Recycling Centers, Share Recycling Tips, Participate in Discussions, and get Notifications to Stay informed about local events and initiatives related to recycling in your area.
+> Recyclify is a mobile application designed to streamline the efforts of environmentalists. Our cutting-edge solution integrates advanced recycling technology, providing users with smart recycling containers equipped with advanced sensors. Our drivers will come to you when your container is nearly full, empowering users by eliminating the need to personally locate recycling centers or manage disposal logistics.
 
 > We believe in creating a greener future by empowering individuals to take simple yet impactful actions through our platform.
 
-### User Stories:
+### User Stories
 
-#### Admin:
+#### Admin
 
-- As an admin, I should manage and update the list of recycling centers available on the platform, ensuring that users have accurate and up-to-date information.
-- As an admin, I should moderate discussions and user-generated content to ensure that the platform maintains a positive and informative environment for users.
-- As an admin, I should create and schedule notifications for upcoming local recycling events and initiatives, keeping users informed and engaged.
-- As an admin, I should view analytics and insights on user activity, such as popular recycling tips and active discussion topics, to improve the platform's content and features.
+- As an admin, I want to view the statistics of users and drivers.
+- As an admin, I want to manage users and drivers.
+- As an admin, I want to create new drivers.
 
-#### User:
+#### User
 
-- As a user, I want to easily locate nearby recycling centers, so I can conveniently drop off my recyclables.
-- As a user, I want to engage in discussions about recycling practices, so I can learn from others and share my insights.
-- As a user, I want to receive notifications about local recycling events and initiatives, so I can stay informed and participate in eco-friendly activities.
+- As a user, I want to have a smart container that measures its fullness.
+- As a user, I want to receive notifications about the status of the containers.
+- As a user, I want to automatically request a driver when one of the containers is full.
+- As a user, I want to track ther driver's route.
 
 <br><br>
 <!-- Tech stack -->
