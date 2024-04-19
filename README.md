@@ -11,18 +11,25 @@
 
 ### User Stories
 
-#### Admin
-
-- As an admin, I want to view the statistics of users and drivers.
-- As an admin, I want to manage users and drivers.
-- As an admin, I want to create new drivers.
-
 #### User
 
 - As a user, I want to have a smart container that measures its fullness.
 - As a user, I want to receive notifications about the status of the containers.
 - As a user, I want to automatically request a driver when one of the containers is full.
-- As a user, I want to track ther driver's route.
+- As a user, I want to track the driver's route.
+
+#### Driver
+
+- As a driver, I want to see the user container statistics.
+- As a driver, I want to have a chat with the user to confirm the pickup time for materials.
+- As a driver, I want to receive notifications when a user's container is full.
+- As a driver, I want to see the user's location to plan my route efficiently.
+
+#### Admin
+
+- As an admin, I want to view the statistics of users and drivers.
+- As an admin, I want to manage users and drivers.
+- As an admin, I want to create new drivers.
 
 <br><br>
 <!-- Tech stack -->
