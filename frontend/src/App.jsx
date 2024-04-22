@@ -1,8 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginForm from './components/Authentication/LoginForm';
 
 const App = () => {
   return (
-    <div>App</div>
+    <div className="app">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginForm />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 
