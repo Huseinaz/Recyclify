@@ -1,0 +1,10 @@
+.h-screen {
+    background-image: url('../../assets/background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.login-btn:hover {
+    background-color: #87C75C;
+    transition: background-color 0.3s ease-in-out;
+}

@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginForm from './components/Authentication/LoginForm';
-
-import './output.css';
+import './styles/colors.css'
 
 const App = () => {
   return (
