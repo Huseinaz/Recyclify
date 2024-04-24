@@ -1,0 +1,9 @@
+.dashboard-li:hover {
+    color: #187b1b;
+    cursor: pointer;
+}
+
+.dashboard-li.selected {
+    border-left: 4px solid #187b1b;
+    color: #187b1b;
+}
