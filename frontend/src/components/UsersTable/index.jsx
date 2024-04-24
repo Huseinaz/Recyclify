@@ -3,6 +3,7 @@ import React from 'react';
 const UsersTable = () => {
     return (
         <div className="overflow-x-auto">
+            <h1 className="text-xl font-bold pb-3">Users Information</h1>
             <table className="table-auto min-w-full border-collapse border-t border-b border-gray-200">
                 <thead>
                     <tr>
@@ -18,7 +19,7 @@ const UsersTable = () => {
                     <tr>
                         <td className="px-4 py-2 border-b border-gray-200 text-center">1</td>
                         <td className="px-4 py-2 border-b border-gray-200 text-center">John Doe</td>
-                        <td className="px-4 py-2 border-b border-gray-200 text-center">john@example.com</td>
+                        <td className="px-4 py-2 border-b border-gray-200 text-center">john@mail.com</td>
                         <td className="px-4 py-2 border-b border-gray-200 text-center">0123457</td>
                         <td className="px-4 py-2 border-b border-gray-200 text-center">Beirut</td>
                         <td className="px-4 py-2 border-b border-gray-200 text-center">
