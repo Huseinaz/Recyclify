@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginForm from './components/Authentication/LoginForm';
-import './styles/colors.css'
+import Sidebar from './components/Sidebar';
+import './style/colors.css'
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginForm />} />
+          <Route path="/sidebar" element={<Sidebar />} />
         </Routes>
       </BrowserRouter>
     </div>

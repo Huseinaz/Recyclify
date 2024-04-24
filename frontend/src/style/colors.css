@@ -1,11 +1,19 @@
 .primary-color {
-  background-color: #187b1b;
+  color: #187b1b;
 }
 
 .secondary-color {
-  background-color: #87c75c;
+  color: #87c75c;
 }
 
 .primary-bg {
-    background-color: #F3F5F8;
+  background-color: #187b1b;
+}
+
+.secondary-bg {
+  background-color: #87c75c;
+}
+
+.gray-bg {
+  background-color: #f3f5f8;
 }
