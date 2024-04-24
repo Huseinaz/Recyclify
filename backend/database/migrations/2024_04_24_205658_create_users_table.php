@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('password');
             $table->double('latitude', 10, 6)->nullable();
             $table->double('longitude', 10, 6)->nullable();
-            $table->integer('role_id')->default(2);
+            $table->unsignedBigInteger('role_id')->default(2);
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->string('profile_picture')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
