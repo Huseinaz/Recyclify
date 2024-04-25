@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './style/colors.css'
+
 import LoginForm from './components/Authentication/LoginForm';
 import Sidebar from './components/Sidebar';
-import './style/colors.css'
+import Dashboard from './components/Dashboard';
 import UsersTable from './components/UsersTable';
-import DriversTable from './DriversTable';
+import DriversTable from './components/DriversTable';
 
 const App = () => {
   return (
@@ -13,6 +15,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LoginForm />} />
           <Route path="/sidebar" element={<Sidebar />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path='/userstable' element={<UsersTable />} />
           <Route path='/driverstable' element={<DriversTable />} />
         </Routes>
