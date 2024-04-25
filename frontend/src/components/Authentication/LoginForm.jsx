@@ -20,9 +20,14 @@ const LoginForm = () => {
                 password,
             });
             if (response.status === 200) {
-                localStorage.setItem('token', response.data.authorisation.token);
-                navigate('/dashboard');
-                return;
+                const user = response.data.user;
+                if (user.role_id === 1) {
+                    localStorage.setItem('token', response.data.authorisation.token);
+                    console.log(response.data);
+                    navigate('/dashboard');
+                } else {
+                    throw new Error('Unauthorized access');
+                }
             } else {
                 throw new Error();
             }
@@ -30,6 +35,7 @@ const LoginForm = () => {
             setError('Wrong email or password');
         }
     };
+    
 
     return (
         <div className="white flex items-center justify-center h-screen login-bg">
