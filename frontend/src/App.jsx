@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './style/colors.css'
 
-import LoginForm from './components/Authentication/LoginForm';
+import LoginForm from './components/Authentication';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
 import UsersTable from './components/UsersTable';

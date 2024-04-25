@@ -35,7 +35,6 @@ const LoginForm = () => {
             setError('Wrong email or password');
         }
     };
-    
 
     return (
         <div className="white flex items-center justify-center h-screen login-bg">
@@ -66,6 +65,9 @@ const LoginForm = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
+                    {error && (
+                        <div className="mb-4 text-red-500 text-sm">{error}</div>
+                    )}
                     <button
                         type="submit"
                         className="w-full primary-bg text-white px-4 py-2 rounded-lg mb-4 login-btn">
@@ -74,7 +76,7 @@ const LoginForm = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default LoginForm;
