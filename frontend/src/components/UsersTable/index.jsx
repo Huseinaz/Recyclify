@@ -36,6 +36,20 @@ const UsersTable = () => {
         }
     };
 
+    const handleShutDown = async (id) => {
+        try {
+            const response = await axios.post(`http://localhost:8000/api/users/${id}/shutdown`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            console.log('User shutdown:', response.data.message);
+            fetchUsers();
+        } catch (error) {
+            console.error('Error shutting down user:', error.response.data.message);
+        }
+    };
+
     return (
         <div className="overflow-x-auto">
             <h1 className="text-xl font-bold pb-3">Users Information</h1>
@@ -62,7 +76,7 @@ const UsersTable = () => {
                                 <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleActive(user.id)}>
                                     Activate
                                 </button>
-                                <button className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-1 px-2 rounded">
+                                <button className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-1 px-2 rounded" onClick={() => handleShutDown(user.id)}>
                                     Shutdown
                                 </button>
                             </td>
