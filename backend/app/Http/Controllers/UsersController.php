@@ -32,4 +32,18 @@ class UsersController extends Controller
             ]);
         }
     }
+
+    public function activateUser($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->active = true;
+        $user->save();
+
+        return response()->json(['message' => 'User activated successfully']);
+    }
 }
