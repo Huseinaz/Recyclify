@@ -13,7 +13,23 @@ const Sidebar = () => {
         setSelectedItem(item);
     };
 
-    
+    const logOut = async () => {
+        try {
+            const response = await axios.post('http://localhost:8000/api/logout', null, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            if (response.status === 200) {
+                localStorage.clear();
+                navigate('/');
+            } else {
+                return;
+            }
+        } catch (error) {
+            console.log(error.response.data.message);
+        }
+    };
 
     return (
         <div className="gray-bg text-black w-60 h-screen float-left">
@@ -59,7 +75,7 @@ const Sidebar = () => {
                     >
                         Create Driver
                     </li>
-                    <li className="py-2 px-4 dashboard-li">
+                    <li className="py-2 px-4 dashboard-li" onClick={logOut}>
                         Logout
                     </li>
                 </ul>
