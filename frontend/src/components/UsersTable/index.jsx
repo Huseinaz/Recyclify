@@ -68,8 +68,8 @@ const UsersTable = () => {
     };
 
     return (
-        <div className="overflow-x-auto">
-            <h1 className="text-xl font-bold pb-3">Users Information</h1>
+        <div className="overflow-x-auto pl-8 pr-8">
+            <h1 className="text-xl font-bold pb-3 mt-32">Users Information</h1>
             <table className="table-auto min-w-full border-collapse border-t border-b border-gray-200">
                 <thead>
                     <tr>

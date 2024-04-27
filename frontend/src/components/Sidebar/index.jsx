@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.css';
 
-import logo from '../../assets/logo-bg-white.png';
+import logo from '../../assets/logo-bg-gray.png';
 
 const Sidebar = () => {
     const [selectedItem, setSelectedItem] = useState(null);
@@ -11,7 +11,7 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="bg-white text-black w-64 h-screen">
+        <div className="gray-bg text-black w-60 h-screen float-left">
             <div className="p-4">
                 <div className="p-4 flex items-center">
                     <img src={logo} alt="Logo" className="w-16 h-w-16 object-cover mr-2" />
