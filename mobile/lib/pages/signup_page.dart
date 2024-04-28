@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
-import 'package:mobile/pages/signup_page.dart';
+import 'package:mobile/pages/login_page.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class SignupPage extends StatelessWidget {
+  SignupPage({super.key});
 
   //text editing controllers
   final emailController = TextEditingController();
@@ -34,7 +34,7 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
 
               const Text(
-                'Log In',
+                'Sign Up',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 28,
@@ -103,7 +103,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Don\'t have an account?',
+                    'Already have an account?',
                     style: TextStyle(
                       color: Colors.grey[700],
                     ),
@@ -113,11 +113,11 @@ class LoginPage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignupPage()),
+                        MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     },
                     child: const Text(
-                      'Register now',
+                      'Log In',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF187B1B),
