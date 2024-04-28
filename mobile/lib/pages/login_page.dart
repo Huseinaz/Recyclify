@@ -1,29 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/my_textfield.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+
+  //text editing controllers
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xFFF3F5F8),
+    return Scaffold(
+      backgroundColor: const Color(0xFFF3F5F8),
       body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 70),
-              Image(
+             
+              const SizedBox(height: 70),
+
+              const Image(
                 image: AssetImage('assets/image/logo-bg-gray.png'),
                 height: 118,
                 width: 118,
               ),
-              SizedBox(height: 20),
-              Text(
+
+              const SizedBox(height: 20),
+
+              const Text(
                 'Log In',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 28,
                 ),
+              ),
+
+              const SizedBox(height: 50),
+
+              //email textfield
+              MyTextField(
+                controller: emailController,
+                hintText: 'Email',
+                obscureText: false,
+              ),
+
+              const SizedBox(height: 20),
+
+              //password textfield
+              MyTextField(
+                controller: passwordController,
+                hintText: 'Password',
+                obscureText: true,
               ),
             ],
           ),
