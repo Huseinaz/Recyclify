@@ -23,7 +23,7 @@ class SignupPage extends StatelessWidget {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: 10),
 
               const Image(
                 image: AssetImage('assets/image/logo-bg-gray.png'),
@@ -31,7 +31,7 @@ class SignupPage extends StatelessWidget {
                 width: 118,
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
               const Text(
                 'Sign Up',
@@ -41,7 +41,25 @@ class SignupPage extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
+
+              //first name textfield
+              MyTextField(
+                controller: emailController,
+                hintText: 'First Name',
+                obscureText: false,
+              ),
+
+              const SizedBox(height: 5),
+
+              //last name textfield
+              MyTextField(
+                controller: emailController,
+                hintText: 'Last Name',
+                obscureText: false,
+              ),
+
+              const SizedBox(height: 5),
 
               //email textfield
               MyTextField(
@@ -50,7 +68,7 @@ class SignupPage extends StatelessWidget {
                 obscureText: false,
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 5),
 
               //password textfield
               MyTextField(
@@ -59,7 +77,7 @@ class SignupPage extends StatelessWidget {
                 obscureText: true,
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
 
               //login button
               MyButton(
@@ -97,9 +115,9 @@ class SignupPage extends StatelessWidget {
 
               GoogleSignin(onTap: signUserIn),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
-              //registen now
+              //have an account
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

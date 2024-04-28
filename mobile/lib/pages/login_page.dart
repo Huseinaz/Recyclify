@@ -50,7 +50,7 @@ class LoginPage extends StatelessWidget {
                 obscureText: false,
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 5),
 
               //password textfield
               MyTextField(
@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget {
                 obscureText: true,
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 100),
 
               //login button
               MyButton(
@@ -97,9 +97,9 @@ class LoginPage extends StatelessWidget {
 
               GoogleSignin(onTap: signUserIn),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
-              //registen now
+              //don't have an acount
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

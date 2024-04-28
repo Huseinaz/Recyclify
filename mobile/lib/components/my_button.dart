@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
+  
   final Function()? onTap;
   final String buttonText;
-
-  const MyButton({Key? key, required this.onTap, required this.buttonText})
-      : super(key: key);
+  
+  const MyButton({super.key, required this.onTap, required this.buttonText});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,6 @@ class MyButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          // Remove 'const' from here
           child: Text(
             buttonText,
             style: const TextStyle(

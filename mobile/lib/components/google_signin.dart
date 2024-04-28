@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class GoogleSignin extends StatelessWidget {
   final Function()? onTap;
 
-  const GoogleSignin({Key? key, required this.onTap}) : super(key: key);
+  const GoogleSignin({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,12 @@ class GoogleSignin extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/image/google.png', // Path to your Google icon image asset
+              'assets/image/google.png',
               height: 24,
               width: 24,
-              // You can adjust the size of the Google icon as needed
             ),
-            const SizedBox(width: 10), // Add some spacing between the icon and the text
+            const SizedBox(
+                width: 10),
             const Text(
               "Continue with Google",
               style: TextStyle(
