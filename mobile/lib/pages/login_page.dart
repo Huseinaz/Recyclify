@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
 
 class LoginPage extends StatelessWidget {
@@ -7,6 +8,9 @@ class LoginPage extends StatelessWidget {
   //text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  //sign user in method
+  void signUserIn() {}
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class LoginPage extends StatelessWidget {
           child: Column(
             children: [
              
-              const SizedBox(height: 70),
+              const SizedBox(height: 40),
 
               const Image(
                 image: AssetImage('assets/image/logo-bg-gray.png'),
@@ -35,7 +39,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
 
               //email textfield
               MyTextField(
@@ -44,13 +48,20 @@ class LoginPage extends StatelessWidget {
                 obscureText: false,
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
 
               //password textfield
               MyTextField(
                 controller: passwordController,
                 hintText: 'Password',
                 obscureText: true,
+              ),
+
+              const SizedBox(height: 40),
+
+              //login button
+              MyButton(
+                onTap: signUserIn,
               ),
             ],
           ),
