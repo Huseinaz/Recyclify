@@ -64,6 +64,7 @@ class LoginPage extends StatelessWidget {
               //login button
               MyButton(
                 onTap: signUserIn,
+                buttonText: 'Log In',
               ),
 
               // or continue with
