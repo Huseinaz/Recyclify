@@ -19,6 +19,7 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
              
               const SizedBox(height: 40),
@@ -63,6 +64,33 @@ class LoginPage extends StatelessWidget {
               MyButton(
                 onTap: signUserIn,
               ),
+
+              const SizedBox(height: 20),
+
+              //registen now
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don\'t have an account?',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  InkWell(
+                    onTap: () {},
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF187B1B),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
             ],
           ),
         ),
