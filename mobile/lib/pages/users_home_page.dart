@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/my_button.dart';
+import 'package:mobile/components/my_container.dart';
 
 class UserHomePage extends StatelessWidget {
   const UserHomePage({super.key});
@@ -12,6 +13,7 @@ class UserHomePage extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
           child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
               SizedBox(height: 50),
@@ -24,9 +26,39 @@ class UserHomePage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 50),
+              SizedBox(height: 40),
 
-              MyButton(onTap: null, buttonText: 'buttonText')
+              MyContainer(
+                color: Colors.blue,
+                type: 'Paper',
+                percentage: 20,
+              ),
+
+              SizedBox(height: 15),
+
+              MyContainer(
+                color: Colors.green,
+                type: 'Glass',
+                percentage: 20,
+              ),
+
+              SizedBox(height: 15),
+
+              MyContainer(
+                color: Colors.yellow,
+                type: 'Plastic',
+                percentage: 20,
+              ),
+
+              SizedBox(height: 15),
+
+              MyContainer(
+                color: Colors.red,
+                type: 'Metal',
+                percentage: 20,
+              ),
+
+              SizedBox(height: 25),
 
             ],
           ),
