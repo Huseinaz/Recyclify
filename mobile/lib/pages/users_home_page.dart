@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_container.dart';
+import 'package:mobile/pages/drivers_home_page.dart';
 
 class UserHomePage extends StatelessWidget {
   const UserHomePage({super.key});
@@ -12,13 +13,13 @@ class UserHomePage extends StatelessWidget {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
-          child: const Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               
-              Text(
+              const Text(
                 'Your Container',
                 style: TextStyle(
                   fontSize: 24,
@@ -26,42 +27,47 @@ class UserHomePage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
-              MyContainer(
+              const MyContainer(
                 color: Colors.blue,
                 type: 'Paper',
                 percentage: 20,
               ),
 
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
-              MyContainer(
+              const MyContainer(
                 color: Colors.green,
                 type: 'Glass',
                 percentage: 20,
               ),
 
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
-              MyContainer(
+              const MyContainer(
                 color: Colors.yellow,
                 type: 'Plastic',
                 percentage: 20,
               ),
 
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
-              MyContainer(
+              const MyContainer(
                 color: Colors.red,
                 type: 'Metal',
                 percentage: 20,
               ),
 
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               MyButton(
-                onTap: null,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const DriverHomePage()),
+                  );
+                },
                 buttonText: 'Request a driver',
               ),
 
