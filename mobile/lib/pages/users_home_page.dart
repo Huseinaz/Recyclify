@@ -58,7 +58,12 @@ class UserHomePage extends StatelessWidget {
                 percentage: 20,
               ),
 
-              SizedBox(height: 25),
+              SizedBox(height: 40),
+
+              MyButton(
+                onTap: null,
+                buttonText: 'Request a driver',
+              ),
 
             ],
           ),
