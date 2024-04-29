@@ -17,9 +17,9 @@ class RequestContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: Colors.grey[200],
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
