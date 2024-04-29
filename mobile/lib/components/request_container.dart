@@ -56,6 +56,8 @@ class RequestContainer extends StatelessWidget {
                   'Accept Request',
                   style: TextStyle(
                     color: Colors.green,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.green,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -67,6 +69,8 @@ class RequestContainer extends StatelessWidget {
                   'Reject Request',
                   style: TextStyle(
                     color: Colors.red,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.red,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
