@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class RequestContainer extends StatelessWidget {
   final String name;
   final String address;
-  final String accept;
-  final String reject;
+  final VoidCallback? onAccept;
+  final VoidCallback? onReject;
 
   const RequestContainer(
       {super.key,
-      required this.accept,
-      required this.reject,
       required this.name,
-      required this.address
+      required this.address,
+      this.onAccept,
+      this.onReject,
       });
 
   @override
@@ -50,24 +50,25 @@ class RequestContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
 
-              Text(
-                accept,
-                textAlign: TextAlign.start,
-                style: const TextStyle(
-                  fontSize: 16,
-                  decoration: TextDecoration.underline,
-                  decorationColor: Colors.green,
-                  color: Colors.green,
+              GestureDetector(
+                onTap: onAccept,
+                child: const Text(
+                  'Accept Request',
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
 
-              Text(
-                reject,
-                style: const TextStyle(
-                  fontSize: 16,
-                  decoration: TextDecoration.underline,
-                  decorationColor: Colors.red,
-                  color: Colors.red,
+              GestureDetector(
+                onTap: onReject,
+                child: const Text(
+                  'Reject Request',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

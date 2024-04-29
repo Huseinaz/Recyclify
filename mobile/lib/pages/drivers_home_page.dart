@@ -11,13 +11,13 @@ class DriverHomePage extends StatelessWidget {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
-          child: const Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               
-              Text(
+              const Text(
                 'Requests',
                 style: TextStyle(
                   fontSize: 24,
@@ -25,22 +25,30 @@ class DriverHomePage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               RequestContainer(
                 name: 'John Doe',
                 address: 'Beirut, Lebanon',
-                accept: 'Accept Request',
-                reject: 'Reject Request',
+                onAccept: () {
+                  print('Accept request');
+                },
+                onReject: () {
+                  print('Reject request');
+                },
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               RequestContainer(
                 name: 'Jane Doe',
                 address: 'Beirut, Lebanon',
-                accept: 'Accept Request',
-                reject: 'Reject Request',
+                onAccept: () {
+                  print('Accept request');
+                },
+                onReject: () {
+                  print('Reject request');
+                },
               ),
 
             ],
