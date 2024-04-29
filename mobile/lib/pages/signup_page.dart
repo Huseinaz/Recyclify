@@ -3,6 +3,7 @@ import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
 import 'package:mobile/pages/login_page.dart';
+import 'package:mobile/pages/profile_page.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
@@ -81,7 +82,12 @@ class SignupPage extends StatelessWidget {
 
               //login button
               MyButton(
-                onTap: signUserIn,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                  );
+                },
                 buttonText: 'Sign Up',
               ),
 
