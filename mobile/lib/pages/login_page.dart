@@ -3,6 +3,7 @@ import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
 import 'package:mobile/pages/signup_page.dart';
+import 'package:mobile/pages/users_home_page.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -63,7 +64,12 @@ class LoginPage extends StatelessWidget {
 
               //login button
               MyButton(
-                onTap: signUserIn,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const UserHomePage()),
+                  );
+                },
                 buttonText: 'Log In',
               ),
 
