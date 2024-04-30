@@ -96,7 +96,11 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
 
-              GoogleSignin(onTap: signUserIn),
+              GoogleSignin(
+                onTap: () {
+                  Navigator.pushNamed(context, '/chat');
+                },
+              ),
 
               const SizedBox(height: 10),
 

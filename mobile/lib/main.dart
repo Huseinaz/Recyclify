@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/pages/messages_page.dart';
 import 'package:mobile/pages/drivers_home_page.dart';
 import 'package:mobile/pages/login_page.dart';
 import 'package:mobile/pages/notification_page.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         '/userhome': (context) => const UserHomePage(),
         '/driverhome': (context) => const DriverHomePage(),
         '/profile': (context) => const ProfilePage(),
-        '/notification': (context) => NotificationPage(),
+        '/notification': (context) => const NotificationPage(),
+        '/chat': (context) => const MessagesPage(),
       },
     );
   }
