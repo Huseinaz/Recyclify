@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
-import 'package:mobile/pages/signup_page.dart';
 import 'package:mobile/pages/users_home_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -65,10 +64,7 @@ class LoginPage extends StatelessWidget {
               //login button
               MyButton(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const UserHomePage()),
-                  );
+                  Navigator.pushNamed(context, '/userhome');
                 },
                 buttonText: 'Log In',
               ),
@@ -118,10 +114,7 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(width: 4),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignupPage()),
-                      );
+                      Navigator.pushNamed(context, '/signup');
                     },
                     child: const Text(
                       'Register now',

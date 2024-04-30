@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/profile_data.dart';
+import 'package:mobile/pages/notification_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -56,42 +57,47 @@ class ProfilePage extends StatelessWidget {
               
               const SizedBox(height: 50),
 
-              const Expanded(
+              Expanded(
                 flex: 3,
                 child: Column(
                   children: [
 
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     
-                    ProfileData(
+                    const ProfileData(
                       label: 'Full Name',
                       data: 'John Doe',
                     ),
 
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     
-                    ProfileData(
+                    const ProfileData(
                       label: 'Email',
                       data: 'john.doe@gmail.com',
                     ),
 
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     
-                    ProfileData(
+                    const ProfileData(
                       label: 'Password',
                       data: '********',
                     ),
 
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     
-                    ProfileData(
+                    const ProfileData(
                       label: 'Address',
                       data: 'Beirut, Lebanon',
                     ),
                     
-                    SizedBox(height: 80),
+                    const SizedBox(height: 80),
 
-                    MyButton(onTap: null, buttonText: 'Save'),
+                    MyButton(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/notification');
+                      },
+                    buttonText: 'Log In',
+                    ),
 
                   ],
                 ),

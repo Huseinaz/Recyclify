@@ -63,10 +63,7 @@ class UserHomePage extends StatelessWidget {
 
               MyButton(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const DriverHomePage()),
-                  );
+                  Navigator.pushNamed(context, '/driverhome');
                 },
                 buttonText: 'Request a driver',
               ),
