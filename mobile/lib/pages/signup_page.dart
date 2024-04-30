@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
-import 'package:mobile/pages/profile_page.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});

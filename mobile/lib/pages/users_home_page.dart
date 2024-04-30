@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_container.dart';
-import 'package:mobile/pages/drivers_home_page.dart';
 
 class UserHomePage extends StatelessWidget {
   const UserHomePage({super.key});
