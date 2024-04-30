@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/my_button.dart';
+import 'package:mobile/components/profile_data.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -23,17 +25,16 @@ class ProfilePage extends StatelessWidget {
                   
                   child: Container(
                     color: const Color(0xFF187B1B),
-                    padding: const EdgeInsets.all(16),
                     
                     child: const Column(
                       
                       children: [
                         
-                        SizedBox(height: 35),
+                        SizedBox(height: 30),
                         
                         CircleAvatar(
-                          radius: 60,
-                          backgroundImage: AssetImage('assets/image/logo-bg-gray.png'),
+                          radius: 75,
+                          backgroundImage: AssetImage('assets/image/profile.png'),
                         ),
 
                         SizedBox(height: 10),
@@ -52,11 +53,45 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
 
-              Expanded(
+              
+              const SizedBox(height: 50),
+
+              const Expanded(
                 flex: 3,
-                child: Container(
-                  
+                child: Column(
+                  children: [
+
+                    SizedBox(height: 20),
+                    
+                    ProfileData(
+                      label: 'Name',
+                      data: 'John Doe',
+                    ),
+
+                    SizedBox(height: 20),
+                    
+                    ProfileData(
+                      label: 'Email',
+                      data: 'john.doe@gmail.com',
+                    ),
+
+                    SizedBox(height: 20),
+                    
+                    ProfileData(
+                      label: 'Password',
+                      data: '********',
+                    ),
+
+                    SizedBox(height: 20),
+                    
+                    ProfileData(
+                      label: 'Address',
+                      data: 'Beirut, Lebanon',
+                    ),
+
+                  ],
                 ),
+                
               ),
             ],
           ),
