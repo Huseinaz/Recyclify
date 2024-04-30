@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
                     SizedBox(height: 20),
                     
                     ProfileData(
-                      label: 'Name',
+                      label: 'Full Name',
                       data: 'John Doe',
                     ),
 
@@ -88,6 +88,10 @@ class ProfilePage extends StatelessWidget {
                       label: 'Address',
                       data: 'Beirut, Lebanon',
                     ),
+                    
+                    SizedBox(height: 80),
+
+                    MyButton(onTap: null, buttonText: 'Save'),
 
                   ],
                 ),
