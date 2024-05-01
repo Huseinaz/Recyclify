@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/request_container.dart';
 
 class DriverHomePage extends StatelessWidget {
-  const DriverHomePage({super.key});
+  DriverHomePage({super.key});
+
+  final TextEditingController _textController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +30,12 @@ class DriverHomePage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 40),
+                
+                CupertinoSearchTextField(
+                  controller: _textController,
+                ),
+                
+                const SizedBox(height: 20),
 
                 RequestContainer(
                   name: 'John Doe',

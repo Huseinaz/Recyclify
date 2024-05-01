@@ -13,11 +13,11 @@ class DriverPage extends StatefulWidget {
 
 class _DriverPageState extends State<DriverPage> {
   int myIndex = 0;
-  List<Widget> widgetList = const [
+  List<Widget> widgetList = [
     DriverHomePage(),
-    MessagesPage(),
-    NotificationPage(),
-    ProfilePage(),
+    const MessagesPage(),
+    const NotificationPage(),
+    const ProfilePage(),
   ];
 
   @override
