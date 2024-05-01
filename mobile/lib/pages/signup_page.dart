@@ -19,131 +19,133 @@ class SignupPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF3F5F8),
       body: SafeArea(
         child: Center(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 10),
+          child: SingleChildScrollView(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 10),
 
-              const Image(
-                image: AssetImage('assets/image/logo-bg-gray.png'),
-                height: 118,
-                width: 118,
-              ),
-
-              const SizedBox(height: 10),
-
-              const Text(
-                'Sign Up',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 28,
+                const Image(
+                  image: AssetImage('assets/image/logo-bg-gray.png'),
+                  height: 118,
+                  width: 118,
                 ),
-              ),
 
-              const SizedBox(height: 30),
+                const SizedBox(height: 10),
 
-              //first name textfield
-              MyTextField(
-                controller: emailController,
-                hintText: 'First Name',
-                obscureText: false,
-              ),
+                const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 28,
+                  ),
+                ),
 
-              const SizedBox(height: 5),
+                const SizedBox(height: 30),
 
-              //last name textfield
-              MyTextField(
-                controller: emailController,
-                hintText: 'Last Name',
-                obscureText: false,
-              ),
+                //first name textfield
+                MyTextField(
+                  controller: emailController,
+                  hintText: 'First Name',
+                  obscureText: false,
+                ),
 
-              const SizedBox(height: 5),
+                const SizedBox(height: 5),
 
-              //email textfield
-              MyTextField(
-                controller: emailController,
-                hintText: 'Email',
-                obscureText: false,
-              ),
+                //last name textfield
+                MyTextField(
+                  controller: emailController,
+                  hintText: 'Last Name',
+                  obscureText: false,
+                ),
 
-              const SizedBox(height: 5),
+                const SizedBox(height: 5),
 
-              //password textfield
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
+                //email textfield
+                MyTextField(
+                  controller: emailController,
+                  hintText: 'Email',
+                  obscureText: false,
+                ),
 
-              const SizedBox(height: 30),
+                const SizedBox(height: 5),
 
-              //login button
-              MyButton(
-                onTap: () {
-                  Navigator.pushNamed(context, '/profile');
-                },
-                buttonText: 'Sign Up',
-              ),
+                //password textfield
+                MyTextField(
+                  controller: passwordController,
+                  hintText: 'Password',
+                  obscureText: true,
+                ),
 
-              // or continue with
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 27),
-                child: Row(
+                const SizedBox(height: 30),
+
+                //login button
+                MyButton(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  buttonText: 'Sign Up',
+                ),
+
+                // or continue with
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 27),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Or',
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                GoogleSignin(onTap: signUserIn),
+
+                const SizedBox(height: 10),
+
+                //have an account
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
+                    Text(
+                      'Already have an account?',
+                      style: TextStyle(
+                        color: Colors.grey[700],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
+                    const SizedBox(width: 4),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: const Text(
+                        'Log In',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF187B1B),
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-
-              GoogleSignin(onTap: signUserIn),
-
-              const SizedBox(height: 10),
-
-              //have an account
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Already have an account?',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    child: const Text(
-                      'Log In',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF187B1B),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

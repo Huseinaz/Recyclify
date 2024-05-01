@@ -95,7 +95,7 @@ class ProfilePage extends StatelessWidget {
                       onTap: () {
                         Navigator.pushNamed(context, '/notification');
                       },
-                    buttonText: 'Log In',
+                    buttonText: 'Save',
                     ),
 
                   ],

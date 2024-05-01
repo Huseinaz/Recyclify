@@ -12,62 +12,64 @@ class UserHomePage extends StatelessWidget {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
-              const SizedBox(height: 50),
-              
-              const Text(
-                'Your Container',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
+                const SizedBox(height: 50),
+                
+                const Text(
+                  'Your Container',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 40),
+                const SizedBox(height: 40),
 
-              const MyContainer(
-                color: Colors.blue,
-                type: 'Paper',
-                percentage: 20,
-              ),
+                const MyContainer(
+                  color: Colors.blue,
+                  type: 'Paper',
+                  percentage: 20,
+                ),
 
-              const SizedBox(height: 15),
+                const SizedBox(height: 15),
 
-              const MyContainer(
-                color: Colors.green,
-                type: 'Glass',
-                percentage: 20,
-              ),
+                const MyContainer(
+                  color: Colors.green,
+                  type: 'Glass',
+                  percentage: 20,
+                ),
 
-              const SizedBox(height: 15),
+                const SizedBox(height: 15),
 
-              const MyContainer(
-                color: Colors.yellow,
-                type: 'Plastic',
-                percentage: 20,
-              ),
+                const MyContainer(
+                  color: Colors.yellow,
+                  type: 'Plastic',
+                  percentage: 20,
+                ),
 
-              const SizedBox(height: 15),
+                const SizedBox(height: 15),
 
-              const MyContainer(
-                color: Colors.red,
-                type: 'Metal',
-                percentage: 20,
-              ),
+                const MyContainer(
+                  color: Colors.red,
+                  type: 'Metal',
+                  percentage: 20,
+                ),
 
-              const SizedBox(height: 40),
+                const SizedBox(height: 40),
 
-              MyButton(
-                onTap: () {
-                  Navigator.pushNamed(context, '/driverhome');
-                },
-                buttonText: 'Request a driver',
-              ),
+                MyButton(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/driverhome');
+                  },
+                  buttonText: 'Request a driver',
+                ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

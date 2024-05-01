@@ -41,7 +41,7 @@ class ChatCard extends StatelessWidget {
                 lastMessage,
                 style: const TextStyle(
                   fontSize: 16,
-                  color: Colors.black,
+                  color: Colors.grey,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

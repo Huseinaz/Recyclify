@@ -11,38 +11,40 @@ class NotificationPage extends StatelessWidget {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+          child: const SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
-              SizedBox(height: 50),
-              
-              Text(
-                'Notifications',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
+                SizedBox(height: 50),
+                
+                Text(
+                  'Notifications',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
 
-              SizedBox(height: 40),
+                SizedBox(height: 40),
 
-              NotificationCard(
-                text: 'Your Metal Container will be full soon.',
-                time: '12:00',
-              ),
+                NotificationCard(
+                  text: 'Your Metal Container will be full soon.',
+                  time: '12:00',
+                ),
 
-              SizedBox(height: 20),
+                SizedBox(height: 20),
 
-              NotificationCard(
-                text: 'Your Metal Container will be full soon.',
-                time: '12:00',
-              ),
+                NotificationCard(
+                  text: 'Your Metal Container will be full soon.',
+                  time: '12:00',
+                ),
 
-            ]
-            )
-          )
-        )
-      );
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

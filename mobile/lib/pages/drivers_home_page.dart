@@ -11,47 +11,49 @@ class DriverHomePage extends StatelessWidget {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
-              const SizedBox(height: 50),
-              
-              const Text(
-                'Requests',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
+                const SizedBox(height: 50),
+                
+                const Text(
+                  'Requests',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 40),
+                const SizedBox(height: 40),
 
-              RequestContainer(
-                name: 'John Doe',
-                address: 'Beirut, Lebanon',
-                onAccept: () {
-                  print('Accept request');
-                },
-                onReject: () {
-                  print('Reject request');
-                },
-              ),
+                RequestContainer(
+                  name: 'John Doe',
+                  address: 'Beirut, Lebanon',
+                  onAccept: () {
+                    print('Accept request');
+                  },
+                  onReject: () {
+                    print('Reject request');
+                  },
+                ),
 
-              const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-              RequestContainer(
-                name: 'Jane Doe',
-                address: 'Beirut, Lebanon',
-                onAccept: () {
-                  print('Accept request');
-                },
-                onReject: () {
-                  print('Reject request');
-                },
-              ),
+                RequestContainer(
+                  name: 'Jane Doe',
+                  address: 'Beirut, Lebanon',
+                  onAccept: () {
+                    print('Accept request');
+                  },
+                  onReject: () {
+                    print('Reject request');
+                  },
+                ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),
