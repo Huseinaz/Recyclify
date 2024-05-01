@@ -29,6 +29,7 @@ class DriverHomePage extends StatelessWidget {
         ),
       ),
 
+      backgroundColor: const Color(0xFFF3F5F8),
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
