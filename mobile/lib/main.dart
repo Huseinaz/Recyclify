@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/pages/messages_page.dart';
-import 'package:mobile/pages/drivers_home_page.dart';
+import 'package:mobile/pages/d_home.dart';
+import 'package:mobile/pages/u_home.dart';
 import 'package:mobile/pages/login_page.dart';
-import 'package:mobile/pages/notification_page.dart';
-import 'package:mobile/pages/profile_page.dart';
 import 'package:mobile/pages/signup_page.dart';
-import 'package:mobile/pages/users_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,11 +19,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
-        '/userhome': (context) => const UserHomePage(),
-        '/driverhome': (context) => const DriverHomePage(),
-        '/profile': (context) => const ProfilePage(),
-        '/notification': (context) => const NotificationPage(),
-        '/chat': (context) => const MessagesPage(),
+        '/userhome': (context) => const UserPage(),
+        '/driverhome': (context) => const DriverPage(),
       },
     );
   }

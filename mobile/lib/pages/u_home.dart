@@ -4,14 +4,14 @@ import 'package:mobile/pages/notification_page.dart';
 import 'package:mobile/pages/profile_page.dart';
 import 'package:mobile/pages/users_home_page.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+class UserPage extends StatefulWidget {
+  const UserPage({super.key});
 
   @override
-  State<NavBar> createState() => _NavBarState();
+  State<UserPage> createState() => _UserPageState();
 }
 
-class _NavBarState extends State<NavBar> {
+class _UserPageState extends State<UserPage> {
   int myIndex = 0;
   List<Widget> widgetList = const [
     UserHomePage(),
@@ -28,7 +28,7 @@ class _NavBarState extends State<NavBar> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: false,
+        showUnselectedLabels: true,
         selectedItemColor: const Color(0xFF187B1B),
         backgroundColor: Colors.white,
         onTap: (index) {
@@ -41,7 +41,7 @@ class _NavBarState extends State<NavBar> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.email), label: 'Messages'),
           BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle_rounded), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );

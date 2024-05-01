@@ -99,7 +99,7 @@ class LoginPage extends StatelessWidget {
 
                 GoogleSignin(
                   onTap: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/driverhome');
                   },
                 ),
 
