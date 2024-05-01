@@ -82,7 +82,7 @@ class SignupPage extends StatelessWidget {
                 //login button
                 MyButton(
                   onTap: () {
-                    Navigator.pushNamed(context, '/profile');
+                    Navigator.pushNamed(context, '/map');
                   },
                   buttonText: 'Sign Up',
                 ),
