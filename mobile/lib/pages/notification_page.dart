@@ -7,7 +7,25 @@ class NotificationPage extends StatelessWidget {
  @override
    Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F5F8),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Container(
+          margin: const EdgeInsets.only(left: 5),
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            title: const Text(
+              'Notifications',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ),
+
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
@@ -15,16 +33,6 @@ class NotificationPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                SizedBox(height: 50),
-                
-                Text(
-                  'Notifications',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
 
                 SizedBox(height: 40),
 
