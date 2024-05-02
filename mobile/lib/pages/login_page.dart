@@ -69,6 +69,8 @@ class LoginPage extends StatelessWidget {
                   buttonText: 'Log In',
                 ),
 
+                const SizedBox(height: 3),
+
                 // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 27),
@@ -97,6 +99,8 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
 
+                const SizedBox(height: 3),
+
                 GoogleSignin(
                   onTap: () {
                     Navigator.pushNamed(context, '/driverhome');
@@ -113,6 +117,7 @@ class LoginPage extends StatelessWidget {
                       'Don\'t have an account?',
                       style: TextStyle(
                         color: Colors.grey[700],
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                     const SizedBox(width: 4),

@@ -87,6 +87,8 @@ class SignupPage extends StatelessWidget {
                   buttonText: 'Sign Up',
                 ),
 
+                const SizedBox(height: 3),
+
                 // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 27),
@@ -115,6 +117,8 @@ class SignupPage extends StatelessWidget {
                   ),
                 ),
 
+                const SizedBox(height: 3),
+
                 GoogleSignin(onTap: signUserIn),
 
                 const SizedBox(height: 10),
@@ -127,6 +131,7 @@ class SignupPage extends StatelessWidget {
                       'Already have an account?',
                       style: TextStyle(
                         color: Colors.grey[700],
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                     const SizedBox(width: 4),
