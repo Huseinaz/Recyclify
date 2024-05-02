@@ -24,14 +24,14 @@ class _MapPageState extends State<MapPage> {
 
   LatLng? _currentP = null;
 
+  Map<PolylineId, Polyline> polylines = {};
+
   @override
   void initState() {
     super.initState();
     getLocationUpdates().then(
       (_) => {
-        getPolylinePoints().then((coordinates) => {
-          print(coordinates)
-        }),
+        getPolylinePoints().then((coordinates) => {print(coordinates)}),
       },
     );
   }
@@ -67,6 +67,7 @@ class _MapPageState extends State<MapPage> {
                   position: _pApplePark,
                 )
               },
+              polylines: Set<Polyline>.of(polylines.values),
             ),
     );
   }
@@ -128,5 +129,18 @@ class _MapPageState extends State<MapPage> {
       print(result.errorMessage);
     }
     return polylineCoordinates;
+  }
+
+  void generatePolylineFromPoints(List<LatLng> polylineCoordinates) async {
+    PolylineId id = PolylineId("poly");
+    Polyline polyline = Polyline(
+      polylineId: id,
+      color: Colors.blue,
+      points: polylineCoordinates,
+      width: 8,
+    );
+    setState(() {
+      polylines[id] = polyline;
+    });
   }
 }
