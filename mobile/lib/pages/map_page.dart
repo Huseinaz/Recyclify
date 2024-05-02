@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:location/location.dart';
+import 'package:mobile/consts.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -25,7 +27,13 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     super.initState();
-    getLocationUpdates();
+    getLocationUpdates().then(
+      (_) => {
+        getPolylinePoints().then((coordinates) => {
+          print(coordinates)
+        }),
+      },
+    );
   }
 
   @override
@@ -101,5 +109,24 @@ class _MapPageState extends State<MapPage> {
         });
       }
     });
+  }
+
+  Future<List<LatLng>> getPolylinePoints() async {
+    List<LatLng> polylineCoordinates = [];
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      GOOGLE_MAPS_API_KEY,
+      PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
+      PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
+      travelMode: TravelMode.driving,
+    );
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    } else {
+      print(result.errorMessage);
+    }
+    return polylineCoordinates;
   }
 }
