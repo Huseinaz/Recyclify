@@ -19,8 +19,8 @@ class _MapPageState extends State<MapPage> {
   final Completer<GoogleMapController> _mapController =
       Completer<GoogleMapController>();
 
-  static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
-  static const LatLng _pApplePark = LatLng(37.3346, -122.0090);
+  static const LatLng _pBeirut = LatLng(33.8938, 35.5018);
+  static const LatLng _pSidon = LatLng(33.5632,  35.3688);
 
   LatLng? _currentP = null;
 
@@ -31,7 +31,9 @@ class _MapPageState extends State<MapPage> {
     super.initState();
     getLocationUpdates().then(
       (_) => {
-        getPolylinePoints().then((coordinates) => {print(coordinates)}),
+        getPolylinePoints().then((coordinates) => {
+          generatePolylineFromPoints(coordinates),
+        }),
       },
     );
   }
@@ -47,7 +49,7 @@ class _MapPageState extends State<MapPage> {
               onMapCreated: ((GoogleMapController controller) =>
                   _mapController.complete(controller)),
               initialCameraPosition: CameraPosition(
-                target: _pGooglePlex,
+                target: _pBeirut,
                 zoom: 13,
               ),
               markers: {
@@ -59,12 +61,12 @@ class _MapPageState extends State<MapPage> {
                 Marker(
                   markerId: MarkerId("_sourceLocation"),
                   icon: BitmapDescriptor.defaultMarker,
-                  position: _pGooglePlex,
+                  position: _pBeirut,
                 ),
                 Marker(
                   markerId: MarkerId("_destinationLocation"),
                   icon: BitmapDescriptor.defaultMarker,
-                  position: _pApplePark,
+                  position: _pSidon,
                 )
               },
               polylines: Set<Polyline>.of(polylines.values),
@@ -117,8 +119,8 @@ class _MapPageState extends State<MapPage> {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       GOOGLE_MAPS_API_KEY,
-      PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
-      PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
+      PointLatLng(_pBeirut.latitude, _pBeirut.longitude),
+      PointLatLng(_pSidon.latitude, _pSidon.longitude),
       travelMode: TravelMode.driving,
     );
     if (result.points.isNotEmpty) {
@@ -131,7 +133,7 @@ class _MapPageState extends State<MapPage> {
     return polylineCoordinates;
   }
 
-  void generatePolylineFromPoints(List<LatLng> polylineCoordinates) async {
+  Future<void> generatePolylineFromPoints(List<LatLng> polylineCoordinates) async {
     PolylineId id = PolylineId("poly");
     Polyline polyline = Polyline(
       polylineId: id,
