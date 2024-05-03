@@ -66,15 +66,6 @@ const Sidebar = () => {
                     >
                         Drivers Information
                     </li>
-                    <li
-                        className={`py-2 px-4 dashboard-li ${selectedItem === 'Create Driver' ? 'selected' : ''}`}
-                        onClick={() => {
-                            handleItemClick('Create Driver');
-                            navigate("/createDriver");
-                        }}
-                    >
-                        Create Driver
-                    </li>
                     <li className="py-2 px-4 dashboard-li" onClick={logOut}>
                         Logout
                     </li>

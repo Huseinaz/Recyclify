@@ -9,7 +9,6 @@ import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
 import UsersTable from './components/UsersTable';
 import DriversTable from './components/DriversTable';
-import CreateDriver from './components/CreateDriver';
 
 const AppContent = () => {
   const location = useLocation();
@@ -22,7 +21,6 @@ const AppContent = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path='/userstable' element={<UsersTable />} />
           <Route path='/driverstable' element={<DriversTable />} />
-          <Route path='/createDriver' element={<CreateDriver />} />
         </Routes>
       </AdminRoutes>
     </div>
