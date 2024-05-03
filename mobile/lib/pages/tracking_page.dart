@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/tracking_container.dart';
 
 class TrackingPage extends StatelessWidget {
   const TrackingPage({super.key});
@@ -13,7 +14,6 @@ class TrackingPage extends StatelessWidget {
           child: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            automaticallyImplyLeading: false,
             title: const Text(
               'Tracking Requests',
               style: TextStyle(
@@ -27,6 +27,45 @@ class TrackingPage extends StatelessWidget {
 
       backgroundColor: const Color(0xFFF3F5F8),
 
+      body: SafeArea(
+        child: Container(
+          margin: const EdgeInsets.only(left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                const SizedBox(height: 40),
+
+                TrackingContainer(
+                  name: 'John Doe',
+                  address: 'Beirut, Lebanon',
+                  onAccept: () {
+                    print('Accept request');
+                  },
+                  onReject: () {
+                    print('Reject request');
+                  },
+                ),
+
+                const SizedBox(height: 20),
+
+                TrackingContainer(
+                  name: 'Jane Doe',
+                  address: 'Beirut, Lebanon',
+                  onAccept: () {
+                    print('Accept request');
+                  },
+                  onReject: () {
+                    print('Reject request');
+                  },
+                ),
+
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
