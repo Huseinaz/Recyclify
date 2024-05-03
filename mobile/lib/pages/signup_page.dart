@@ -119,7 +119,11 @@ class SignupPage extends StatelessWidget {
 
                 const SizedBox(height: 3),
 
-                GoogleSignin(onTap: signUserIn),
+                GoogleSignin(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/tracking');
+                  },
+                ),
 
                 const SizedBox(height: 10),
 
