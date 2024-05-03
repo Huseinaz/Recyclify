@@ -55,6 +55,60 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         ),
       ),
       backgroundColor: const Color(0xFFF3F5F8),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: _messages.length,
+              itemBuilder: (BuildContext context, int index) {
+                final ChatMessage message = _messages[index];
+                return Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Align(
+                    alignment: message.isMe ? Alignment.centerRight : Alignment.centerLeft,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: message.isMe ? Colors.green[200] : Colors.blue[200],
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Text(
+                        message.text,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _textController,
+                    decoration: InputDecoration(
+                      hintText: 'Message',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: () => _handleSendMessage(_textController.text),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
