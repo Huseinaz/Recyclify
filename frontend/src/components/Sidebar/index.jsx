@@ -66,7 +66,11 @@ const Sidebar = () => {
                     >
                         Drivers Information
                     </li>
-                    <li className="py-2 px-4 dashboard-li pt-80" onClick={logOut}>
+                </ul>
+            </div>
+            <div className="absolute bottom-0 w-full p-4 flex items-center">
+                <ul>
+                    <li className="py-2 px-4 dashboard-li" onClick={logOut}>
                         Logout
                     </li>
                 </ul>
