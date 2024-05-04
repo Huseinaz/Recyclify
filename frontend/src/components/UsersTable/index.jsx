@@ -6,6 +6,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const UsersTable = () => {
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchUsers = async () => {
         try {
@@ -16,6 +17,7 @@ const UsersTable = () => {
             });
             const filteredUsers = response.data.users.filter((user) => user.role_id === 2);
             setUsers(filteredUsers);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching users:', error.response);
         }
@@ -68,46 +70,54 @@ const UsersTable = () => {
     };
 
     return (
-        <div className="overflow-x-auto pl-8 pr-8">
-            <h1 className="text-xl font-bold pb-3 mt-32">Users Information</h1>
-            <table className="table-auto min-w-full border-collapse border-t border-b border-gray-200">
-                <thead>
-                    <tr>
-                        <th className="px-4 py-2 border-b border-gray-200 w-1/12">ID</th>
-                        <th className="px-4 py-2 border-b border-gray-200 w-2/12">Name</th>
-                        <th className="px-4 py-2 border-b border-gray-200 w-2/12">Email</th>
-                        {/* <th className="px-4 py-2 border-b border-gray-200 w-2/12">Lat</th>
-                        <th className="px-4 py-2 border-b border-gray-200 w-2/12">Long</th> */}
-                        <th className="px-4 py-2 border-b border-gray-200 w-2/12">Status</th>
-                        <th className="px-4 py-2 border-b border-gray-200 w-3/12">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((user) => (
-                        <tr key={user.id}>
-                            <td className="px-4 py-2 border-b border-gray-200 text-center">{user.id}</td>
-                            <td className="px-4 py-2 border-b border-gray-200 text-center">{user.first_name} {user.last_name}</td>
-                            <td className="px-4 py-2 border-b border-gray-200 text-center">{user.email}</td>
-                            {/* <td className="px-4 py-2 border-b border-gray-200 text-center">{user.latitude}</td>
-                            <td className="px-4 py-2 border-b border-gray-200 text-center">{user.longitude}</td> */}
-                            <td className="px-4 py-2 border-b border-gray-200 text-center">{user.active === 1 ? <span>Active</span> : <span>Not Active</span>}</td>
+        <div>
+            {loading ? (
+                <div className="flex justify-center items-center h-screen">
+                    <div className="loader"></div>
+                </div>
 
-                            <td className="px-4 py-2 border-b border-gray-200 text-center">
-                                <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleActive(user.id)}>
-                                    Activate
-                                </button>
-                                <button className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleShutDown(user.id)}>
-                                    Shutdown
-                                </button>
-                                <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded" onClick={() => handleDelete(user.id)}>
-                                    <FontAwesomeIcon icon={faTrashAlt} />
-                                </button>
+            ) : (
+                <div className="overflow-x-auto pl-8 pr-8">
+                    <h1 className="text-xl font-bold pb-3 mt-32">Users Information</h1>
+                    <table className="table-auto min-w-full border-collapse border-t border-b border-gray-200">
+                        <thead>
+                            <tr>
+                                <th className="px-4 py-2 border-b border-gray-200 w-1/12">ID</th>
+                                <th className="px-4 py-2 border-b border-gray-200 w-2/12">Name</th>
+                                <th className="px-4 py-2 border-b border-gray-200 w-2/12">Email</th>
+                                {/* <th className="px-4 py-2 border-b border-gray-200 w-2/12">Lat</th>
+                                <th className="px-4 py-2 border-b border-gray-200 w-2/12">Long</th> */}
+                                <th className="px-4 py-2 border-b border-gray-200 w-2/12">Status</th>
+                                <th className="px-4 py-2 border-b border-gray-200 w-3/12">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users.map((user) => (
+                                <tr key={user.id}>
+                                    <td className="px-4 py-2 border-b border-gray-200 text-center">{user.id}</td>
+                                    <td className="px-4 py-2 border-b border-gray-200 text-center">{user.first_name} {user.last_name}</td>
+                                    <td className="px-4 py-2 border-b border-gray-200 text-center">{user.email}</td>
+                                    {/* <td className="px-4 py-2 border-b border-gray-200 text-center">{user.latitude}</td>
+                                    <td className="px-4 py-2 border-b border-gray-200 text-center">{user.longitude}</td> */}
+                                    <td className="px-4 py-2 border-b border-gray-200 text-center">{user.active === 1 ? <span>Active</span> : <span>Not Active</span>}</td>
 
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                                    <td className="px-4 py-2 border-b border-gray-200 text-center">
+                                        <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleActive(user.id)}>
+                                            Activate
+                                        </button>
+                                        <button className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleShutDown(user.id)}>
+                                            Shutdown
+                                        </button>
+                                        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded" onClick={() => handleDelete(user.id)}>
+                                            <FontAwesomeIcon icon={faTrashAlt} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
     );
 };
