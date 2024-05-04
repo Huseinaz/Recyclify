@@ -121,7 +121,7 @@ class SignupPage extends StatelessWidget {
 
                 GoogleSignin(
                   onTap: () {
-                    Navigator.pushNamed(context, '/tracking');
+                    Navigator.pushNamed(context, '/userhome');
                   },
                 ),
 
