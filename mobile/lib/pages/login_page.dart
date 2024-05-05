@@ -11,24 +11,57 @@ class LoginPage extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void login(String email, password, BuildContext context) async{
-    try {
-      final response = await http.post(
-        Uri.parse('http://192.168.1.106:8000/api/login'),
-        body: {
-          'email': email,
-          'password': password,
-        }
+  void login(String email, password, BuildContext context) async {
+  try {
+    final response = await http.post(
+      Uri.parse('http://192.168.1.106:8000/api/login'),
+      body: {
+        'email': email,
+        'password': password,
+      },
+    );
+    if (response.statusCode == 200) {
+      Navigator.pushNamed(context, '/driverhome');
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Login Failed'),
+            content: const Text('Invalid email or password. Please try again.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
       );
-      if (response.statusCode == 200) {
-        Navigator.pushNamed(context, '/driverhome');
-      } else {
-        print('failed');
-      }
-    } catch(e) {
-      print(e.toString());
     }
+  } catch (e) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: const Text('An error occurred. Please try again later.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
