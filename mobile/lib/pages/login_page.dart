@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
@@ -10,8 +11,24 @@ class LoginPage extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  //sign user in method
-  void signUserIn() {}
+  void login(String email, password, BuildContext context) async{
+    try {
+      final response = await http.post(
+        Uri.parse('http://192.168.1.106:8000/api/login'),
+        body: {
+          'email': email,
+          'password': password,
+        }
+      );
+      if (response.statusCode == 200) {
+        Navigator.pushNamed(context, '/driverhome');
+      } else {
+        print('failed');
+      }
+    } catch(e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +81,7 @@ class LoginPage extends StatelessWidget {
                 //login button
                 MyButton(
                   onTap: () {
-                    Navigator.pushNamed(context, '/userhome');
+                    login(emailController.text.toString(), passwordController.text.toString(), context);
                   },
                   buttonText: 'Log In',
                 ),
