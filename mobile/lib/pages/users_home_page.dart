@@ -16,12 +16,23 @@ class UserHomePage extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
             automaticallyImplyLeading: false,
-            title: const Text(
-              'Your Container',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-              ),
+            title: Row(
+              children: [
+                const Text(
+                  'Your Container',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.track_changes),
+                  onPressed: () {
+                    
+                  },
+                ),
+              ],
             ),
           ),
         ),
