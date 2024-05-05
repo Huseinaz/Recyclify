@@ -10,14 +10,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+});
+
+Route::middleware('admin')->group(function(){
+    Route::get('users/get', [UsersController::class, 'getUser']);
+    Route::post('users/{id}/activate', [UsersController::class, 'activateUser']);
+    Route::post('users/{id}/shutdown', [UsersController::class, 'shutdownUser']);
+    Route::delete('users/{id}', [UsersController::class, 'deleteUser']);
     Route::post('createDriver', 'createDriver');
 });
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('users/get', [UsersController::class, 'getUser']);
-Route::post('users/{id}/activate', [UsersController::class, 'activateUser']);
-Route::post('users/{id}/shutdown', [UsersController::class, 'shutdownUser']);
-Route::delete('users/{id}', [UsersController::class, 'deleteUser']);
