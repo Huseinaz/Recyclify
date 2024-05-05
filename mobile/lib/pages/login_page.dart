@@ -27,6 +27,8 @@ class LoginPage extends StatelessWidget {
       final roleId = jsonData['user']['role_id'];
       if (roleId == 2) {
         Navigator.pushNamed(context, '/userhome');
+      } else if (roleId == 3) {
+        Navigator.pushNamed(context, '/driverhome');
       }
     } else {
       showDialog(
