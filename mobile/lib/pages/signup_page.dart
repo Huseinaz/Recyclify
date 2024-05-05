@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
@@ -7,11 +8,31 @@ class SignupPage extends StatelessWidget {
   SignupPage({super.key});
 
   //text editing controllers
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  //sign user in method
-  void signUserIn() {}
+  void signup(String firstname, lastname, email, password, BuildContext context) async{
+  try {
+    final response = await http.post(
+      Uri.parse('http://192.168.1.106:8000/api/register'),
+      body: {
+        'first_name': firstname,
+        'last_name': lastname,
+        'email': email,
+        'password': password,
+      }
+    );
+    if (response.statusCode == 200) {
+      Navigator.pushNamed(context, '/userhome');
+    } else {
+        print('failed');
+      }
+    } catch(e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +66,7 @@ class SignupPage extends StatelessWidget {
 
                 //first name textfield
                 MyTextField(
-                  controller: emailController,
+                  controller: firstNameController,
                   hintText: 'First Name',
                   obscureText: false,
                 ),
@@ -54,7 +75,7 @@ class SignupPage extends StatelessWidget {
 
                 //last name textfield
                 MyTextField(
-                  controller: emailController,
+                  controller: lastNameController,
                   hintText: 'Last Name',
                   obscureText: false,
                 ),
@@ -79,10 +100,10 @@ class SignupPage extends StatelessWidget {
 
                 const SizedBox(height: 30),
 
-                //login button
+                //signup button
                 MyButton(
                   onTap: () {
-                    Navigator.pushNamed(context, '/map');
+                    signup(firstNameController.text.toString(), lastNameController.text.toString(),emailController.text.toString(), passwordController.text.toString(), context);
                   },
                   buttonText: 'Sign Up',
                 ),
