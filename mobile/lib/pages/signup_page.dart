@@ -13,7 +13,7 @@ class SignupPage extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void signup(String firstname, lastname, email, password, BuildContext context) async{
+  void signup(String firstname, lastname, email, password, BuildContext context) async {
   try {
     final response = await http.post(
       Uri.parse('http://192.168.1.106:8000/api/register'),
@@ -22,17 +22,51 @@ class SignupPage extends StatelessWidget {
         'last_name': lastname,
         'email': email,
         'password': password,
-      }
+      },
     );
     if (response.statusCode == 200) {
       Navigator.pushNamed(context, '/userhome');
     } else {
-        print('failed');
-      }
-    } catch(e) {
-      print(e.toString());
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Sign Up Failed'),
+            content: const Text('Failed to sign up. Please try again.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
+  } catch (e) {
+    print(e.toString());
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: const Text('An error occurred. Please try again later.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
