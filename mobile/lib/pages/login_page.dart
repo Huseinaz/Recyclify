@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/components/google_signin.dart';
@@ -21,7 +23,11 @@ class LoginPage extends StatelessWidget {
       },
     );
     if (response.statusCode == 200) {
-      Navigator.pushNamed(context, '/driverhome');
+      final jsonData = json.decode(response.body);
+      final roleId = jsonData['user']['role_id'];
+      if (roleId == 2) {
+        Navigator.pushNamed(context, '/userhome');
+      }
     } else {
       showDialog(
         context: context,
