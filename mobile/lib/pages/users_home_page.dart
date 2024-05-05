@@ -29,7 +29,7 @@ class UserHomePage extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.track_changes),
                   onPressed: () {
-                    
+                    Navigator.pushNamed(context, '/tracking');
                   },
                 ),
               ],
