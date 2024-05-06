@@ -80,21 +80,29 @@ class _UserHomePageState extends State<UserHomePage> {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
                 const SizedBox(height: 40),
 
-                for (var container in containers)
-                  MyContainer(
-                    color: MyContainer.getColorFromType(container['type']['name']),
-                    type: container['type']['name'],
-                    percentage: container['capacity'],
-                  ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        for (var container in containers)
+                          MyContainer(
+                            color: MyContainer.getColorFromType(container['type']['name']),
+                            type: container['type']['name'],
+                            percentage: container['capacity'],
+                          ),
 
-                const SizedBox(height: 40),
+                        const SizedBox(height: 40),
+                      ],
+                    ),
+                  ),
+                ),
 
                 MyButton(
                   onTap: () {
@@ -102,12 +110,11 @@ class _UserHomePageState extends State<UserHomePage> {
                   },
                   buttonText: 'Request a driver',
                 ),
-
+                SizedBox(height: 10),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
+    }
 }
