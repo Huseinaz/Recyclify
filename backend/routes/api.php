@@ -17,5 +17,5 @@ Route::middleware('admin')->group(function(){
     Route::post('users/{id}/activate', [UsersController::class, 'activateUser']);
     Route::post('users/{id}/shutdown', [UsersController::class, 'shutdownUser']);
     Route::delete('users/{id}', [UsersController::class, 'deleteUser']);
-    Route::post('createDriver', 'createDriver');
+    Route::post('createDriver',[AuthController::class, 'createDriver']);
 });

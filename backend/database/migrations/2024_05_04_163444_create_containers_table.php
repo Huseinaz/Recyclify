@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('types');
             $table->string('capacity');
-            $table->boolean('fullness')->default(false);
+            // $table->boolean('fullness')->default(false);
             $table->timestamps();
         });
     }
