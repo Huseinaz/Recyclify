@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -24,6 +25,11 @@ class LoginPage extends StatelessWidget {
     );
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
+      final token = jsonData['authorisation']['token'];
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+
       final roleId = jsonData['user']['role_id'];
       if (roleId == 2) {
         Navigator.pushNamed(context, '/userhome');
@@ -69,7 +75,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
 
   @override
   Widget build(BuildContext context) {
