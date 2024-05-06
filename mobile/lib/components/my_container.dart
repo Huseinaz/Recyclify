@@ -11,6 +11,21 @@ class MyContainer extends StatelessWidget {
       required this.percentage,
       required this.color});
 
+  static Color getColorFromType(String typeName) {
+    switch (typeName) {
+      case 'Paper':
+        return Colors.blue;
+      case 'Glass':
+        return Colors.green;
+      case 'Plastic':
+        return Colors.yellow;
+      case 'Metal':
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
