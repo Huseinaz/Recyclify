@@ -89,7 +89,7 @@ class _UserHomePageState extends State<UserHomePage> {
 
                 for (var container in containers)
                   MyContainer(
-                    color: Colors.blue,
+                    color: MyContainer.getColorFromType(container['type']['name']),
                     type: container['type']['name'],
                     percentage: container['capacity'],
                   ),
