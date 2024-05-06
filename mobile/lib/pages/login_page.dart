@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
+import 'package:mobile/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
@@ -28,7 +29,7 @@ class LoginPage extends StatelessWidget {
       final token = jsonData['authorisation']['token'];
 
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', token);
+      await prefs.setString(KEY_ACCESS_TOKEN, token);
 
       final roleId = jsonData['user']['role_id'];
       if (roleId == 2) {
