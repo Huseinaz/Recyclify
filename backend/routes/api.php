@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContainerController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,4 +19,8 @@ Route::middleware('admin')->group(function(){
     Route::post('users/{id}/shutdown', [UsersController::class, 'shutdownUser']);
     Route::delete('users/{id}', [UsersController::class, 'deleteUser']);
     Route::post('createDriver',[AuthController::class, 'createDriver']);
+});
+
+Route::middleware('user')->group(function(){
+    Route::get('/containers', [ContainerController::class, 'getContainer']);
 });
