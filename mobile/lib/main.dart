@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/api/firebase_api.dart';
+import 'package:mobile/firebase_options.dart';
 import 'package:mobile/pages/d_home.dart';
 import 'package:mobile/pages/map_page.dart';
 import 'package:mobile/pages/tracking_page.dart';
@@ -6,7 +8,12 @@ import 'package:mobile/pages/u_home.dart';
 import 'package:mobile/pages/login_page.dart';
 import 'package:mobile/pages/signup_page.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseApi().initNotifications();
   runApp(const MyApp());
 }
 
