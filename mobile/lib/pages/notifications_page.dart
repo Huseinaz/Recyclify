@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/notification_card.dart';
 
-class NotificationPage extends StatelessWidget {
-  const NotificationPage({super.key});
+class NotificationsPage extends StatelessWidget {
+  const NotificationsPage({super.key});
 
  @override
    Widget build(BuildContext context) {

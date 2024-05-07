@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/pages/messages_page.dart';
-import 'package:mobile/pages/notification_page.dart';
+import 'package:mobile/pages/notifications_page.dart';
 import 'package:mobile/pages/profile_page.dart';
 import 'package:mobile/pages/users_home_page.dart';
 
@@ -16,7 +16,7 @@ class _UserPageState extends State<UserPage> {
   List<Widget> widgetList = const [
     UserHomePage(),
     MessagesPage(),
-    NotificationPage(),
+    NotificationsPage(),
     ProfilePage(),
   ];
 

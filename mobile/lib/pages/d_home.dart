@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/pages/drivers_home_page.dart';
 import 'package:mobile/pages/messages_page.dart';
-import 'package:mobile/pages/notification_page.dart';
+import 'package:mobile/pages/notifications_page.dart';
 import 'package:mobile/pages/profile_page.dart';
 
 class DriverPage extends StatefulWidget {
@@ -16,7 +16,7 @@ class _DriverPageState extends State<DriverPage> {
   List<Widget> widgetList = [
     DriverHomePage(),
     const MessagesPage(),
-    const NotificationPage(),
+    const NotificationsPage(),
     const ProfilePage(),
   ];
 
