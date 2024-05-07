@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
   void login(String email, password, BuildContext context) async {
   try {
     final response = await http.post(
-      Uri.parse('http://192.168.1.106:8000/api/login'),
+      Uri.parse('$HOST/login'),
       body: {
         'email': email,
         'password': password,

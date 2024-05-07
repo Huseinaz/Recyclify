@@ -28,7 +28,7 @@ class _UserHomePageState extends State<UserHomePage> {
     final token = prefs.getString(KEY_ACCESS_TOKEN);
 
     final response = await http.get(
-      Uri.parse('http://192.168.1.106:8000/api/containers'),
+      Uri.parse('$HOST/containers'),
       headers: {
         'Authorization': 'Bearer $token',
       },

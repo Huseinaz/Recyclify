@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
+import 'package:mobile/consts.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
@@ -16,7 +17,7 @@ class SignupPage extends StatelessWidget {
   void signup(String firstname, lastname, email, password, BuildContext context) async {
   try {
     final response = await http.post(
-      Uri.parse('http://192.168.1.106:8000/api/register'),
+      Uri.parse('$HOST/register'),
       body: {
         'first_name': firstname,
         'last_name': lastname,
