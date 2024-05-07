@@ -11,7 +11,7 @@ class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
 
   @override
-  _UserHomePageState createState() => _UserHomePageState();
+  State<UserHomePage> createState() => _UserHomePageState();
 }
 
 class _UserHomePageState extends State<UserHomePage> {
@@ -38,7 +38,6 @@ class _UserHomePageState extends State<UserHomePage> {
         containers = List<Map<String, dynamic>>.from(jsonDecode(response.body)['containers']);
       });
     } else {
-      // Handle error
       print('Failed to load containers data');
     }
   }
@@ -110,7 +109,7 @@ class _UserHomePageState extends State<UserHomePage> {
                   },
                   buttonText: 'Request a driver',
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
               ],
             ),
           ),
