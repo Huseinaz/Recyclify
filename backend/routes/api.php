@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContainerController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,5 @@ Route::middleware('user')->group(function(){
     Route::get('/containers', [ContainerController::class, 'getContainer']);
     Route::get('/profile', [UsersController::class, 'getUserProfile']);
 });
+
+Route::post('/notifications', [NotificationController::class, 'store']);
