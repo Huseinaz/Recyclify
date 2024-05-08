@@ -27,6 +27,7 @@ class LoginPage extends StatelessWidget {
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         final token = jsonData['authorisation']['token'];
+        final userId = jsonData['user']['id'];
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString(KEY_ACCESS_TOKEN, token);
@@ -34,8 +35,22 @@ class LoginPage extends StatelessWidget {
         final roleId = jsonData['user']['role_id'];
         if (roleId == 2) {
           Navigator.pushNamed(context, '/userhome');
+
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId.toString())
+              .set({
+            'email': email,
+          });
         } else if (roleId == 3) {
           Navigator.pushNamed(context, '/driverhome');
+
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId.toString())
+              .set({
+            'email': email,
+          });
         }
       } else {
         // Error handling
