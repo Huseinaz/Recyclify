@@ -31,6 +31,7 @@ class LoginPage extends StatelessWidget {
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString(KEY_ACCESS_TOKEN, token);
+        await prefs.setString(KEY_USER_EMAIL, email);
 
         final roleId = jsonData['user']['role_id'];
         if (roleId == 2) {
@@ -41,6 +42,7 @@ class LoginPage extends StatelessWidget {
               .doc(userId.toString())
               .set({
             'email': email,
+            'id': userId,
           });
         } else if (roleId == 3) {
           Navigator.pushNamed(context, '/driverhome');
