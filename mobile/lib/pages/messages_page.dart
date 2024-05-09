@@ -68,6 +68,27 @@ class _MessagesPageState extends State<MessagesPage> {
         ),
       ),
       backgroundColor: const Color(0xFFF3F5F8),
+      body: _buildUserList(),
     );
   }
+
+  Widget _buildUserList() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Error');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('Loading...');
+        }
+        
+        return ListView(
+          children: snapshot.data!.docs.map<Widget>((doc) => _buildUserListItem(doc)).toList(),
+        );
+      },
+    );
+  }
+
+  
 }
