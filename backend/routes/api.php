@@ -24,6 +24,7 @@ Route::middleware('admin')->group(function(){
 
 Route::middleware('user')->group(function(){
     Route::get('/containers', [ContainerController::class, 'getContainer']);
+    Route::get('users', [UsersController::class, 'getUser']);
     Route::get('/profile', [UsersController::class, 'getUserProfile']);
 });
 
