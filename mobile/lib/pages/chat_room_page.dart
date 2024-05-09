@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mobile/components/my_textfield.dart';
 import 'package:mobile/consts.dart';
 import 'package:mobile/services/chat_service.dart';
@@ -21,19 +20,21 @@ class ChatRoomPage extends StatefulWidget {
 }
 
 class _ChatRoomPageState extends State<ChatRoomPage> {
-  late String userId;
+  late String userId = '';
   final TextEditingController _messageController = TextEditingController();
   final ChatService _chatService = ChatService();
 
   @override
   void initState() {
     super.initState();
-    initialize();
+    _initializeUserId();
   }
 
-  Future<void> initialize() async {
+  void _initializeUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    userId = (prefs.getInt(KEY_USER_ID) ?? '').toString();
+    setState(() {
+      userId = (prefs.getInt(KEY_USER_ID) ?? '').toString();
+    });
   }
 
   void sendMessage() async {
@@ -63,35 +64,21 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   }
 
   Widget _buildMessageList() {
-  return FutureBuilder<void>(
-    future: initialize(),
+  return StreamBuilder(
+    stream: _chatService.getMessages(widget.receiverUserId, userId),
     builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Center(child: CircularProgressIndicator());
-      } else if (snapshot.hasError) {
-        return Text('Error initializing: ${snapshot.error}');
-      } else {
-        return StreamBuilder(
-          stream: _chatService.getMessages(widget.receiverUserId, userId),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            }
-
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Loading...');
-            }
-
-            return ListView(
-              children: snapshot.data!.docs.map((doc) => _buildMessageItem(doc)).toList(),
-            );
-          },
-        );
+      if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
       }
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Text('Loading...');
+      }
+      return ListView(
+        children: snapshot.data!.docs.map((document) => _buildMessageItem(document)).toList(),
+      );
     },
   );
 }
-
 
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
