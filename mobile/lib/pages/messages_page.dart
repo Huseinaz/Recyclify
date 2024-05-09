@@ -1,8 +1,50 @@
-import 'package:flutter/material.dart';
-import 'package:mobile/components/chat_card.dart';
+import 'dart:convert';
 
-class MessagesPage extends StatelessWidget {
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:mobile/consts.dart';
+import 'package:mobile/pages/chat_room_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class MessagesPage extends StatefulWidget {
   const MessagesPage({super.key});
+
+  @override
+  State<MessagesPage> createState() => _MessagesPageState();
+}
+
+class _MessagesPageState extends State<MessagesPage> {
+  List<Map<String, dynamic>> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
+
+  Future<void> fetchUsers() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(KEY_ACCESS_TOKEN);
+    final response = await http.get(
+      Uri.parse('$HOST/users'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    try {
+      if (response.statusCode == 200) {
+
+        setState(() {
+          users = List<Map<String, dynamic>>.from(jsonDecode(response.body)['users']);
+        });
+      } else {
+        throw Exception('Failed to fetch users');
+      }
+    } catch (e) {
+      print('Error fetching users: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,39 +67,7 @@ class MessagesPage extends StatelessWidget {
           ),
         ),
       ),
-
       backgroundColor: const Color(0xFFF3F5F8),
-      body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                
-                const SizedBox(height: 40),
-                
-                ChatCard(
-                  profile: Image.asset('assets/image/profile.png'),
-                  name: 'John Doe',
-                  lastMessage:'This is a message This is a message This is a message',
-                  time: '12:00',
-                ),
-                
-                const SizedBox(height: 20),
-                
-                ChatCard(
-                  profile: Image.asset('assets/image/profile.png'),
-                  name: 'John Doe',
-                  lastMessage: 'This is a message',
-                  time: '12:00',
-                ),
-
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
