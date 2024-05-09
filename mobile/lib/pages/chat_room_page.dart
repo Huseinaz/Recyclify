@@ -1,23 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-class ChatMessage {
-  final String text;
-  final bool isMe;
-
-  ChatMessage({
-    required this.text,
-    required this.isMe,
-  });
-}
+import 'package:flutter/widgets.dart';
+import 'package:mobile/components/my_textfield.dart';
+import 'package:mobile/consts.dart';
+import 'package:mobile/services/chat_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatRoomPage extends StatefulWidget {
-  final Image profile;
-  final String name;
+  final String receiverUserEmail;
+  final String receiverUserId;
 
   const ChatRoomPage({
     super.key,
-    required this.profile,
-    required this.name,
+    required this.receiverUserEmail,
+    required this.receiverUserId,
   });
 
   @override
@@ -25,17 +21,26 @@ class ChatRoomPage extends StatefulWidget {
 }
 
 class _ChatRoomPageState extends State<ChatRoomPage> {
-  final List<ChatMessage> _messages = [];
+  late String userId;
+  final TextEditingController _messageController = TextEditingController();
+  final ChatService _chatService = ChatService();
 
-  final TextEditingController _textController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    initialize();
+  }
 
-  void _handleSendMessage(String text) {
-    if (text.isNotEmpty) {
-      setState(() {
-        _messages.add(ChatMessage(text: text, isMe: true));
-        _messages.add(ChatMessage(text: 'This is a reply', isMe: false));
-      });
-      _textController.clear();
+  Future<void> initialize() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = (prefs.getInt(KEY_USER_ID) ?? '').toString();
+  }
+
+  void sendMessage() async {
+    if (_messageController.text.isNotEmpty) {
+      await _chatService.sendMessage(
+          widget.receiverUserId, _messageController.text);
+      _messageController.clear();
     }
   }
 
@@ -44,71 +49,81 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: widget.profile.image,
-            ),
-            const SizedBox(width: 10),
-            Text(widget.name),
-          ],
-        ),
+        title: Text(widget.receiverUserEmail),
       ),
-      backgroundColor: const Color(0xFFF3F5F8),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: _messages.length,
-              itemBuilder: (BuildContext context, int index) {
-                final ChatMessage message = _messages[index];
-                return Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Align(
-                    alignment: message.isMe ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: message.isMe ? Colors.green[200] : Colors.blue[200],
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Text(
-                        message.text,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+            child: _buildMessageList(),
           ),
-
-          Container(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _textController,
-                    decoration: InputDecoration(
-                      hintText: 'Message',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: () => _handleSendMessage(_textController.text),
-                ),
-              ],
-            ),
-          ),
+          _buildMessageInput(),
         ],
       ),
     );
+  }
+
+  Widget _buildMessageList() {
+  return FutureBuilder<void>(
+    future: initialize(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(child: CircularProgressIndicator());
+      } else if (snapshot.hasError) {
+        return Text('Error initializing: ${snapshot.error}');
+      } else {
+        return StreamBuilder(
+          stream: _chatService.getMessages(widget.receiverUserId, userId),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text('Loading...');
+            }
+
+            return ListView(
+              children: snapshot.data!.docs.map((doc) => _buildMessageItem(doc)).toList(),
+            );
+          },
+        );
+      }
+    },
+  );
+}
+
+
+  Widget _buildMessageItem(DocumentSnapshot document) {
+    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+
+    var alignment = (data['senderId'] == userId)
+        ? Alignment.centerRight
+        : Alignment.centerLeft;
+
+    return Container(
+      alignment: alignment,
+      child: Column(
+        children: [
+          Text(data['senderEmail']),
+          Text(data['message']),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMessageInput() {
+    return Row(children: [
+      Expanded(
+        child: MyTextField(
+          controller: _messageController,
+          hintText: 'Message',
+          obscureText: false,
+        ),
+      ),
+      IconButton(
+        onPressed: sendMessage,
+        icon: const Icon(Icons.arrow_upward, size: 40),
+      )
+    ]);
   }
 }
