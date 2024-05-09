@@ -52,6 +52,7 @@ class LoginPage extends StatelessWidget {
               .doc(userId.toString())
               .set({
             'email': email,
+            'id': userId,
           });
         }
       } else {
