@@ -90,5 +90,26 @@ class _MessagesPageState extends State<MessagesPage> {
     );
   }
 
-  
+  Widget _buildUserListItem(DocumentSnapshot document) {
+    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+    return ListTile(
+      title: Text(data['email']),
+      onTap: () async {
+      final prefs = await SharedPreferences.getInstance();
+      final currentUserEmail = prefs.getString(KEY_USER_EMAIL) ?? '';
+        if (currentUserEmail != data['email']) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatRoomPage(
+                receiverUserEmail: data['email'],
+                receiverUserId: data['id'].toString(),
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
 }
