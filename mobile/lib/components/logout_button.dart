@@ -26,7 +26,7 @@ class LogoutButton extends StatelessWidget {
       prefs.remove('email');
       Navigator.pushReplacementNamed(context, '/login');
     } else {
-      throw Exception('Failed to logout');
+      Navigator.pushReplacementNamed(context, '/login');
     }
   }
 }
