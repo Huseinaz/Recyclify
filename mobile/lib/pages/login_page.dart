@@ -32,6 +32,7 @@ class LoginPage extends StatelessWidget {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString(KEY_ACCESS_TOKEN, token);
         await prefs.setString(KEY_USER_EMAIL, email);
+        await prefs.setInt(KEY_USER_ID, userId);
 
         final roleId = jsonData['user']['role_id'];
         if (roleId == 2) {
