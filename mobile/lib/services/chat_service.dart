@@ -5,13 +5,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile/consts.dart';
 
 class ChatService extends ChangeNotifier {
-  // late final String token;
+  late final String token;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Future<void> initialize() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   token = prefs.getString(KEY_ACCESS_TOKEN) ?? '';
-  // }
+  Future<void> initialize() async {
+    final prefs = await SharedPreferences.getInstance();
+    token = prefs.getString(KEY_ACCESS_TOKEN) ?? '';
+  }
 
   Future<void> sendMessage(String receiverId, String message) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
