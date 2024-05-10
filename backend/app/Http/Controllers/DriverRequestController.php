@@ -69,4 +69,22 @@ class DriverRequestController extends Controller
             'driver_request' => $driverRequest,
         ], 200);
     }
+
+    public function rejectdRequest($id)
+    {
+        $driverRequest = DriverRequest::find($id);
+
+        if (!$driverRequest) {
+            return response()->json([
+                'message' => 'Request not found',
+            ], 404);
+        }
+
+        $driverRequest->update(['status' => 'Rejected']);
+
+        return response()->json([
+            'message' => 'Request rejected',
+            'driver_request' => $driverRequest
+        ], 200);
+    }
 }
