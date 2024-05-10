@@ -13,17 +13,27 @@ class DriverRequestController extends Controller
         $user = Auth::user();
         
         if ($user) {
-            $request = DriverRequest::create([
+            $driverRequest = DriverRequest::create([
                 'user_id' => $user->id,
                 'status' => 'pending',
             ]);
     
             return response()->json([
                 'message' => 'Request sent successfully',
-                'request' => $request
+                'driver_request' => $driverRequest
             ], 200);
         } else {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
+    }
+
+    public function viewRequests()
+    {
+        $driverRequests = DriverRequest::with('user')->get();
+
+        return response()->json([
+            'message' => 'List of all driver requests',
+            'driver_request' => $driverRequests
+        ], 200);
     }
 }
