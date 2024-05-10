@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/components/chat_bubble.dart';
 import 'package:mobile/components/my_textfield.dart';
 import 'package:mobile/consts.dart';
 import 'package:mobile/services/chat_service.dart';
@@ -89,13 +90,24 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
     return Container(
       alignment: alignment,
-      child: Column(
-        children: [
-          Text(data['senderEmail']),
-          Text(data['message']),
-        ],
+      child: Padding (
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment:
+            (data['senderId'] == userId)
+             ? CrossAxisAlignment.end
+             : CrossAxisAlignment.start,
+          mainAxisAlignment:
+            (data['senderId'] == userId)
+             ? MainAxisAlignment.end
+             : MainAxisAlignment.start,
+          children: [
+            Text(data['senderEmail']),
+            ChatBubble(message: data['message']),
+          ],
+        ),
       ),
-    );
+    );  
   }
 
   Widget _buildMessageInput() {
