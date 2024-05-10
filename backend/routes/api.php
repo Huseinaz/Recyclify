@@ -28,4 +28,9 @@ Route::middleware('user')->group(function(){
     Route::get('/profile', [UsersController::class, 'getUserProfile']);
 });
 
+Route::middleware('driver')->group(function(){
+    Route::get('users', [UsersController::class, 'getUser']);
+    Route::get('/profile', [UsersController::class, 'getUserProfile']);
+});
+
 Route::post('/notifications', [NotificationController::class, 'store']);
