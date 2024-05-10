@@ -59,6 +59,8 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
             child: _buildMessageList(),
           ),
           _buildMessageInput(),
+
+          const SizedBox(height: 25),
         ],
       ),
     );
@@ -103,7 +105,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
              : MainAxisAlignment.start,
           children: [
             Text(data['senderEmail']),
-            ChatBubble(message: data['message']),
+            ChatBubble(message: data['message'], isSender: data['senderId'] == userId,),
           ],
         ),
       ),
@@ -111,18 +113,21 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   }
 
   Widget _buildMessageInput() {
-    return Row(children: [
-      Expanded(
-        child: MyTextField(
-          controller: _messageController,
-          hintText: 'Message',
-          obscureText: false,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Row(children: [
+        Expanded(
+          child: MyTextField(
+            controller: _messageController,
+            hintText: 'Message',
+            obscureText: false,
+          ),
         ),
-      ),
-      IconButton(
-        onPressed: sendMessage,
-        icon: const Icon(Icons.arrow_upward, size: 40),
-      )
-    ]);
+        IconButton(
+          onPressed: sendMessage,
+          icon: const Icon(Icons.send, size: 30),
+        )
+      ]),
+    );
   }
 }
