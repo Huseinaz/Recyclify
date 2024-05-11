@@ -33,20 +33,6 @@ class UsersController extends Controller
         }
     }
 
-    public function getUserProfile()
-    {
-        if (!auth()->check()) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-
-        $user_id = auth()->user()->id;
-
-        $user = User::find($user_id);
-
-        return response()->json(['user' => $user]);
-    }
-
-
     public function activateUser($id)
     {
         $user = User::find($id);
