@@ -22,16 +22,14 @@ Route::middleware('admin')->group(function(){
     Route::post('createDriver',[AuthController::class, 'createDriver']);
 });
 
+Route::get('users/get', [UsersController::class, 'getUser']);
+
 Route::middleware('user')->group(function(){
     Route::get('/containers', [ContainerController::class, 'getContainer']);
-    Route::get('users', [UsersController::class, 'getUser']);
-    Route::get('/profile', [UsersController::class, 'getUserProfile']);
     Route::post('/driverRequest', [DriverRequestController::class, 'driverRequest']);
 });
 
 Route::middleware('driver')->group(function(){
-    Route::get('users', [UsersController::class, 'getUser']);
-    Route::get('/profile', [UsersController::class, 'getUserProfile']);
     Route::post('/viewRequests', [DriverRequestController::class, 'viewRequests']);
     Route::post('driverRequest/{id}/acceptRequest', [DriverRequestController::class, 'acceptRequest']);
     Route::post('driverRequest/{id}/rejectdRequest', [DriverRequestController::class, 'rejectdRequest']);
