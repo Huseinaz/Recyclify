@@ -3,15 +3,23 @@ import 'package:flutter/material.dart';
 class RequestContainer extends StatelessWidget {
   final String name;
   final String address;
-  final VoidCallback? onAccept;
-  final VoidCallback? onReject;
+  final String leftbutton;
+  final String rightbutton;
+  final TextStyle? leftButtonStyle;
+  final TextStyle? rightButtonStyle;
+  final VoidCallback? onLeftButtonPressed;
+  final VoidCallback? onRightButtonPressed;
 
   const RequestContainer(
       {super.key,
       required this.name,
       required this.address,
-      this.onAccept,
-      this.onReject,
+      required this.leftbutton,
+      required this.rightbutton,
+      this.leftButtonStyle,
+      this.rightButtonStyle,
+      this.onLeftButtonPressed,
+      this.onRightButtonPressed,
       });
 
   @override
@@ -51,33 +59,22 @@ class RequestContainer extends StatelessWidget {
             children: [
 
               GestureDetector(
-                onTap: onAccept,
-                child: const Text(
-                  'Accept Request',
-                  style: TextStyle(
-                    color: Colors.green,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.green,
-                    fontWeight: FontWeight.bold,
-                  ),
+                onTap: onLeftButtonPressed,
+                child: Text(
+                  leftbutton,
+                  style: leftButtonStyle,
                 ),
               ),
 
               GestureDetector(
-                onTap: onReject,
-                child: const Text(
-                  'Reject Request',
-                  style: TextStyle(
-                    color: Colors.red,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
+                onTap: onRightButtonPressed,
+                child: Text(
+                  rightbutton,
+                  style: rightButtonStyle,
                 ),
               ),
             ],
-          )
-
+          ),
         ],
       ),
     );
