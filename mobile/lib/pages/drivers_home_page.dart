@@ -43,6 +43,26 @@ class _DriverHomePageState extends State<DriverHomePage> {
     }
   }
 
+  Future<void> handleRequest(int id, bool accept) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(KEY_ACCESS_TOKEN);
+
+    final response = await http.post(
+      Uri.parse('$HOST/driverRequest/$id/${accept ? 'accept' : 'reject'}Request'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      fetchDriverRequests();
+      print('${accept ? 'Request accepted' : 'Request rejected'}');
+    } else {
+      print('Failed to ${accept ? 'accept' : 'reject'} request: ${response.body}');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,14 +108,28 @@ class _DriverHomePageState extends State<DriverHomePage> {
                     RequestContainer(
                       name: request['user']['first_name'] + ' ' + request['user']['last_name'],
                       address: 'Beirut, Lebanon',
-                      onAccept: () {
-                        print('Accept request');
+                      leftbutton: 'Accept',
+                      rightbutton: 'Deny',
+                      onLeftButtonPressed: () {
+                        handleRequest(request['id'], true);
                       },
-                      onReject: () {
-                        print('Reject request');
+                      leftButtonStyle: const TextStyle(
+                        color: Colors.green,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      onRightButtonPressed: () {
+                        handleRequest(request['id'], false);
                       },
+                      rightButtonStyle: const TextStyle(
+                        color: Colors.red,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    const SizedBox(height: 10), // Adjust the height as needed
+                    const SizedBox(height: 10),
                   ],
                 ),
               ],
