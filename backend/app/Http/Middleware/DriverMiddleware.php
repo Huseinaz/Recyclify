@@ -16,7 +16,7 @@ class DriverMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if(auth()->check()){
-            if (auth()->user()->role_id === 1) {
+            if (auth()->user()->role_id === 3) {
                 return $next($request);
             } else {
                 return response()->json([
