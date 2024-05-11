@@ -34,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final token = prefs.getString(KEY_ACCESS_TOKEN);
 
     final response = await http.get(
-      Uri.parse('$HOST/profile'),
+      Uri.parse('$HOST/users/get'),
       headers: {
         'Authorization': 'Bearer $token',
       },
@@ -44,11 +44,8 @@ class _ProfilePageState extends State<ProfilePage> {
       print(response.body);
 
       setState(() {
-        name = jsonData['user']['first_name'] +
-            ' ' +
-            jsonData['user']['last_name'];
+        name = jsonData['user']['first_name'] + ' ' + jsonData['user']['last_name'];
         email = jsonData['user']['email'];
-        profilePicture = jsonData['user']['profile_picture'];
       });
     } else {
       print('Failed to load user data');
