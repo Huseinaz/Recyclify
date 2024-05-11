@@ -41,6 +41,23 @@ class _UserHomePageState extends State<UserHomePage> {
       print('Failed to load containers data');
     }
   }
+  
+  Future<void> sendDriverRequest() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(KEY_ACCESS_TOKEN);
+
+    final response = await http.post(
+      Uri.parse('$HOST/driverRequest'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      print('Driver request sent successfully');
+    } else {
+      print('Failed to send driver request');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +122,7 @@ class _UserHomePageState extends State<UserHomePage> {
 
                 MyButton(
                   onTap: () {
-                    Navigator.pushNamed(context, '/driverhome');
+                    sendDriverRequest();
                   },
                   buttonText: 'Request a driver',
                 ),
