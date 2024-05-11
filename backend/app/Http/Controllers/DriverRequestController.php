@@ -70,7 +70,7 @@ class DriverRequestController extends Controller
         ], 200);
     }
 
-    public function rejectdRequest($id)
+    public function rejectRequest($id)
     {
         $driverRequest = DriverRequest::find($id);
 
