@@ -49,6 +49,7 @@ class AuthController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+            'fcmtoken' => 'required|string|max:255',
         ]);
 
         $user = User::create([
@@ -56,6 +57,7 @@ class AuthController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => $request->password,
+            'fcmtoken' => $request->fcmtoken,
         ]);
 
         $token = Auth::login($user);
