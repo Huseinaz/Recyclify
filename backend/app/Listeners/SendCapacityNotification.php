@@ -3,10 +3,11 @@
 namespace App\Listeners;
 
 use App\Events\ContainerCapacityExceeded;
+use App\Jobs\SendCapacityNotificationJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendCapacityNotificationJob
+class SendCapacityNotification
 {
     /**
      * Create the event listener.
