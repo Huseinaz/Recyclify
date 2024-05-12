@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components/request_container.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/consts.dart';
+import 'package:mobile/pages/chat_room_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DriverHomePage extends StatefulWidget {
@@ -27,7 +28,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
   Future<void> fetchDriverRequests() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(KEY_ACCESS_TOKEN);
-    
+
     final response = await http.get(
       Uri.parse('$HOST/viewRequests'),
       headers: {
@@ -63,6 +64,21 @@ class _DriverHomePageState extends State<DriverHomePage> {
       print('Failed to ${accept ? 'accept' : 'reject'} request: ${response.body}');
     }
   }
+
+  void navigateToChatRoom(dynamic receiverEmail, dynamic receiverId) {
+  String email = receiverEmail.toString();
+  String id = receiverId.toString();
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => ChatRoomPage(
+        receiverUserEmail: email,
+        receiverUserId: id,
+      ),
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -108,12 +124,17 @@ class _DriverHomePageState extends State<DriverHomePage> {
                   children: [
                     if (driverRequests[i]['showNewButtons'] ?? false)
                       RequestContainer(
-                        name: driverRequests[i]['user']['first_name'] + ' ' + driverRequests[i]['user']['last_name'],
+                        name: driverRequests[i]['user']['first_name'] +
+                            ' ' +
+                            driverRequests[i]['user']['last_name'],
                         address: 'Beirut, Lebanon',
                         leftbutton: 'Chat',
                         rightbutton: 'Get direction',
                         onLeftButtonPressed: () {
-                          null;
+                          navigateToChatRoom(
+                            driverRequests[i]['user']['email'],
+                            driverRequests[i]['user']['id'],
+                          );
                         },
                         leftButtonStyle: const TextStyle(
                           color: Colors.green,
@@ -133,7 +154,9 @@ class _DriverHomePageState extends State<DriverHomePage> {
                       ),
                     if (!(driverRequests[i]['showNewButtons'] ?? false))
                       RequestContainer(
-                        name: driverRequests[i]['user']['first_name'] + ' ' + driverRequests[i]['user']['last_name'],
+                        name: driverRequests[i]['user']['first_name'] +
+                            ' ' +
+                            driverRequests[i]['user']['last_name'],
                         address: 'Beirut, Lebanon',
                         leftbutton: 'Accept',
                         rightbutton: 'Deny',
