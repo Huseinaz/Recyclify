@@ -7,7 +7,6 @@ import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
 import 'package:mobile/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -37,24 +36,8 @@ class LoginPage extends StatelessWidget {
         final roleId = jsonData['user']['role_id'];
         if (roleId == 2) {
           Navigator.pushNamed(context, '/userhome');
-
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId.toString())
-              .set({
-            'email': email,
-            'id': userId,
-          });
         } else if (roleId == 3) {
           Navigator.pushNamed(context, '/driverhome');
-
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId.toString())
-              .set({
-            'email': email,
-            'id': userId,
-          });
         }
       } else {
         // Error handling
