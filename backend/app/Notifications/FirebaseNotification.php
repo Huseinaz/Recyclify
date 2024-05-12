@@ -14,10 +14,9 @@ class FirebaseNotification extends Notification
 {
     use Queueable;
 
-    private $title;
     private $body;
     
-    public function __construct(string $title, string $body){$this->title = $title;$this->body = $body;}
+    public function __construct(string $body){$this->body = $body;}
 
     /**
      * Get the notification's delivery channels.
@@ -35,7 +34,6 @@ class FirebaseNotification extends Notification
     public function toFcm(object $notifiable): FcmMessage
     {
         return (new FcmMessage(notification: new FcmNotification(
-            title: $this->title,
             body: $this->body,
         )))
             ->custom([
