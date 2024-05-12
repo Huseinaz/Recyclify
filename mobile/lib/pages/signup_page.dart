@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/components/google_signin.dart';
@@ -13,9 +14,15 @@ class SignupPage extends StatelessWidget {
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final _firebaseMessaging = FirebaseMessaging.instance;
+
+  Future<String?> getFcmToken() async {
+    return await _firebaseMessaging.getToken();
+  }
 
   void signup(String firstname, lastname, email, password, BuildContext context) async {
   try {
+    String? fcmToken = await getFcmToken();
     final response = await http.post(
       Uri.parse('$HOST/register'),
       body: {
@@ -23,6 +30,7 @@ class SignupPage extends StatelessWidget {
         'last_name': lastname,
         'email': email,
         'password': password,
+        'fcmtoken':fcmToken,
       },
     );
     if (response.statusCode == 200) {
