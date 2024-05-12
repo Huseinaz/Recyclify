@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -5,6 +7,8 @@ import 'package:mobile/components/google_signin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_textfield.dart';
 import 'package:mobile/consts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
@@ -34,7 +38,23 @@ class SignupPage extends StatelessWidget {
       },
     );
     if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final token = jsonData['authorisation']['token'];
+      final userId = jsonData['user']['id'];
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(KEY_ACCESS_TOKEN, token);
+      await prefs.setString(KEY_USER_EMAIL, email);
+      await prefs.setInt(KEY_USER_ID, userId);
+        
       Navigator.pushNamed(context, '/userhome');
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId.toString())
+          .set({
+        'email': email,
+        'id': userId,
+      });
     } else {
       showDialog(
         context: context,
