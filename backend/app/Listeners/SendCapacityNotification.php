@@ -6,7 +6,7 @@ use App\Events\ContainerCapacityExceeded;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendCapacityNotification
+class SendCapacityNotificationJob
 {
     /**
      * Create the event listener.
@@ -19,8 +19,12 @@ class SendCapacityNotification
     /**
      * Handle the event.
      */
-    public function handle(ContainerCapacityExceeded $event): void
+    public function handle(ContainerCapacityExceeded $event)
     {
-        //
+        $container = $event->container;
+
+        if ($container->capacity >= 90) {
+            dispatch(new SendCapacityNotificationJob($container));
+        }
     }
 }
