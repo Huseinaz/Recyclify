@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Models\Container;
+use App\Models\Notification;
+use App\Notifications\FirebaseNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -12,12 +15,14 @@ class SendCapacityNotificationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $container;
+
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(Container $container)
     {
-        //
+        $this->container = $container;
     }
 
     /**
@@ -25,6 +30,8 @@ class SendCapacityNotificationJob implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        $user = $this->container->user;
+        $notification = new FirebaseNotification("Container capacity is 90 or more.");
+        Notification::send($user, $notification);
     }
 }
