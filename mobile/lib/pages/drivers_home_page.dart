@@ -43,7 +43,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
     }
   }
 
-  Future<void> handleRequest(int id, bool accept) async {
+  Future<void> handleRequest(int id, bool accept, int index) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(KEY_ACCESS_TOKEN);
 
@@ -55,13 +55,14 @@ class _DriverHomePageState extends State<DriverHomePage> {
       },
     );
     if (response.statusCode == 200) {
-      fetchDriverRequests();
+      setState(() {
+        driverRequests[index]['showNewButtons'] = accept;
+      });
       print('${accept ? 'Request accepted' : 'Request rejected'}');
     } else {
       print('Failed to ${accept ? 'accept' : 'reject'} request: ${response.body}');
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -102,33 +103,59 @@ class _DriverHomePageState extends State<DriverHomePage> {
                 
                 const SizedBox(height: 20),
 
-                for (var request in driverRequests)
+                for (var i = 0; i < driverRequests.length; i++)
                 Column(
                   children: [
-                    RequestContainer(
-                      name: request['user']['first_name'] + ' ' + request['user']['last_name'],
-                      address: 'Beirut, Lebanon',
-                      leftbutton: 'Accept',
-                      rightbutton: 'Deny',
-                      onLeftButtonPressed: () {
-                        handleRequest(request['id'], true);
-                      },
-                      leftButtonStyle: const TextStyle(
-                        color: Colors.green,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.green,
-                        fontWeight: FontWeight.bold,
+                    if (driverRequests[i]['showNewButtons'] ?? false)
+                      RequestContainer(
+                        name: driverRequests[i]['user']['first_name'] + ' ' + driverRequests[i]['user']['last_name'],
+                        address: 'Beirut, Lebanon',
+                        leftbutton: 'Chat',
+                        rightbutton: 'Get direction',
+                        onLeftButtonPressed: () {
+                          null;
+                        },
+                        leftButtonStyle: const TextStyle(
+                          color: Colors.green,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        onRightButtonPressed: () {
+                          null;
+                        },
+                        rightButtonStyle: const TextStyle(
+                          color: Colors.green,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      onRightButtonPressed: () {
-                        handleRequest(request['id'], false);
-                      },
-                      rightButtonStyle: const TextStyle(
-                        color: Colors.red,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.red,
-                        fontWeight: FontWeight.bold,
+                    if (!(driverRequests[i]['showNewButtons'] ?? false))
+                      RequestContainer(
+                        name: driverRequests[i]['user']['first_name'] + ' ' + driverRequests[i]['user']['last_name'],
+                        address: 'Beirut, Lebanon',
+                        leftbutton: 'Accept',
+                        rightbutton: 'Deny',
+                        onLeftButtonPressed: () {
+                          handleRequest(driverRequests[i]['id'], true, i);
+                        },
+                        leftButtonStyle: const TextStyle(
+                          color: Colors.green,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        onRightButtonPressed: () {
+                          handleRequest(driverRequests[i]['id'], false, i);
+                        },
+                        rightButtonStyle: const TextStyle(
+                          color: Colors.red,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
                     const SizedBox(height: 10),
                   ],
                 ),
