@@ -117,8 +117,8 @@ class _MapPageState extends State<MapPage> {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       GOOGLE_MAPS_API_KEY,
-      PointLatLng(_pBeirut.latitude, _pBeirut.longitude),
-      PointLatLng(_pSidon.latitude, _pSidon.longitude),
+      PointLatLng(_currentP!.latitude, _currentP!.longitude),
+      PointLatLng(widget.destinationLatitude, widget.destinationLongitude),
       travelMode: TravelMode.driving,
     );
     if (result.points.isNotEmpty) {
