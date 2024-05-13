@@ -7,7 +7,10 @@ import 'package:location/location.dart';
 import 'package:mobile/consts.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({super.key});
+  final double destinationLatitude;
+  final double destinationLongitude;
+  
+  const MapPage({super.key, required this.destinationLatitude, required this.destinationLongitude});
 
   @override
   State<MapPage> createState() => _MapPageState();
