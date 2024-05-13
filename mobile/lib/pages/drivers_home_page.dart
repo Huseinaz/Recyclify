@@ -143,7 +143,10 @@ class _DriverHomePageState extends State<DriverHomePage> {
                           fontWeight: FontWeight.bold,
                         ),
                         onRightButtonPressed: () {
-                          null;
+                          navigateToMapPage(
+                            driverRequests[i]['user']['latitude'],
+                            driverRequests[i]['user']['longitude'],
+                          );
                         },
                         rightButtonStyle: const TextStyle(
                           color: Colors.green,
