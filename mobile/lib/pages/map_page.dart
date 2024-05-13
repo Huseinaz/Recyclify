@@ -64,7 +64,7 @@ class _MapPageState extends State<MapPage> {
                 Marker(
                   markerId: MarkerId("_destinationLocation"),
                   icon: BitmapDescriptor.defaultMarker,
-                  position: _pBeirut,
+                  position: LatLng(widget.destinationLatitude, widget.destinationLongitude),
                 )
               },
               polylines: Set<Polyline>.of(polylines.values),
