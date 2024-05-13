@@ -50,6 +50,8 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
             'fcmtoken' => 'required|string|max:255',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
         ]);
 
         $user = User::create([
@@ -58,6 +60,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => $request->password,
             'fcmtoken' => $request->fcmtoken,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
         ]);
 
         $token = Auth::login($user);
