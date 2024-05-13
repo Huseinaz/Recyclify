@@ -135,20 +135,28 @@ class _UserHomePageState extends State<UserHomePage> {
                 const SizedBox(height: 40),
 
                 Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        for (var container in containers)
-                          MyContainer(
-                            color: MyContainer.getColorFromType(container['type']['name']),
-                            type: container['type']['name'],
-                            percentage: container['capacity'],
-                          ),
-
-                        const SizedBox(height: 40),
-                      ],
-                    ),
+                  child: ListView.builder(
+                    itemCount: containers.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == 0) {
+                        return MyContainer(
+                          color: MyContainer.getColorFromType(containers[index]['type']['name']),
+                          type: containers[index]['type']['name'],
+                          percentage: containers[index]['capacity'],
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            const SizedBox(height: 20),
+                            MyContainer(
+                              color: MyContainer.getColorFromType(containers[index]['type']['name']),
+                              type: containers[index]['type']['name'],
+                              percentage: containers[index]['capacity'],
+                            ),
+                          ],
+                        );
+                      }
+                    },
                   ),
                 ),
 
@@ -158,7 +166,7 @@ class _UserHomePageState extends State<UserHomePage> {
                   },
                   buttonText: 'Request a driver',
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
               ],
             ),
           ),
