@@ -6,6 +6,7 @@ import 'package:mobile/components/request_container.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/consts.dart';
 import 'package:mobile/pages/chat_room_page.dart';
+import 'package:mobile/pages/map_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DriverHomePage extends StatefulWidget {
@@ -76,6 +77,15 @@ class _DriverHomePageState extends State<DriverHomePage> {
         receiverUserEmail: email,
         receiverUserId: id,
       ),
+    ),
+  );
+}
+
+  void navigateToMapPage(double latitude, double longitude) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => MapPage(destinationLatitude: latitude, destinationLongitude: longitude),
     ),
   );
 }
