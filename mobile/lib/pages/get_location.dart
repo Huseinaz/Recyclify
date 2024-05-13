@@ -17,7 +17,14 @@ class _GetLocationState extends State<GetLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      body: Center (
+        child : Center (
+          child : ElevatedButton(
+            child : const Text("Get Location"),
+            onPressed: getLocation,
+          )
+        )
+      )
     );
   }
 }
