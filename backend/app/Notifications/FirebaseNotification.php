@@ -16,7 +16,10 @@ class FirebaseNotification extends Notification
 
     private $body;
     
-    public function __construct(string $body){$this->body = $body;}
+    public function __construct(string $body)
+    {
+        $this->body = $body;
+    }
 
     /**
      * Get the notification's delivery channels.
@@ -29,7 +32,10 @@ class FirebaseNotification extends Notification
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Get the FCM representation of the notification.
+     *
+     * @param object $notifiable
+     * @return FcmMessage
      */
     public function toFcm(object $notifiable): FcmMessage
     {
@@ -56,12 +62,13 @@ class FirebaseNotification extends Notification
     /**
      * Get the array representation of the notification.
      *
+     * @param object $notifiable
      * @return array<string, mixed>
      */
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'body' => $this->body
         ];
     }
 }
