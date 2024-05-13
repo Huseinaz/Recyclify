@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\DriverRequest;
+use App\Jobs\SendDriverNotificationJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -21,6 +22,8 @@ class SendDriverNotification
      */
     public function handle(DriverRequest $event): void
     {
-        //
+        $driverRequest = $event->driverRequest;
+
+        dispatch(new SendDriverNotificationJob($driverRequest));
     }
 }
