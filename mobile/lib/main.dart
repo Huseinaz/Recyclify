@@ -7,6 +7,7 @@ import 'package:mobile/pages/notifications_page.dart';
 import 'package:mobile/pages/u_home.dart';
 import 'package:mobile/pages/login_page.dart';
 import 'package:mobile/pages/signup_page.dart';
+import 'package:mobile/pages/get_location.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/driverhome': (context) => const DriverPage(),
         '/map': (context) => MapPage(),
         '/notifications': (context) => const NotificationsPage(),
+        '/getLocation': (context) => const GetLocation(),
       },
     );
   }
