@@ -14,14 +14,14 @@ class DriverRequest
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $userName;
+    public $driverRequest;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($userName)
+    public function __construct(DriverRequest $driverRequest)
     {
-        $this->userName = $userName;
+        $this->driverRequest = $driverRequest;
     }
 
     /**
