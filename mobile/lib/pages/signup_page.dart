@@ -9,6 +9,7 @@ import 'package:mobile/components/my_textfield.dart';
 import 'package:mobile/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
@@ -24,8 +25,15 @@ class SignupPage extends StatelessWidget {
     return await _firebaseMessaging.getToken();
   }
 
+  void getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+    print(position);
+  }
+
   void signup(String firstname, lastname, email, password, BuildContext context) async {
   try {
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+    
     String? fcmToken = await getFcmToken();
     final response = await http.post(
       Uri.parse('$HOST/register'),
@@ -35,6 +43,8 @@ class SignupPage extends StatelessWidget {
         'email': email,
         'password': password,
         'fcmtoken':fcmToken,
+        'latitude': position.latitude.toString(),
+        'longitude': position.longitude.toString(),
       },
     );
     if (response.statusCode == 200) {
@@ -205,7 +215,7 @@ class SignupPage extends StatelessWidget {
 
                 GoogleSignin(
                   onTap: () {
-                    Navigator.pushNamed(context, '/userhome');
+                    Navigator.pushNamed(context, '/getLocation');
                   },
                 ),
 
