@@ -23,7 +23,6 @@ class _MapPageState extends State<MapPage> {
       Completer<GoogleMapController>();
 
   static const LatLng _pBeirut = LatLng(33.8938, 35.5018);
-  static const LatLng _pSidon = LatLng(33.5632,  35.3688);
 
   LatLng? _currentP = null;
 
