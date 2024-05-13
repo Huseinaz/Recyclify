@@ -31,7 +31,6 @@ class SendCapacityNotificationJob implements ShouldQueue
     public function handle(): void
     {
         $user = $this->container->user;
-        $notification = new FirebaseNotification("Container capacity is 90 or more.");
-        Notification::send($user, $notification);
+        $user -> notify(new FirebaseNotification("Your container will fill up soon."));
     }
 }
