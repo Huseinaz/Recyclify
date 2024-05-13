@@ -11,6 +11,7 @@ class GetLocation extends StatefulWidget {
 class _GetLocationState extends State<GetLocation> {
   void getLocation() async {
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+    print(position);
   }
 
   @override
