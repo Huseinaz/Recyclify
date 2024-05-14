@@ -84,11 +84,18 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
                 const SizedBox(height: 40),
 
-                ...notifications.map((notification) => NotificationCard(
-                  text: notification['message'],
-                  time: notification['time'],
-                )).toList(),
-
+                ...List.generate(notifications.length, (index) {
+                  return Column(
+                    children: [
+                      NotificationCard(
+                        text: notifications[index]['message'],
+                        time: notifications[index]['time'],
+                      ),
+                      if (index < notifications.length - 1)
+                        const SizedBox(height: 10),
+                    ],
+                  );
+                }),
               ],
             ),
           ),
