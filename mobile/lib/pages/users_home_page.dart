@@ -31,17 +31,20 @@ class _UserHomePageState extends State<UserHomePage> {
       Uri.parse('$HOST/containers'),
       headers: {
         'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
       },
     );
+
     if (response.statusCode == 200) {
       setState(() {
-        containers = List<Map<String, dynamic>>.from(jsonDecode(response.body)['containers']);
+        containers = List<Map<String, dynamic>>.from(
+            jsonDecode(response.body)['containers']);
       });
     } else {
       print('Failed to load containers data');
     }
   }
-  
+
   Future<void> sendDriverRequest() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(KEY_ACCESS_TOKEN);
@@ -50,8 +53,10 @@ class _UserHomePageState extends State<UserHomePage> {
       Uri.parse('$HOST/driverRequest'),
       headers: {
         'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
       },
     );
+    
     if (response.statusCode == 200) {
       showDialog(
         context: context,
@@ -123,54 +128,52 @@ class _UserHomePageState extends State<UserHomePage> {
           ),
         ),
       ),
-
       backgroundColor: const Color(0xFFF3F5F8),
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                const SizedBox(height: 40),
-
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: containers.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (index == 0) {
-                        return MyContainer(
-                          color: MyContainer.getColorFromType(containers[index]['type']['name']),
-                          type: containers[index]['type']['name'],
-                          percentage: containers[index]['capacity'],
-                        );
-                      } else {
-                        return Column(
-                          children: [
-                            const SizedBox(height: 20),
-                            MyContainer(
-                              color: MyContainer.getColorFromType(containers[index]['type']['name']),
-                              type: containers[index]['type']['name'],
-                              percentage: containers[index]['capacity'],
-                            ),
-                          ],
-                        );
-                      }
-                    },
-                  ),
-                ),
-
-                MyButton(
-                  onTap: () {
-                    sendDriverRequest();
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 40),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: containers.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return MyContainer(
+                        color: MyContainer.getColorFromType(
+                            containers[index]['type']['name']),
+                        type: containers[index]['type']['name'],
+                        percentage: containers[index]['capacity'],
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          MyContainer(
+                            color: MyContainer.getColorFromType(
+                                containers[index]['type']['name']),
+                            type: containers[index]['type']['name'],
+                            percentage: containers[index]['capacity'],
+                          ),
+                        ],
+                      );
+                    }
                   },
-                  buttonText: 'Request a driver',
                 ),
-                const SizedBox(height: 12),
-              ],
-            ),
+              ),
+              MyButton(
+                onTap: () {
+                  sendDriverRequest();
+                },
+                buttonText: 'Request a driver',
+              ),
+              const SizedBox(height: 12),
+            ],
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
 }
