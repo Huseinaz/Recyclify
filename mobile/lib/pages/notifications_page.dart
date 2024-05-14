@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/consts.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile/components/notification_card.dart';
 
@@ -34,8 +35,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
     );
 
     if (response.statusCode == 200) {
+      final List<dynamic> notificationData = jsonDecode(response.body);
       setState(() {
-        notifications = List<Map<String, dynamic>>.from(jsonDecode(response.body));
+        notifications = notificationData.map((notification) {
+          final DateTime createdAt = DateTime.parse(notification['created_at']);
+          final String formattedTime = DateFormat('HH:mm').format(createdAt);
+          return {
+            'message': notification['message'],
+            'time': formattedTime,
+          };
+        }).toList();
       });
     } else {
       print('Failed to load notifications');
@@ -77,7 +86,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
                 ...notifications.map((notification) => NotificationCard(
                   text: notification['message'],
-                  time: notification['created_at'],
+                  time: notification['time'],
                 )).toList(),
 
               ],
