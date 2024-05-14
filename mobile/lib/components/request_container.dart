@@ -4,23 +4,30 @@ class RequestContainer extends StatelessWidget {
   final String name;
   final String address;
   final String leftbutton;
+  final String? donebutton;
   final String rightbutton;
+
   final TextStyle? leftButtonStyle;
+  final TextStyle? doneButtonStyle;
   final TextStyle? rightButtonStyle;
   final VoidCallback? onLeftButtonPressed;
+  final VoidCallback? onDoneButtonPressed;
   final VoidCallback? onRightButtonPressed;
 
-  const RequestContainer(
-      {super.key,
-      required this.name,
-      required this.address,
-      required this.leftbutton,
-      required this.rightbutton,
-      this.leftButtonStyle,
-      this.rightButtonStyle,
-      this.onLeftButtonPressed,
-      this.onRightButtonPressed,
-      });
+  const RequestContainer({
+    super.key,
+    required this.name,
+    required this.address,
+    this.donebutton,
+    required this.leftbutton,
+    required this.rightbutton,
+    this.leftButtonStyle,
+    this.rightButtonStyle,
+    this.doneButtonStyle,
+    this.onLeftButtonPressed,
+    this.onDoneButtonPressed,
+    this.onRightButtonPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,6 @@ class RequestContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
           Text(
             name,
             textAlign: TextAlign.start,
@@ -42,7 +48,6 @@ class RequestContainer extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-
           Text(
             address,
             style: const TextStyle(
@@ -51,13 +56,10 @@ class RequestContainer extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-
           const SizedBox(height: 20),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
               GestureDetector(
                 onTap: onLeftButtonPressed,
                 child: Text(
@@ -65,7 +67,6 @@ class RequestContainer extends StatelessWidget {
                   style: leftButtonStyle,
                 ),
               ),
-
               GestureDetector(
                 onTap: onRightButtonPressed,
                 child: Text(
@@ -73,6 +74,15 @@ class RequestContainer extends StatelessWidget {
                   style: rightButtonStyle,
                 ),
               ),
+              donebutton != null
+                  ? GestureDetector(
+                      onTap: onDoneButtonPressed,
+                      child: Text(
+                        donebutton ?? "",
+                        style: doneButtonStyle,
+                      ),
+                    )
+                  : Container(),
             ],
           ),
         ],
