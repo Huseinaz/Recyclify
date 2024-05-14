@@ -7,29 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class NotificationController extends Controller
 {
-    public function index()
+    public function getNotification(Request $request)
     {
-        $notifications = Notification::all();
-        return response()->json($notifications);
-    }
-
-    public function show($id)
-    {
-        $notification = Notification::findOrFail($id);
-        return response()->json($notification);
-    }
-
-    public function store(Request $request)
-    {
-        $notificationMessage = $request->input('message');
-        
-        Notification::create([
-            'user_id' => Auth::id(),
-            'message' => $notificationMessage,
-        ]);
-        
-        $notifications = Notification::where('user_id', Auth::id())->get();
-        
+        $user = Auth::user();
+        $notifications = Notification::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         return response()->json($notifications);
     }
 }
