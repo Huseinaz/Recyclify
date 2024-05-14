@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\DriverRequest as DriverRequestModel;
 
 class DriverRequest
 {
@@ -19,7 +20,7 @@ class DriverRequest
     /**
      * Create a new event instance.
      */
-    public function __construct(DriverRequest $driverRequest)
+    public function __construct(DriverRequestModel $driverRequest)
     {
         $this->driverRequest = $driverRequest;
     }
