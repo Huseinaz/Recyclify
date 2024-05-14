@@ -31,8 +31,7 @@ Route::middleware('user')->group(function(){
 
 Route::middleware('driver')->group(function(){
     Route::get('/viewRequests', [DriverRequestController::class, 'viewRequests']);
-    Route::post('driverRequest/{id}/acceptRequest', [DriverRequestController::class, 'acceptRequest']);
-    Route::post('driverRequest/{id}/rejectRequest', [DriverRequestController::class, 'rejectRequest']);
+    Route::post('driverRequest/{id}', [DriverRequestController::class, 'handleRequest']);
     Route::get('/notifications', [NotificationController::class, 'getNotification']);
 });
 
