@@ -24,7 +24,7 @@ class _MapPageState extends State<MapPage> {
 
   static const LatLng _pBeirut = LatLng(33.8938, 35.5018);
 
-  LatLng? _currentP = null;
+  LatLng? _currentP;
 
   Map<PolylineId, Polyline> polylines = {};
 
@@ -50,18 +50,18 @@ class _MapPageState extends State<MapPage> {
           : GoogleMap(
               onMapCreated: ((GoogleMapController controller) =>
                   _mapController.complete(controller)),
-              initialCameraPosition: CameraPosition(
+              initialCameraPosition: const CameraPosition(
                 target: _pBeirut,
                 zoom: 13,
               ),
               markers: {
                 Marker(
-                  markerId: MarkerId("_currentLocation"),
+                  markerId: const MarkerId("_currentLocation"),
                   icon: BitmapDescriptor.defaultMarker,
                   position: _currentP!,
                 ),
                 Marker(
-                  markerId: MarkerId("_destinationLocation"),
+                  markerId: const MarkerId("_destinationLocation"),
                   icon: BitmapDescriptor.defaultMarker,
                   position: LatLng(widget.destinationLatitude, widget.destinationLongitude),
                 )
