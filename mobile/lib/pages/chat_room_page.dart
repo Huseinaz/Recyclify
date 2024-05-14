@@ -104,7 +104,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
              ? MainAxisAlignment.end
              : MainAxisAlignment.start,
           children: [
-            Text(data['senderEmail']),
             ChatBubble(message: data['message'], isSender: data['senderId'] == userId,),
           ],
         ),
