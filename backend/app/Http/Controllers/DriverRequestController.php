@@ -61,6 +61,17 @@ class DriverRequestController extends Controller
                 'error' => 'Request not found',
             ], 404);
         }
+
+        if($request == 'Approved') {
+            $driverRequest->update([
+               'status' => 'Approved', 
+                'driver_id' => $user->id,
+            ]);
+        } else {
+            $driverRequest->update([
+                'status' => $request, 
+            ]);
+        }
     
         $user = User::find($driverRequest->user_id);
     
