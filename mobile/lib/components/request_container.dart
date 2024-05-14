@@ -67,13 +67,6 @@ class RequestContainer extends StatelessWidget {
                   style: leftButtonStyle,
                 ),
               ),
-              GestureDetector(
-                onTap: onRightButtonPressed,
-                child: Text(
-                  rightbutton,
-                  style: rightButtonStyle,
-                ),
-              ),
               donebutton != null
                   ? GestureDetector(
                       onTap: onDoneButtonPressed,
@@ -83,6 +76,13 @@ class RequestContainer extends StatelessWidget {
                       ),
                     )
                   : Container(),
+              GestureDetector(
+                onTap: onRightButtonPressed,
+                child: Text(
+                  rightbutton,
+                  style: rightButtonStyle,
+                ),
+              ),
             ],
           ),
         ],
