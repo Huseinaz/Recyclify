@@ -49,8 +49,6 @@ class _DriverHomePageState extends State<DriverHomePage> {
   Future<void> handleRequest(int id, String status, int index) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(KEY_ACCESS_TOKEN);
-    bool accept;
-    status == 'Approved' ? accept = true : accept = false;
 
     final response = await http.post(
       Uri.parse('$HOST/driverRequest/$id'),
@@ -66,7 +64,10 @@ class _DriverHomePageState extends State<DriverHomePage> {
     if (response.statusCode == 200) {
       setState(() {
         driverRequests[index]['status'] = status;
-        driverRequests[index]['showNewButtons'] = accept;
+        driverRequests[index]['showNewButtons'] = (status == 'Approved');
+        if (status == 'Done') {
+          driverRequests.removeAt(index);
+        }
       });
       print('Request $status');
     } else {
@@ -136,79 +137,76 @@ class _DriverHomePageState extends State<DriverHomePage> {
                 for (var i = 0; i < driverRequests.length; i++)
                   Column(
                     children: [
-                      (driverRequests[i]['showNewButtons'] ?? false ||
-                              driverRequests[i]['status'] == 'Approved')
-                          ? RequestContainer(
-                              name: driverRequests[i]['user']['first_name'] +
-                                  ' ' +
-                                  driverRequests[i]['user']['last_name'],
-                              address: 'Beirut, Lebanon',
-                              leftbutton: 'Chat',
-                              rightbutton: 'Get direction',
-                              donebutton: 'Done',
-                              onLeftButtonPressed: () {
-                                navigateToChatRoom(
-                                  driverRequests[i]['user']['email'],
-                                  driverRequests[i]['user']['id'],
-                                );
-                              },
-                              onDoneButtonPressed: () {
-                                handleRequest(
-                                    driverRequests[i]['id'], 'Done', i);
-                              },
-                              leftButtonStyle: const TextStyle(
-                                color: Colors.green,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.green,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              doneButtonStyle: const TextStyle(
-                                color: Colors.green,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.green,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onRightButtonPressed: () {
-                                navigateToMapPage(
-                                  driverRequests[i]['user']['latitude'],
-                                  driverRequests[i]['user']['longitude'],
-                                );
-                              },
-                              rightButtonStyle: const TextStyle(
-                                color: Colors.green,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.green,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          : RequestContainer(
-                              name: driverRequests[i]['user']['first_name'] +
-                                  ' ' +
-                                  driverRequests[i]['user']['last_name'],
-                              address: 'Beirut, Lebanon',
-                              leftbutton: 'Accept',
-                              rightbutton: 'Deny',
-                              onLeftButtonPressed: () {
-                                handleRequest(
-                                    driverRequests[i]['id'], 'Approved', i);
-                              },
-                              leftButtonStyle: const TextStyle(
-                                color: Colors.green,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.green,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onRightButtonPressed: () {
-                                handleRequest(
-                                    driverRequests[i]['id'], 'Rejected', i);
-                              },
-                              rightButtonStyle: const TextStyle(
-                                color: Colors.red,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                      if (driverRequests[i]['showNewButtons'] ?? false || driverRequests[i]['status'] == 'Approved')
+                        RequestContainer(
+                          name: driverRequests[i]['user']['first_name'] +
+                              ' ' +
+                              driverRequests[i]['user']['last_name'],
+                          address: 'Beirut, Lebanon',
+                          leftbutton: 'Chat',
+                          rightbutton: 'Get direction',
+                          donebutton: 'Done',
+                          onLeftButtonPressed: () {
+                            navigateToChatRoom(
+                              driverRequests[i]['user']['email'],
+                              driverRequests[i]['user']['id'],
+                            );
+                          },
+                          onDoneButtonPressed: () {
+                            handleRequest(driverRequests[i]['id'], 'Done', i);
+                          },
+                          leftButtonStyle: const TextStyle(
+                            color: Colors.green,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          doneButtonStyle: const TextStyle(
+                            color: Colors.green,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          onRightButtonPressed: () {
+                            navigateToMapPage(
+                              driverRequests[i]['user']['latitude'],
+                              driverRequests[i]['user']['longitude'],
+                            );
+                          },
+                          rightButtonStyle: const TextStyle(
+                            color: Colors.green,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      else if (!(driverRequests[i]['showNewButtons'] ?? false) && driverRequests[i]['status'] != 'Approved')
+                        RequestContainer(
+                          name: driverRequests[i]['user']['first_name'] +
+                              ' ' +
+                              driverRequests[i]['user']['last_name'],
+                          address: 'Beirut, Lebanon',
+                          leftbutton: 'Accept',
+                          rightbutton: 'Deny',
+                          onLeftButtonPressed: () {
+                            handleRequest(driverRequests[i]['id'], 'Approved', i);
+                          },
+                          leftButtonStyle: const TextStyle(
+                            color: Colors.green,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          onRightButtonPressed: () {
+                            handleRequest(driverRequests[i]['id'], 'Rejected', i);
+                          },
+                          rightButtonStyle: const TextStyle(
+                            color: Colors.red,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       const SizedBox(height: 10),
                     ],
                   ),
