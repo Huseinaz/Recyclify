@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Events\DriverRequest;
+use App\Models\DriverRequest;
 use App\Models\User;
 use App\Notifications\FirebaseNotification;
 use Illuminate\Bus\Queueable;
