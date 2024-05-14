@@ -33,7 +33,16 @@ class DriverRequestController extends Controller
 
     public function viewRequests()
     {
-        $driverRequests = DriverRequest::with('user')->get();
+        $user = Auth::user();
+
+        $driverRequests = DriverRequest::with('user')
+            ->where(function($query) use ($user) {
+                $query->where('status', '!=', 'Done')
+                    ->where(function($query) use ($user) {
+                        $query->whereNull('driver_id')
+                                ->orWhere('driver_id', $user->id);
+                    });
+            })->get();
 
         return response()->json([
             'message' => 'List of all driver requests',
@@ -41,23 +50,17 @@ class DriverRequestController extends Controller
         ], 200);
     }
 
-    public function acceptRequest($id)
+    public function handleRequest(Request $request, $id)
     {
         $driverRequest = DriverRequest::find($id);
+        $request = $request->input('status');
+        $user = Auth::user();
     
         if (!$driverRequest) {
             return response()->json([
                 'error' => 'Request not found',
             ], 404);
         }
-    
-        if ($driverRequest->status === 'Approved') {
-            return response()->json([
-                'error' => 'Request has already been approved',
-            ], 400);
-        }
-    
-        $driverRequest->update(['status' => 'Approved']);
     
         $user = User::find($driverRequest->user_id);
     
