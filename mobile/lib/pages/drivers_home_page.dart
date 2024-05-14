@@ -50,7 +50,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(KEY_ACCESS_TOKEN);
     bool accept;
-    status == 'Aproved' ? accept = true : accept = false;
+    status == 'Approved' ? accept = true : accept = false;
 
     final response = await http.post(
       Uri.parse('$HOST/driverRequest/$id'),
@@ -62,11 +62,13 @@ class _DriverHomePageState extends State<DriverHomePage> {
         'status': status,
       }),
     );
+
     if (response.statusCode == 200) {
       setState(() {
+        driverRequests[index]['status'] = status;
         driverRequests[index]['showNewButtons'] = accept;
       });
-      print('${'Request $status'}');
+      print('Request $status');
     } else {
       print('Failed to $status request: ${response.body}');
     }
@@ -134,9 +136,8 @@ class _DriverHomePageState extends State<DriverHomePage> {
                 for (var i = 0; i < driverRequests.length; i++)
                   Column(
                     children: [
-                      (driverRequests[i]['showNewButtons'] ??
-                              false ||
-                                  driverRequests[i]['status'] == 'Approved')
+                      (driverRequests[i]['showNewButtons'] ?? false ||
+                              driverRequests[i]['status'] == 'Approved')
                           ? RequestContainer(
                               name: driverRequests[i]['user']['first_name'] +
                                   ' ' +
