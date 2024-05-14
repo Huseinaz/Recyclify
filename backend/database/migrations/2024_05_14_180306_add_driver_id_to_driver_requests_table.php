@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('driver_requests', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('driver_id')->nullable()->after('id');
+            $table->foreign('driver_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('driver_requests', function (Blueprint $table) {
-            //
+            $table->dropForeign(['driver_id']);
+            $table->dropColumn('driver_id');
         });
     }
 };
