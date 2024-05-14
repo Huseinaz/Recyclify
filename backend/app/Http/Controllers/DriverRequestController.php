@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DriverRequest as EventsDriverRequest;
 use App\Models\DriverRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,6 +19,8 @@ class DriverRequestController extends Controller
                 'user_id' => $user->id,
                 'status' => 'pending',
             ]);
+
+            event(new EventsDriverRequest($driverRequest));
     
             return response()->json([
                 'message' => 'Request sent successfully',
