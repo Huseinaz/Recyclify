@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\DriverRequest;
+use App\Models\Notification;
 use App\Models\User;
 use App\Notifications\FirebaseNotification;
 use Illuminate\Bus\Queueable;
@@ -34,6 +35,11 @@ class SendDriverNotificationJob implements ShouldQueue
 
         foreach ($drivers as $driver) {
             $driver->notify(new FirebaseNotification('New driver request has been sent.'));
+
+            Notification::create([
+                'user_id' => $driver->id,
+                'message' => 'New driver request has been sent.',
+            ]);
         }
     }
 }
