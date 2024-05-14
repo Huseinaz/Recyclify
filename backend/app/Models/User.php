@@ -55,4 +55,14 @@ class User extends Authenticatable implements JWTSubject
         return $this->fcmtoken;
     }
 
+    public function userRequests()
+    {
+        return $this->hasMany(DriverRequest::class);
+    }
+
+    public function driverRequests()
+    {
+        return $this->hasMany(DriverRequest::class, 'driver_id');
+    }
+
 }
