@@ -24,7 +24,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
   Future<void> fetchNotifications() async {
     final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('KEY_ACCESS_TOKEN');
+    final token = prefs.getString(KEY_ACCESS_TOKEN);
 
     final response = await http.get(
       Uri.parse('$HOST/notifications'),
@@ -68,24 +68,17 @@ class _NotificationsPageState extends State<NotificationsPage> {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
-          child: const SingleChildScrollView(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
 
-                NotificationCard(
-                  text: 'Your Metal Container will be full soon.',
-                  time: '12:00',
-                ),
-
-                SizedBox(height: 20),
-
-                NotificationCard(
-                  text: 'Your Metal Container will be full soon.',
-                  time: '12:00',
-                ),
+                ...notifications.map((notification) => NotificationCard(
+                  text: notification['message'],
+                  time: notification['created_at'],
+                )).toList(),
 
               ],
             ),
