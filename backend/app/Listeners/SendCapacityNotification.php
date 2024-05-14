@@ -20,7 +20,7 @@ class SendCapacityNotification
     /**
      * Handle the event.
      */
-    public function handle(ContainerCapacityExceeded $event)
+    public function handle(ContainerCapacityExceeded $event): void
     {
         $container = $event->container;
 
