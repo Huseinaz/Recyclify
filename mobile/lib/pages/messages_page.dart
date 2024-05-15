@@ -34,9 +34,9 @@ class _MessagesPageState extends State<MessagesPage> {
     );
     try {
       if (response.statusCode == 200) {
-
         setState(() {
-          users = List<Map<String, dynamic>>.from(jsonDecode(response.body)['users']);
+          users = List<Map<String, dynamic>>.from(
+              jsonDecode(response.body)['users']);
         });
       } else {
         throw Exception('Failed to fetch users');
@@ -84,7 +84,9 @@ class _MessagesPageState extends State<MessagesPage> {
         }
         
         return ListView(
-          children: snapshot.data!.docs.map<Widget>((doc) => _buildUserListItem(doc)).toList(),
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildUserListItem(doc))
+              .toList(),
         );
       },
     );
@@ -93,7 +95,16 @@ class _MessagesPageState extends State<MessagesPage> {
   Widget _buildUserListItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
+    String profileImageUrl = data['profileImageUrl'] ?? '';
+    
     return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: profileImageUrl.isNotEmpty
+            ? NetworkImage(profileImageUrl)
+            : const AssetImage('assets/image/profile1.png')
+                as ImageProvider,
+      ),
+      
       title: Text(data['name']),
       onTap: () async {
       final prefs = await SharedPreferences.getInstance();
