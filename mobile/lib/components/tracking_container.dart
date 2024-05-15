@@ -30,7 +30,7 @@ class TrackingContainer extends StatelessWidget {
                 name,
                 textAlign: TextAlign.start,
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   color: Colors.black,
                 ),
               ),
