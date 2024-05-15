@@ -190,7 +190,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                               driverRequests[i]['user']['last_name'],
                           address: 'Beirut, Lebanon',
                           leftbutton: 'Accept',
-                          rightbutton: 'Deny',
+                          rightbutton: 'Get direction',
                           onLeftButtonPressed: () {
                             handleRequest(driverRequests[i]['id'], 'Approved', i);
                           },
@@ -201,12 +201,15 @@ class _DriverHomePageState extends State<DriverHomePage> {
                             fontWeight: FontWeight.bold,
                           ),
                           onRightButtonPressed: () {
-                            handleRequest(driverRequests[i]['id'], 'Rejected', i);
+                            navigateToMapPage(
+                              driverRequests[i]['user']['latitude'],
+                              driverRequests[i]['user']['longitude'],
+                            );
                           },
                           rightButtonStyle: const TextStyle(
-                            color: Colors.red,
+                            color: Colors.green,
                             decoration: TextDecoration.underline,
-                            decorationColor: Colors.red,
+                            decorationColor: Colors.green,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
