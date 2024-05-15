@@ -94,7 +94,7 @@ class _MessagesPageState extends State<MessagesPage> {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
     return ListTile(
-      title: Text(data['email']),
+      title: Text(data['name']),
       onTap: () async {
       final prefs = await SharedPreferences.getInstance();
       final currentUserEmail = prefs.getString(KEY_USER_EMAIL) ?? '';
@@ -105,6 +105,7 @@ class _MessagesPageState extends State<MessagesPage> {
               builder: (context) => ChatRoomPage(
                 receiverUserEmail: data['email'],
                 receiverUserId: data['id'].toString(),
+                receiverUserName: data['name'],
               ),
             ),
           );
