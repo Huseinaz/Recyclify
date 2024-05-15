@@ -88,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Column(
                             children: [
                               const CircleAvatar(
-                                radius: 80,
+                                radius: 77.5,
                                 backgroundImage:
                                     AssetImage('assets/image/profile1.png'),
                               ),
@@ -96,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Text(
                                 name,
                                 style: const TextStyle(
-                                  fontSize: 25,
+                                  fontSize: 22.5,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
