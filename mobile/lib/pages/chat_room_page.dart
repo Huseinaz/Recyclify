@@ -9,11 +9,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ChatRoomPage extends StatefulWidget {
   final String receiverUserEmail;
   final String receiverUserId;
+  final String receiverUserName;
 
   const ChatRoomPage({
     super.key,
     required this.receiverUserEmail,
     required this.receiverUserId,
+    required this.receiverUserName,
   });
 
   @override
@@ -51,7 +53,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text(widget.receiverUserEmail),
+        title: Text(widget.receiverUserName),
       ),
       body: Column(
         children: [
