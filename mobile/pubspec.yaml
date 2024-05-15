@@ -52,7 +52,7 @@ flutter_native_splash:
   ios: true
   web: false
   color: "#187b1b"
-  image: assets/image/logo-bg-green.png
+  image: assets/image/logo-green.png
   android_gravity: center
   ios_content_mode: scaleAspectFill
   fullscreen: true
