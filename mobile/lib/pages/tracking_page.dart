@@ -95,21 +95,26 @@ class _TrackingPageState extends State<TrackingPage> {
                         itemCount: requests.length,
                         itemBuilder: (context, index) {
                           final request = requests[index];
-                          return TrackingContainer(
-                            name: request['user']['first_name'] +
-                                ' ' +
-                                request['user']['last_name'],
-                            status: request['status'],
-                            statusStyle: TextStyle(
-                              color: request['status'] == 'Approved'
-                                  ? Colors.green
-                                  : Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          return Column(
+                            children: [
+                              TrackingContainer(
+                                name: request['user']['first_name'] +
+                                    ' ' +
+                                    request['user']['last_name'],
+                                status: request['status'],
+                                statusStyle: TextStyle(
+                                  color: request['status'] == 'Approved'
+                                      ? Colors.green
+                                      : Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                  height: 10), // Add SizedBox with height 10
+                            ],
                           );
                         },
                       ),
-                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
