@@ -46,7 +46,7 @@ class _MessagesPageState extends State<MessagesPage> {
     } catch (e) {
       print('Error fetching users: $e');
       setState(() {
-        isLoading = false; // Set loading to false in case of error
+        isLoading = false;
       });
     }
   }
