@@ -61,7 +61,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
             child: _buildMessageList(),
           ),
           _buildMessageInput(),
-
           const SizedBox(height: 25),
         ],
       ),
@@ -69,21 +68,23 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   }
 
   Widget _buildMessageList() {
-  return StreamBuilder(
-    stream: _chatService.getMessages(widget.receiverUserId, userId),
-    builder: (context, snapshot) {
-      if (snapshot.hasError) {
-        return Text('Error: ${snapshot.error}');
-      }
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const Text('Loading...');
-      }
-      return ListView(
-        children: snapshot.data!.docs.map((document) => _buildMessageItem(document)).toList(),
-      );
-    },
-  );
-}
+    return StreamBuilder(
+      stream: _chatService.getMessages(widget.receiverUserId, userId),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('Loading...');
+        }
+        return ListView(
+          children: snapshot.data!.docs
+              .map((document) => _buildMessageItem(document))
+              .toList(),
+        );
+      },
+    );
+  }
 
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
@@ -94,23 +95,24 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
     return Container(
       alignment: alignment,
-      child: Padding (
-        padding: const EdgeInsets.all(8),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(10,3,10,3),
         child: Column(
-          crossAxisAlignment:
-            (data['senderId'] == userId)
-             ? CrossAxisAlignment.end
-             : CrossAxisAlignment.start,
-          mainAxisAlignment:
-            (data['senderId'] == userId)
-             ? MainAxisAlignment.end
-             : MainAxisAlignment.start,
+          crossAxisAlignment: (data['senderId'] == userId)
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.start,
+          mainAxisAlignment: (data['senderId'] == userId)
+              ? MainAxisAlignment.end
+              : MainAxisAlignment.start,
           children: [
-            ChatBubble(message: data['message'], isSender: data['senderId'] == userId,),
+            ChatBubble(
+              message: data['message'],
+              isSender: data['senderId'] == userId,
+            ),
           ],
         ),
       ),
-    );  
+    );
   }
 
   Widget _buildMessageInput() {
