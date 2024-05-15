@@ -9,3 +9,5 @@ const String KEY_USER_ID = "id";
 const String HOST = "http://192.168.1.106:8000/api";
 
 const String KEY_DRIVER_ID = 'driver_id';
+
+const String KEY_USER_NAME = 'fullName';
