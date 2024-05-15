@@ -30,7 +30,7 @@ class TrackingPage extends StatelessWidget {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
+          child: const SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -39,27 +39,16 @@ class TrackingPage extends StatelessWidget {
 
                 TrackingContainer(
                   name: 'John Doe',
-                  address: 'Beirut, Lebanon',
-                  onAccept: () {
-                    print('Accept request');
-                  },
-                  onReject: () {
-                    print('Reject request');
-                  },
+                  status: 'Pending',
+                  statusStyle: const TextStyle(
+                    color: Colors.green,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
 
                 const SizedBox(height: 20),
-
-                TrackingContainer(
-                  name: 'Jane Doe',
-                  address: 'Beirut, Lebanon',
-                  onAccept: () {
-                    print('Accept request');
-                  },
-                  onReject: () {
-                    print('Reject request');
-                  },
-                ),
 
               ],
             ),
