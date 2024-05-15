@@ -34,16 +34,6 @@ dev_dependencies:
 
   flutter_lints: ^3.0.0
 
-flutter_native_splash:
-  android: true
-  ios: true
-  web: false
-  color: "#187b1b"
-  image: assets/image/logo-bg-green.png
-  android_gravity: center
-  ios_content_mode: scaleAspectFill
-  fullscreen: true
-
 flutter:
 
   uses-material-design: true
@@ -56,3 +46,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  color: "#187b1b"
+  image: assets/image/logo-bg-green.png
+  android_gravity: center
+  ios_content_mode: scaleAspectFill
+  fullscreen: true
