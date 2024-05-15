@@ -35,6 +35,9 @@ class SignupPage extends StatelessWidget {
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
     
     String? fcmToken = await getFcmToken();
+
+    String fullName = '$firstname $lastname';
+
     final response = await http.post(
       Uri.parse('$HOST/register'),
       body: {
@@ -62,6 +65,7 @@ class SignupPage extends StatelessWidget {
           .collection('users')
           .doc(userId.toString())
           .set({
+        'name' : fullName,
         'email': email,
         'id': userId,
       });
