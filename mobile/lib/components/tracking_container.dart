@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 
 class TrackingContainer extends StatelessWidget {
   final String name;
-  final String address;
-  final VoidCallback? onAccept;
-  final VoidCallback? onReject;
+  final String status;
+  final TextStyle? statusStyle;
 
-  const TrackingContainer(
-      {super.key,
-      required this.name,
-      required this.address,
-      this.onAccept,
-      this.onReject,
-      });
+  const TrackingContainer({
+    super.key,
+    required this.name,
+    required this.status,
+    this.statusStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +23,9 @@ class TrackingContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              
               Text(
                 name,
                 textAlign: TextAlign.start,
@@ -38,28 +34,12 @@ class TrackingContainer extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-
-              GestureDetector(
-                onTap: onAccept,
-                child: const Text(
-                  'Pending',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              Text(
+                status,
+                style: statusStyle,
               ),
             ],
           ),
-
-          Text(
-            address,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w300,
-              color: Colors.grey,
-            ),
-          ),
-
         ],
       ),
     );
