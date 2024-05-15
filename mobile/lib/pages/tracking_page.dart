@@ -1,8 +1,48 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/components/tracking_container.dart';
+import 'package:http/http.dart' as http;
+import 'package:mobile/consts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TrackingPage extends StatelessWidget {
+class TrackingPage extends StatefulWidget {
   const TrackingPage({super.key});
+
+  @override
+  State<TrackingPage> createState() => _TrackingPageState();
+}
+
+class _TrackingPageState extends State<TrackingPage> {
+  List<Map<String, dynamic>> myRequest = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchRequest();
+  }
+
+  Future<void> fetchRequest() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(KEY_ACCESS_TOKEN);
+
+    final response = await http.get(
+      Uri.parse('$HOST/myRequest'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        myRequest = List<Map<String, dynamic>>.from(
+            jsonDecode(response.body)['containers']);
+      });
+    } else {
+      print('Failed to load my request');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
