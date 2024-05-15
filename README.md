@@ -15,14 +15,12 @@
 
 - As a user, I want to have a smart container that measures its fullness.
 - As a user, I want to receive notifications about the status of the containers.
-- As a user, I want to automatically request a driver when one of the containers is full.
-- As a user, I want to track the driver's route.
+- As a user, I want to request a driver when one of the containers is full.
 
 #### Driver
 
-- As a driver, I want to see the user container statistics.
-- As a driver, I want to have a chat with the user to confirm the pickup time for materials.
-- As a driver, I want to receive notifications when a user's container is full.
+- As a driver, I want to have a chat with the user to confirm the pickup time.
+- As a driver, I want to receive notifications when users request a driver.
 - As a driver, I want to see the user's location to plan my route efficiently.
 
 #### Admin
