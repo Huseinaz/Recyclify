@@ -16,6 +16,7 @@ class UserHomePage extends StatefulWidget {
 
 class _UserHomePageState extends State<UserHomePage> {
   List<Map<String, dynamic>> containers = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -39,9 +40,13 @@ class _UserHomePageState extends State<UserHomePage> {
       setState(() {
         containers = List<Map<String, dynamic>>.from(
             jsonDecode(response.body)['containers']);
+        isLoading = false;
       });
     } else {
       print('Failed to load containers data');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -56,7 +61,7 @@ class _UserHomePageState extends State<UserHomePage> {
         'Content-Type': 'application/json',
       },
     );
-    
+
     if (response.statusCode == 200) {
       showDialog(
         context: context,
@@ -99,80 +104,79 @@ class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Container(
-          margin: const EdgeInsets.only(left: 5),
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            title: Row(
-              children: [
-                const Text(
-                  'Your Container',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.track_changes),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/tracking');
-                  },
-                ),
-              ],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            const Text(
+              'Your Container',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
+            const Spacer(),
+            IconButton(
+              icon: const Icon(Icons.track_changes),
+              onPressed: () {
+                Navigator.pushNamed(context, '/tracking');
+              },
+            ),
+          ],
         ),
       ),
       backgroundColor: const Color(0xFFF3F5F8),
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 40),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: containers.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index == 0) {
-                      return MyContainer(
-                        color: MyContainer.getColorFromType(
-                            containers[index]['type']['name']),
-                        type: containers[index]['type']['name'],
-                        percentage: containers[index]['capacity'],
-                      );
-                    } else {
-                      return Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          MyContainer(
-                            color: MyContainer.getColorFromType(
-                                containers[index]['type']['name']),
-                            type: containers[index]['type']['name'],
-                            percentage: containers[index]['capacity'],
-                          ),
-                        ],
-                      );
-                    }
-                  },
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+              ))
+            : Container(
+                margin: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 40),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: containers.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          if (index == 0) {
+                            return MyContainer(
+                              color: MyContainer.getColorFromType(
+                                  containers[index]['type']['name']),
+                              type: containers[index]['type']['name'],
+                              percentage: containers[index]['capacity'],
+                            );
+                          } else {
+                            return Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                MyContainer(
+                                  color: MyContainer.getColorFromType(
+                                      containers[index]['type']['name']),
+                                  type: containers[index]['type']['name'],
+                                  percentage: containers[index]['capacity'],
+                                ),
+                              ],
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    MyButton(
+                      onTap: () {
+                        sendDriverRequest();
+                      },
+                      buttonText: 'Request a driver',
+                    ),
+                    const SizedBox(height: 12),
+                  ],
                 ),
               ),
-              MyButton(
-                onTap: () {
-                  sendDriverRequest();
-                },
-                buttonText: 'Request a driver',
-              ),
-              const SizedBox(height: 12),
-            ],
-          ),
-        ),
       ),
     );
   }
