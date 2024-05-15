@@ -104,4 +104,24 @@ class DriverRequestController extends Controller
             'driver_request' => $driverRequest
         ], 200);
     }
+
+    public function myRequestStatus()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
+        $driverRequests = DriverRequest::where('user_id', $user->id)
+            ->whereIn('status', ['Approved', 'Pending'])
+            ->get();
+
+        return response()->json([
+            'message' => 'List of my request statuses',
+            'driver_requests' => $driverRequests
+        ], 200);
+    }
 }
