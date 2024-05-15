@@ -117,6 +117,9 @@ class DriverRequestController extends Controller
 
         $driverRequests = DriverRequest::where('user_id', $user->id)
             ->whereIn('status', ['Approved', 'Pending'])
+            ->with('user')
+            ->join('users', 'driver_requests.user_id', '=', 'users.id')
+            ->orderBy('users.first_name')
             ->get();
 
         return response()->json([
