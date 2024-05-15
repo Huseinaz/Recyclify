@@ -82,7 +82,7 @@ class _MessagesPageState extends State<MessagesPage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text('Loading...');
         }
-        
+
         return ListView(
           children: snapshot.data!.docs
               .map<Widget>((doc) => _buildUserListItem(doc))
@@ -96,30 +96,43 @@ class _MessagesPageState extends State<MessagesPage> {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
     String profileImageUrl = data['profileImageUrl'] ?? '';
-    
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: profileImageUrl.isNotEmpty
-            ? NetworkImage(profileImageUrl)
-            : const AssetImage('assets/image/profile1.png')
-                as ImageProvider,
-      ),
-      
-      title: Text(data['name']),
-      onTap: () async {
-      final prefs = await SharedPreferences.getInstance();
-      final currentUserEmail = prefs.getString(KEY_USER_EMAIL) ?? '';
-        if (currentUserEmail != data['email']) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatRoomPage(
-                receiverUserEmail: data['email'],
-                receiverUserId: data['id'].toString(),
-                receiverUserName: data['name'],
+
+    return FutureBuilder<SharedPreferences>(
+      future: SharedPreferences.getInstance(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          final prefs = snapshot.data!;
+          final currentUserEmail = prefs.getString(KEY_USER_EMAIL) ?? '';
+
+          if (currentUserEmail != data['email']) {
+            return ListTile(
+              leading: CircleAvatar(
+                backgroundImage: profileImageUrl.isNotEmpty
+                    ? NetworkImage(profileImageUrl)
+                    : const AssetImage('assets/image/profile1.png')
+                        as ImageProvider,
               ),
-            ),
-          );
+              title: Text(data['name']),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatRoomPage(
+                      receiverUserEmail: data['email'],
+                      receiverUserId: data['id'].toString(),
+                      receiverUserName: data['name'],
+                    ),
+                  ),
+                );
+              },
+            );
+          } else {
+            return Container();
+          }
         }
       },
     );
