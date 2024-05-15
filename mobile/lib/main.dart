@@ -3,6 +3,7 @@ import 'package:mobile/api/firebase_api.dart';
 import 'package:mobile/firebase_options.dart';
 import 'package:mobile/pages/d_home.dart';
 import 'package:mobile/pages/notifications_page.dart';
+import 'package:mobile/pages/tracking_page.dart';
 import 'package:mobile/pages/u_home.dart';
 import 'package:mobile/pages/login_page.dart';
 import 'package:mobile/pages/signup_page.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/driverhome': (context) => const DriverPage(),
         '/notifications': (context) => const NotificationsPage(),
         '/getLocation': (context) => const GetLocation(),
+        '/tracking': (context) => const TrackingPage(),
       },
     );
   }
