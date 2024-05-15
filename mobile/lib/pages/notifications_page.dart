@@ -16,6 +16,7 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage> {
   List<Map<String, dynamic>> notifications = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -45,9 +46,13 @@ class _NotificationsPageState extends State<NotificationsPage> {
             'time': formattedTime,
           };
         }).toList();
+        isLoading = false;
       });
     } else {
       print('Failed to load notifications');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -75,12 +80,14 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
       backgroundColor: const Color(0xFFF3F5F8),
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+        child: isLoading
+            ? _buildLoader()
+            : Container(
+                margin: const EdgeInsets.only(left: 20, right: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
                 const SizedBox(height: 40),
 
@@ -99,8 +106,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
               ],
             ),
           ),
+          
         ),
       ),
     );
   }
+  Widget _buildLoader() {
+    return const Center(
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+      ),
+    );
+}
 }
