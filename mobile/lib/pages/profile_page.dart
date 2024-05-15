@@ -22,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String profilePicture = '';
   String password = '';
   String address = '';
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -46,9 +47,13 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         name = jsonData['user']['first_name'] + ' ' + jsonData['user']['last_name'];
         email = jsonData['user']['email'];
+        isLoading = false;
       });
     } else {
       print('Failed to load user data');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -65,78 +70,88 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       backgroundColor: const Color(0xFFF3F5F8),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                flex: 2,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  child: Container(
-                    color: const Color(0xFF187B1B),
-                    child: Column(
-                      children: [
-                        const CircleAvatar(
-                          radius: 75,
-                          backgroundImage:
-                              AssetImage('assets/image/profile1.png'),
+        child: isLoading
+            ? _buildLoader()
+            : Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
                         ),
-                        const SizedBox(height: 10),
-                        Text(
-                          name,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                        child: Container(
+                          color: const Color(0xFF187B1B),
+                          child: Column(
+                            children: [
+                              const CircleAvatar(
+                                radius: 75,
+                                backgroundImage:
+                                    AssetImage('assets/image/profile1.png'),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                name,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 50),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    ProfileData(
-                      label: 'Full Name',
-                      data: name,
-                    ),
-                    const SizedBox(height: 20),
-                    ProfileData(
-                      label: 'Email',
-                      data: email,
-                    ),
-                    const SizedBox(height: 20),
-                    const ProfileData(
-                      label: 'Password',
-                      data: '********',
-                    ),
-                    const SizedBox(height: 20),
-                    const ProfileData(
-                      label: 'Address',
-                      data: 'Beirut, Lebanon',
-                    ),
-                    const SizedBox(height: 80),
-                    MyButton(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/notification');
-                      },
-                      buttonText: 'Save',
+                    const SizedBox(height: 50),
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          ProfileData(
+                            label: 'Full Name',
+                            data: name,
+                          ),
+                          const SizedBox(height: 20),
+                          ProfileData(
+                            label: 'Email',
+                            data: email,
+                          ),
+                          const SizedBox(height: 20),
+                          const ProfileData(
+                            label: 'Password',
+                            data: '********',
+                          ),
+                          const SizedBox(height: 20),
+                          const ProfileData(
+                            label: 'Address',
+                            data: 'Beirut, Lebanon',
+                          ),
+                          const SizedBox(height: 80),
+                          MyButton(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/notification');
+                            },
+                            buttonText: 'Save',
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
+      ),
+    );
+  }
+
+  Widget _buildLoader() {
+    return const Center(
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
       ),
     );
   }
