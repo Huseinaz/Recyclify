@@ -80,15 +80,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       flex: 2,
                       child: ClipRRect(
                         borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
+                          bottomLeft: Radius.circular(35),
+                          bottomRight: Radius.circular(35),
                         ),
                         child: Container(
                           color: const Color(0xFF187B1B),
                           child: Column(
                             children: [
                               const CircleAvatar(
-                                radius: 75,
+                                radius: 80,
                                 backgroundImage:
                                     AssetImage('assets/image/profile1.png'),
                               ),
@@ -96,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Text(
                                 name,
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 25,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
@@ -136,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             onTap: () {
                               Navigator.pushNamed(context, '/notification');
                             },
-                            buttonText: 'Save',
+                            buttonText: 'Edit profile',
                           ),
                         ],
                       ),
