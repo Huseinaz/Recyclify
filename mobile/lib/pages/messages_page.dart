@@ -16,6 +16,7 @@ class MessagesPage extends StatefulWidget {
 
 class _MessagesPageState extends State<MessagesPage> {
   List<Map<String, dynamic>> users = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -37,12 +38,16 @@ class _MessagesPageState extends State<MessagesPage> {
         setState(() {
           users = List<Map<String, dynamic>>.from(
               jsonDecode(response.body)['users']);
+          isLoading = false;
         });
       } else {
         throw Exception('Failed to fetch users');
       }
     } catch (e) {
       print('Error fetching users: $e');
+      setState(() {
+        isLoading = false; // Set loading to false in case of error
+      });
     }
   }
 
@@ -68,7 +73,15 @@ class _MessagesPageState extends State<MessagesPage> {
         ),
       ),
       backgroundColor: const Color(0xFFF3F5F8),
-      body: _buildUserList(),
+      body: isLoading ? _buildLoader() : _buildUserList(),
+    );
+  }
+
+  Widget _buildLoader() {
+    return const Center(
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+      ),
     );
   }
 
