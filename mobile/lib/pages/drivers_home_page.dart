@@ -19,6 +19,7 @@ class DriverHomePage extends StatefulWidget {
 class _DriverHomePageState extends State<DriverHomePage> {
   final TextEditingController _textController = TextEditingController(text: '');
   List<Map<String, dynamic>> driverRequests = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -40,6 +41,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
       setState(() {
         driverRequests = List<Map<String, dynamic>>.from(
             jsonDecode(response.body)['driver_request']);
+        isLoading = false;
       });
     } else {
       print('Failed to load driver requests data');
@@ -75,7 +77,8 @@ class _DriverHomePageState extends State<DriverHomePage> {
     }
   }
 
-  void navigateToChatRoom(dynamic receiverEmail, dynamic receiverId, dynamic receiverName) {
+  void navigateToChatRoom(
+      dynamic receiverEmail, dynamic receiverId, dynamic receiverName) {
     String email = receiverEmail.toString();
     String id = receiverId.toString();
     String name = receiverName.toString();
@@ -125,101 +128,114 @@ class _DriverHomePageState extends State<DriverHomePage> {
       ),
       backgroundColor: const Color(0xFFF3F5F8),
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 40),
-                CupertinoSearchTextField(
-                  controller: _textController,
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      Colors.green),
                 ),
-                const SizedBox(height: 20),
-                for (var i = 0; i < driverRequests.length; i++)
-                  Column(
+              )
+            : Container(
+                margin: const EdgeInsets.only(left: 20, right: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (driverRequests[i]['showNewButtons'] ?? false || driverRequests[i]['status'] == 'Approved')
-                        RequestContainer(
-                          name: driverRequests[i]['user']['first_name'] +
-                              ' ' +
-                              driverRequests[i]['user']['last_name'],
-                          address: 'Beirut, Lebanon',
-                          leftbutton: 'Chat',
-                          rightbutton: 'Get direction',
-                          donebutton: 'Done',
-                          onLeftButtonPressed: () {
-                            navigateToChatRoom(
-                              driverRequests[i]['user']['email'],
-                              driverRequests[i]['user']['id'],
-                              '${driverRequests[i]['user']['first_name']} ${driverRequests[i]['user']['last_name']}',
-                            );
-                          },
-                          onDoneButtonPressed: () {
-                            handleRequest(driverRequests[i]['id'], 'Done', i);
-                          },
-                          leftButtonStyle: const TextStyle(
-                            color: Colors.green,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          doneButtonStyle: const TextStyle(
-                            color: Colors.green,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          onRightButtonPressed: () {
-                            navigateToMapPage(
-                              driverRequests[i]['user']['latitude'],
-                              driverRequests[i]['user']['longitude'],
-                            );
-                          },
-                          rightButtonStyle: const TextStyle(
-                            color: Colors.green,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      else if (!(driverRequests[i]['showNewButtons'] ?? false) && driverRequests[i]['status'] != 'Approved')
-                        RequestContainer(
-                          name: driverRequests[i]['user']['first_name'] +
-                              ' ' +
-                              driverRequests[i]['user']['last_name'],
-                          address: 'Beirut, Lebanon',
-                          leftbutton: 'Accept',
-                          rightbutton: 'Get direction',
-                          onLeftButtonPressed: () {
-                            handleRequest(driverRequests[i]['id'], 'Approved', i);
-                          },
-                          leftButtonStyle: const TextStyle(
-                            color: Colors.green,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          onRightButtonPressed: () {
-                            navigateToMapPage(
-                              driverRequests[i]['user']['latitude'],
-                              driverRequests[i]['user']['longitude'],
-                            );
-                          },
-                          rightButtonStyle: const TextStyle(
-                            color: Colors.green,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      const SizedBox(height: 40),
+                      CupertinoSearchTextField(
+                        controller: _textController,
+                      ),
+                      const SizedBox(height: 20),
+                      for (var i = 0; i < driverRequests.length; i++)
+                        Column(
+                          children: [
+                            if (driverRequests[i]['showNewButtons'] ??
+                                false ||
+                                    driverRequests[i]['status'] == 'Approved')
+                              RequestContainer(
+                                name: driverRequests[i]['user']['first_name'] +
+                                    ' ' +
+                                    driverRequests[i]['user']['last_name'],
+                                address: 'Beirut, Lebanon',
+                                leftbutton: 'Chat',
+                                rightbutton: 'Get direction',
+                                donebutton: 'Done',
+                                onLeftButtonPressed: () {
+                                  navigateToChatRoom(
+                                    driverRequests[i]['user']['email'],
+                                    driverRequests[i]['user']['id'],
+                                    '${driverRequests[i]['user']['first_name']} ${driverRequests[i]['user']['last_name']}',
+                                  );
+                                },
+                                onDoneButtonPressed: () {
+                                  handleRequest(
+                                      driverRequests[i]['id'], 'Done', i);
+                                },
+                                leftButtonStyle: const TextStyle(
+                                  color: Colors.green,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                doneButtonStyle: const TextStyle(
+                                  color: Colors.green,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onRightButtonPressed: () {
+                                  navigateToMapPage(
+                                    driverRequests[i]['user']['latitude'],
+                                    driverRequests[i]['user']['longitude'],
+                                  );
+                                },
+                                rightButtonStyle: const TextStyle(
+                                  color: Colors.green,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            else if (!(driverRequests[i]['showNewButtons'] ??
+                                    false) &&
+                                driverRequests[i]['status'] != 'Approved')
+                              RequestContainer(
+                                name: driverRequests[i]['user']['first_name'] +
+                                    ' ' +
+                                    driverRequests[i]['user']['last_name'],
+                                address: 'Beirut, Lebanon',
+                                leftbutton: 'Accept',
+                                rightbutton: 'Get direction',
+                                onLeftButtonPressed: () {
+                                  handleRequest(
+                                      driverRequests[i]['id'], 'Approved', i);
+                                },
+                                leftButtonStyle: const TextStyle(
+                                  color: Colors.green,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onRightButtonPressed: () {
+                                  navigateToMapPage(
+                                    driverRequests[i]['user']['latitude'],
+                                    driverRequests[i]['user']['longitude'],
+                                  );
+                                },
+                                rightButtonStyle: const TextStyle(
+                                  color: Colors.green,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            const SizedBox(height: 10),
+                          ],
                         ),
-                      const SizedBox(height: 10),
                     ],
                   ),
-              ],
-            ),
-          ),
-        ),
+                ),
+              ),
       ),
     );
   }
