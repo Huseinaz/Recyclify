@@ -27,6 +27,7 @@ Route::get('users/get', [UsersController::class, 'getUser']);
 Route::middleware('user')->group(function(){
     Route::get('/containers', [ContainerController::class, 'getContainer']);
     Route::post('/driverRequest', [DriverRequestController::class, 'driverRequest']);
+    Route::get('/myRequest', [DriverRequestController::class, 'myRequestStatus']);
 });
 
 Route::middleware('driver')->group(function(){
