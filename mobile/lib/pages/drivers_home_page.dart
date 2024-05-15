@@ -75,9 +75,10 @@ class _DriverHomePageState extends State<DriverHomePage> {
     }
   }
 
-  void navigateToChatRoom(dynamic receiverEmail, dynamic receiverId) {
+  void navigateToChatRoom(dynamic receiverEmail, dynamic receiverId, dynamic receiverName) {
     String email = receiverEmail.toString();
     String id = receiverId.toString();
+    String name = receiverName.toString();
 
     Navigator.push(
       context,
@@ -85,6 +86,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
         builder: (context) => ChatRoomPage(
           receiverUserEmail: email,
           receiverUserId: id,
+          receiverUserName: name,
         ),
       ),
     );
@@ -150,6 +152,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                             navigateToChatRoom(
                               driverRequests[i]['user']['email'],
                               driverRequests[i]['user']['id'],
+                              '${driverRequests[i]['user']['first_name']} ${driverRequests[i]['user']['last_name']}',
                             );
                           },
                           onDoneButtonPressed: () {
