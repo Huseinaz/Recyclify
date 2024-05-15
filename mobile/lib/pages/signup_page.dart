@@ -59,6 +59,7 @@ class SignupPage extends StatelessWidget {
       await prefs.setString(KEY_ACCESS_TOKEN, token);
       await prefs.setString(KEY_USER_EMAIL, email);
       await prefs.setInt(KEY_USER_ID, userId);
+      await prefs.setString(KEY_USER_NAME, fullName);
         
       Navigator.pushNamed(context, '/userhome');
       await FirebaseFirestore.instance
