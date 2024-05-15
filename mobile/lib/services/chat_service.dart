@@ -17,11 +17,13 @@ class ChatService extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final currentUserId = (prefs.getInt(KEY_USER_ID) ?? '').toString();
     final currentUserEmail = prefs.getString(KEY_USER_EMAIL) ?? '';
+    final currentUserName = prefs.getString(KEY_USER_NAME) ?? '';
     final Timestamp timestamp = Timestamp.now();
 
     Message newMessage = Message(
       receiverId: receiverId,
       senderId: currentUserId,
+      senderName: currentUserName,
       senderEmail: currentUserEmail,
       message: message,
       timestamp: timestamp,
