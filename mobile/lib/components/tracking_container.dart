@@ -15,7 +15,7 @@ class TrackingContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+      padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(8.0),
