@@ -31,6 +31,14 @@ class SendCapacityNotificationJob implements ShouldQueue
     public function handle(): void
     {
         $user = $this->container->user;
-        $user->notify(new FirebaseNotification("Your container is almost full."));
+
+        foreach($user as $user){
+            $user->notify(new FirebaseNotification("Your plastic container is full! Please request a driver."));
+
+            Notification::create([
+                'user_id' => $user->id,
+                'message' => 'Your plastic container is full! Please request a driver.',
+            ]);
+        }
     }
 }
