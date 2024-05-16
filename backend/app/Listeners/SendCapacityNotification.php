@@ -25,7 +25,7 @@ class SendCapacityNotification
         $container = $event->container;
 
         if ($container->capacity >= 90) {
-            dispatch(new SendCapacityNotificationJob($container));
+            SendCapacityNotificationJob::dispatch($container);
         }
     }
 }
