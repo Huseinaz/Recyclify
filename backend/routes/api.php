@@ -37,3 +37,7 @@ Route::middleware('driver')->group(function(){
 });
 
 Route::post('/notifications', [NotificationController::class, 'store']);
+Route::post('test/{id}', [ContainerController::class, 'show']);
+Route::post('/driverRequest', [DriverRequestController::class, 'driverRequest']);
+
+Route::post('containers', [ContainerController::class, 'store']);
