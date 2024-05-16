@@ -18,6 +18,7 @@ class DriverRequestController extends Controller
             $driverRequest = DriverRequest::create([
                 'user_id' => $user->id,
                 'status' => 'pending',
+                // 'driver_id' => null,
             ]);
 
             event(new EventsDriverRequest($driverRequest));
