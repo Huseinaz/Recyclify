@@ -18,7 +18,7 @@ class MyContainer extends StatelessWidget {
       case 'Glass':
         return Colors.green;
       case 'Plastic':
-        return Colors.yellow;
+        return const Color(0xFFFFD600);
       case 'Metal':
         return Colors.red;
       default:
