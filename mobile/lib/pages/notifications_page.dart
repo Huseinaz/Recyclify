@@ -1,11 +1,26 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/consts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile/components/notification_card.dart';
+
+class Notification {
+  final String message;
+  final String time;
+
+  Notification({required this.message, required this.time});
+
+  factory Notification.fromJson(Map<String, dynamic> json) {
+    final DateTime createdAt = DateTime.parse(json['created_at']);
+    final String formattedTime = DateFormat('HH:mm').format(createdAt);
+    return Notification(
+      message: json['message'],
+      time: formattedTime,
+    );
+  }
+}
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -15,7 +30,7 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
-  List<Map<String, dynamic>> notifications = [];
+  List<Notification> notifications = [];
   bool isLoading = true;
 
   @override
@@ -25,39 +40,46 @@ class _NotificationsPageState extends State<NotificationsPage> {
   }
 
   Future<void> fetchNotifications() async {
+    setState(() {
+      isLoading = true;
+    });
+
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(KEY_ACCESS_TOKEN);
 
-    final response = await http.get(
-      Uri.parse('$HOST/notifications'),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('$HOST/notifications'),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
 
-    if (response.statusCode == 200) {
-      final List<dynamic> notificationData = jsonDecode(response.body);
-      setState(() {
-        notifications = notificationData.map((notification) {
-          final DateTime createdAt = DateTime.parse(notification['created_at']);
-          final String formattedTime = DateFormat('HH:mm').format(createdAt);
-          return {
-            'message': notification['message'],
-            'time': formattedTime,
-          };
-        }).toList();
-        isLoading = false;
-      });
-    } else {
-      print('Failed to load notifications');
+      if (response.statusCode == 200) {
+        final List<dynamic> notificationData = jsonDecode(response.body);
+        setState(() {
+          notifications = notificationData.map((data) => Notification.fromJson(data)).toList();
+        });
+      } else if (response.statusCode == 401) {
+        print('Unauthorized: Token may be expired or invalid.');
+      } else {
+        print('Failed to load notifications with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching notifications: $e');
+    } finally {
       setState(() {
         isLoading = false;
       });
     }
   }
 
- @override
-   Widget build(BuildContext context) {
+  Future<void> _refreshNotifications() async {
+    await fetchNotifications();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -77,45 +99,46 @@ class _NotificationsPageState extends State<NotificationsPage> {
           ),
         ),
       ),
-
       backgroundColor: const Color(0xFFF3F5F8),
       body: SafeArea(
         child: isLoading
             ? _buildLoader()
-            : Container(
-                margin: const EdgeInsets.only(left: 20, right: 20),
+            : RefreshIndicator(
+                onRefresh: _refreshNotifications,
                 child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                const SizedBox(height: 40),
-
-                ...List.generate(notifications.length, (index) {
-                  return Column(
-                    children: [
-                      NotificationCard(
-                        text: notifications[index]['message'],
-                        time: notifications[index]['time'],
-                      ),
-                      if (index < notifications.length - 1)
-                        const SizedBox(height: 10),
-                    ],
-                  );
-                }),
-              ],
-            ),
-          ),
-          
-        ),
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 40),
+                        ...List.generate(notifications.length, (index) {
+                          return Column(
+                            children: [
+                              NotificationCard(
+                                text: notifications[index].message,
+                                time: notifications[index].time,
+                              ),
+                              if (index < notifications.length - 1)
+                                const SizedBox(height: 10),
+                            ],
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
       ),
     );
   }
+
   Widget _buildLoader() {
     return const Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
       ),
     );
-}
+  }
 }
