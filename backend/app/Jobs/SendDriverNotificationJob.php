@@ -34,11 +34,11 @@ class SendDriverNotificationJob implements ShouldQueue
         $drivers = User::where('role_id', 3)->get();
 
         foreach ($drivers as $driver) {
-            $driver->notify(new FirebaseNotification('New driver request has been sent.'));
+            $driver->notify(new FirebaseNotification('A new driver request has been sent.'));
 
             Notification::create([
                 'user_id' => $driver->id,
-                'message' => 'New driver request has been sent.',
+                'message' => 'A new driver request has been sent.',
             ]);
         }
     }
