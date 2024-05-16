@@ -91,6 +91,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->role_id = 3;
         $user->password = $request->password;
+        $user->fcmtoken = 'c4WqGceaQDm7QcVeefz0ux:APA91bEIAoYtGPBZ1z8F-9v-s5s_NPfhCXYF0jzL9uWtAFAR3v0RmwtskUc_iio5rHnvkezdJn2Sht6m5ji0ui8mt8gnE57pqmgjeMOkWYAX-YLwJ4lngQ8WOLecPx9RP3WZ2hK5HIXq';
         $user->save();
 
         $token = auth()->login($user);
