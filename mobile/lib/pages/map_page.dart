@@ -57,7 +57,7 @@ class _MapPageState extends State<MapPage> {
               markers: {
                 Marker(
                   markerId: const MarkerId("_currentLocation"),
-                  icon: BitmapDescriptor.defaultMarker,
+                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
                   position: _currentP!,
                 ),
                 Marker(
