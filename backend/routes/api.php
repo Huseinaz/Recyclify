@@ -23,20 +23,21 @@ Route::middleware('admin')->group(function(){
 });
 
 Route::get('users/get', [UsersController::class, 'getUser']);
+Route::get('/notifications', [NotificationController::class, 'getNotification']);
 
 Route::middleware('user')->group(function(){
     Route::get('/containers', [ContainerController::class, 'getContainer']);
     Route::post('/driverRequest', [DriverRequestController::class, 'driverRequest']);
     Route::get('/myRequest', [DriverRequestController::class, 'myRequestStatus']);
+    // Route::get('/notifications', [NotificationController::class, 'getNotification']);
 });
 
 Route::middleware('driver')->group(function(){
     Route::get('/viewRequests', [DriverRequestController::class, 'viewRequests']);
     Route::post('driverRequest/{id}', [DriverRequestController::class, 'handleRequest']);
-    Route::get('/notifications', [NotificationController::class, 'getNotification']);
+    // Route::get('/notifications', [NotificationController::class, 'getNotification']);
 });
 
-Route::post('/notifications', [NotificationController::class, 'store']);
 Route::post('test/{id}', [ContainerController::class, 'show']);
 Route::post('/driverRequest', [DriverRequestController::class, 'driverRequest']);
 
