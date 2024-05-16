@@ -129,7 +129,10 @@ class _MessagesPageState extends State<MessagesPage> {
                     : const AssetImage('assets/image/profile1.png')
                         as ImageProvider,
               ),
-              title: Text(data['name']),
+              title: Text(data['name'],
+                  style: const TextStyle(
+                    fontSize: 18,
+                  )),
               onTap: () {
                 Navigator.push(
                   context,
