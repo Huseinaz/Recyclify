@@ -50,6 +50,13 @@ class _UserHomePageState extends State<UserHomePage> {
     }
   }
 
+  Future<void> refreshContainers() async {
+    setState(() {
+      isLoading = true;
+    });
+    await fetchContainers();
+  }
+
   Future<void> sendDriverRequest() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(KEY_ACCESS_TOKEN);
@@ -141,30 +148,34 @@ class _UserHomePageState extends State<UserHomePage> {
                   children: [
                     const SizedBox(height: 40),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: containers.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          if (index == 0) {
-                            return MyContainer(
-                              color: MyContainer.getColorFromType(
-                                  containers[index]['type']['name']),
-                              type: containers[index]['type']['name'],
-                              percentage: containers[index]['capacity'],
-                            );
-                          } else {
-                            return Column(
-                              children: [
-                                const SizedBox(height: 20),
-                                MyContainer(
-                                  color: MyContainer.getColorFromType(
-                                      containers[index]['type']['name']),
-                                  type: containers[index]['type']['name'],
-                                  percentage: containers[index]['capacity'],
-                                ),
-                              ],
-                            );
-                          }
-                        },
+                      child: RefreshIndicator(
+                        onRefresh: refreshContainers,
+                        color: Colors.green,
+                        child: ListView.builder(
+                          itemCount: containers.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index == 0) {
+                              return MyContainer(
+                                color: MyContainer.getColorFromType(
+                                    containers[index]['type']['name']),
+                                type: containers[index]['type']['name'],
+                                percentage: containers[index]['capacity'],
+                              );
+                            } else {
+                              return Column(
+                                children: [
+                                  const SizedBox(height: 20),
+                                  MyContainer(
+                                    color: MyContainer.getColorFromType(
+                                        containers[index]['type']['name']),
+                                    type: containers[index]['type']['name'],
+                                    percentage: containers[index]['capacity'],
+                                  ),
+                                ],
+                              );
+                            }
+                          },
+                        ),
                       ),
                     ),
                     MyButton(
