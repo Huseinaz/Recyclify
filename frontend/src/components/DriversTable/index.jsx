@@ -122,7 +122,7 @@ const DriversTable = () => {
             ) : (
                 <div className="overflow-x-auto pl-8 pr-8">
                     <div className='flex justify-between mt-32 pb-3'>
-                        <h1 className="text-xl font-bold">Drivers Information</h1>
+                        <h1 className="text-xl font-bold">Drivers Table</h1>
                         <button className="primary-bg text-white font-bold py-2 px-4 rounded login-btn" onClick={togglePopup}>
                             Create Driver
                         </button>
@@ -190,7 +190,7 @@ const DriversTable = () => {
                     <table className="table-auto min-w-full border-collapse border-t border-b border-gray-200">
                         <thead>
                             <tr>
-                                <th className="px-4 py-2 border-b border-gray-200 w-1/12">ID</th>
+                                {/* <th className="px-4 py-2 border-b border-gray-200 w-1/12">ID</th> */}
                                 <th className="px-4 py-2 border-b border-gray-200 w-2/12">Name</th>
                                 <th className="px-4 py-2 border-b border-gray-200 w-2/12">Email</th>
                                 <th className="px-4 py-2 border-b border-gray-200 w-2/12">Status</th>
@@ -200,7 +200,7 @@ const DriversTable = () => {
                         <tbody>
                             {users.map((user) => (
                                 <tr key={user.id}>
-                                    <td className="px-4 py-2 border-b border-gray-200 text-center">{user.id}</td>
+                                    {/* <td className="px-4 py-2 border-b border-gray-200 text-center">{user.id}</td> */}
                                     <td className="px-4 py-2 border-b border-gray-200 text-center">{user.first_name} {user.last_name}</td>
                                     <td className="px-4 py-2 border-b border-gray-200 text-center">{user.email}</td>
                                     <td className="px-4 py-2 border-b border-gray-200 text-center">{user.active === 1 ? <span>Active</span> : <span>Not Active</span>}</td>
