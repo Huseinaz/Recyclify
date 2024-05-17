@@ -32,6 +32,11 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+
+        if ($user->active === 0) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        
         return response()->json([
             'status' => 'success',
             'user' => $user,
