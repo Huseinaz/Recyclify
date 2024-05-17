@@ -7,6 +7,7 @@ use App\Models\Container;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Notifications\FirebaseNotification;
+use App\Events\ContainerUpdated;
 
 class ContainerController extends Controller
 {
@@ -20,6 +21,16 @@ class ContainerController extends Controller
     {
         $container = Container::findOrFail($id);
         event(new ContainerCapacityExceeded($container));
+        return response()->json($container);
+    }
+
+    public function updateContainer(Request $request, $id)
+    {
+        $container = Container::findOrFail($id);
+        $container->update($request->all());
+
+        event(new ContainerUpdated($container));
+
         return response()->json($container);
     }
 
