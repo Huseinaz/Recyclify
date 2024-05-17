@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Sidebar = () => {
-    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState('Dashboard');
     const navigate = useNavigate();
 
     const handleItemClick = (item) => {
