@@ -91,10 +91,6 @@ const Dashboard = () => {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: 'Users and Drivers Over Time',
-      },
     },
   };
 
