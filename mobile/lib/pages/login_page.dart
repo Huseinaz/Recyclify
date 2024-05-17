@@ -122,7 +122,7 @@ class LoginPage extends StatelessWidget {
                     login(emailController.text.toString(),
                         passwordController.text.toString(), context);
                   },
-                  buttonText: 'Log In',
+                  buttonText: 'Login',
                 ),
                 const SizedBox(height: 3),
                 Padding(
@@ -154,7 +154,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 3),
                 GoogleSignin(
                   onTap: () {
-                    Navigator.pushNamed(context, '/driverhome');
+                    null;
                   },
                 ),
                 const SizedBox(height: 10),
