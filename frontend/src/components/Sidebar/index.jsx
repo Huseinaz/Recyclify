@@ -55,7 +55,7 @@ const Sidebar = () => {
                             navigate("/userstable");
                         }}
                     >
-                        Users Information
+                        Users Table
                     </li>
                     <li
                         className={`py-2 px-4 dashboard-li ${selectedItem === 'Drivers Information' ? 'selected' : ''}`}
@@ -64,7 +64,7 @@ const Sidebar = () => {
                             navigate("/driverstable");
                         }}
                     >
-                        Drivers Information
+                        Drivers Table
                     </li>
                 </ul>
             </div>
