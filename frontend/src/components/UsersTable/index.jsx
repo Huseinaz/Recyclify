@@ -77,12 +77,12 @@ const UsersTable = () => {
                 </div>
 
             ) : (
-                <div className="overflow-x-auto pl-8 pr-8">
-                    <h1 className="text-xl font-bold pb-3 mt-32">Users Information</h1>
+                <div className="overflow-x-auto pl-8 pr-8 pb-3">
+                    <h1 className="text-xl font-bold pb-3 mt-32">Users Table</h1>
                     <table className="table-auto min-w-full border-collapse border-t border-b border-gray-200">
                         <thead>
                             <tr>
-                                <th className="px-4 py-2 border-b border-gray-200 w-1/12">ID</th>
+                                {/* <th className="px-4 py-2 border-b border-gray-200 w-1/12">ID</th> */}
                                 <th className="px-4 py-2 border-b border-gray-200 w-2/12">Name</th>
                                 <th className="px-4 py-2 border-b border-gray-200 w-2/12">Email</th>
                                 {/* <th className="px-4 py-2 border-b border-gray-200 w-2/12">Lat</th>
@@ -94,7 +94,7 @@ const UsersTable = () => {
                         <tbody>
                             {users.map((user) => (
                                 <tr key={user.id}>
-                                    <td className="px-4 py-2 border-b border-gray-200 text-center">{user.id}</td>
+                                    {/* <td className="px-4 py-2 border-b border-gray-200 text-center">{user.id}</td> */}
                                     <td className="px-4 py-2 border-b border-gray-200 text-center">{user.first_name} {user.last_name}</td>
                                     <td className="px-4 py-2 border-b border-gray-200 text-center">{user.email}</td>
                                     {/* <td className="px-4 py-2 border-b border-gray-200 text-center">{user.latitude}</td>
