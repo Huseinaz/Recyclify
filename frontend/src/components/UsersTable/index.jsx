@@ -106,7 +106,7 @@ const UsersTable = () => {
                                             Activate
                                         </button>
                                         <button className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleShutDown(user.id)}>
-                                            Shutdown
+                                            Deactivate
                                         </button>
                                         <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded" onClick={() => handleDelete(user.id)}>
                                             <FontAwesomeIcon icon={faTrashAlt} />
