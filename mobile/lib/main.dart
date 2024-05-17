@@ -10,6 +10,7 @@ import 'package:mobile/pages/signup_page.dart';
 import 'package:mobile/pages/get_location.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:mobile/services/notification_service.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -18,6 +19,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await FirebaseApi().initNotifications();
+  await NotificationService.instance.initNotifications();
   runApp(const MyApp());
 }
 
