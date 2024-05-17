@@ -71,7 +71,7 @@ const LoginForm = () => {
                     <button
                         type="submit"
                         className="w-full primary-bg text-white px-4 py-2 rounded-lg mb-4 login-btn">
-                        Log In
+                        Login
                     </button>
                 </form>
             </div>
