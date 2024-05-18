@@ -5,7 +5,7 @@
 <!-- project philosophy -->
 <img src="./readme/title2.svg"/>
 
-> Recyclify is a mobile application designed to streamline the efforts of environmentalists. Our cutting-edge solution integrates advanced recycling technology, providing users with smart recycling containers equipped with advanced sensors. Our drivers will come to you when your container is nearly full, empowering users by eliminating the need to personally locate recycling centers or manage disposal logistics.
+> Recyclify is a mobile application designed to streamline the efforts of environmentalists. Our cutting-edge solution integrates advanced recycling technology, providing users with smart recycling containers equipped with advanced sensors. Our drivers will come to you when your container is full, empowering users by eliminating the need to personally locate recycling centers or manage disposal logistics.
 
 > We believe in creating a greener future by empowering individuals to take simple yet impactful actions through our platform.
 
@@ -33,13 +33,12 @@
 <!-- Tech stack -->
 <img src="./readme/title3.svg"/>
 
-###  Coffee Express is built using the following technologies:
+###  Recyclify is built using the following technologies:
 
 - This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web.
-- For persistent storage (database), the app uses the [Hive](https://hivedb.dev/) package which allows the app to create a custom storage schema and save it to a local database.
+- For persistent storage (database), the app uses the [Laravel](https://https://laravel.com/) facilitating custom storage schema creation, efficient data management, and seamless integration with local databases.
 - To send local push notifications, the app uses the [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) package which supports Android, iOS, and macOS.
-  - 🚨 Currently, notifications aren't working on macOS. This is a known issue that we are working to resolve!
-- The app uses the font ["Work Sans"](https://fonts.google.com/specimen/Work+Sans) as its main font, and the design of the app adheres to the material design guidelines.
+- The app uses the font ["Roboto"](https://fonts.google.com/specimen/Roboto) as its main font, and the design of the app adheres to the material design guidelines.
 
 <br><br>
 <!-- UI UX -->
