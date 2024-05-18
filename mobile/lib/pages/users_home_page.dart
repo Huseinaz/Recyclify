@@ -7,6 +7,7 @@ import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_container.dart';
 import 'package:mobile/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:web_socket_channel/io.dart';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -20,12 +21,22 @@ class _UserHomePageState extends State<UserHomePage> {
   bool isLoading = true;
   late PageController _pageController;
   int _currentPage = 0;
+  late IOWebSocketChannel _channel;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+    _channel = IOWebSocketChannel.connect(
+      'wss://ws-ap2.pusher.com/app/667d9d8ecb5692441747?protocol=7');
     fetchContainers();
+    listenToChannelEvents('containers');
+  }
+
+  @override
+  void dispose() {
+    _channel.sink.close();
+    super.dispose();
   }
 
   Future<void> fetchContainers() async {
@@ -69,11 +80,14 @@ class _UserHomePageState extends State<UserHomePage> {
     }
   }
 
-  Future<void> refreshContainers() async {
-    setState(() {
-      isLoading = true;
+  void listenToChannelEvents(String channelName) {
+    _channel.stream.listen((message) {
+      // Handle received messages
+      print('Received message: $message');
+      // Here you can update the state based on the received message
+      // For example, fetch containers again
+      fetchContainers();
     });
-    await fetchContainers();
   }
 
   Future<void> sendDriverRequest() async {
@@ -132,20 +146,6 @@ class _UserHomePageState extends State<UserHomePage> {
     }
   }
 
-  void _onArrowTapped(int direction) {
-    int newPage = _currentPage + direction;
-    if (newPage >= 0 && newPage < containers.length + 1) {
-      _pageController.animateToPage(
-        newPage,
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-      setState(() {
-        _currentPage = newPage;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,8 +177,9 @@ class _UserHomePageState extends State<UserHomePage> {
         child: isLoading
             ? const Center(
                 child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-              ))
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                ),
+              )
             : Column(
                 children: [
                   const SizedBox(height: 40),
@@ -187,7 +188,8 @@ class _UserHomePageState extends State<UserHomePage> {
                       children: [
                         PageView.builder(
                           controller: _pageController,
-                          itemCount: containers.length + 1, // Include ListView page
+                          itemCount:
+                              containers.length + 1, // Include ListView page
                           onPageChanged: (index) {
                             setState(() {
                               _currentPage = index;
@@ -197,16 +199,19 @@ class _UserHomePageState extends State<UserHomePage> {
                             if (index == 0) {
                               // ListView as the first page
                               return Padding(
-                                padding: const EdgeInsets.only(left: 20, right: 20),
+                                padding:
+                                    const EdgeInsets.only(left: 20, right: 20),
                                 child: ListView.builder(
                                   itemCount: containers.length,
-                                  itemBuilder: (BuildContext context, int index) {
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
                                     if (index == 0) {
                                       return MyContainer(
                                         color: MyContainer.getColorFromType(
                                             containers[index]['type']['name']),
                                         type: containers[index]['type']['name'],
-                                        percentage: containers[index]['capacity'],
+                                        percentage: containers[index]
+                                            ['capacity'],
                                       );
                                     } else {
                                       return Column(
@@ -214,9 +219,12 @@ class _UserHomePageState extends State<UserHomePage> {
                                           const SizedBox(height: 20),
                                           MyContainer(
                                             color: MyContainer.getColorFromType(
-                                                containers[index]['type']['name']),
-                                            type: containers[index]['type']['name'],
-                                            percentage: containers[index]['capacity'],
+                                                containers[index]['type']
+                                                    ['name']),
+                                            type: containers[index]['type']
+                                                ['name'],
+                                            percentage: containers[index]
+                                                ['capacity'],
                                           ),
                                         ],
                                       );
@@ -226,7 +234,8 @@ class _UserHomePageState extends State<UserHomePage> {
                               );
                             } else {
                               final container = containers[index - 1];
-                              final type = container['type']?['name'] ?? 'Unknown';
+                              final type =
+                                  container['type']?['name'] ?? 'Unknown';
                               final percentage = container['capacity'] ?? 0;
 
                               return Center(
@@ -248,7 +257,8 @@ class _UserHomePageState extends State<UserHomePage> {
                             children: List.generate(
                               containers.length + 1,
                               (index) => Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 4),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 4),
                                 width: 6,
                                 height: 6,
                                 decoration: BoxDecoration(
@@ -270,7 +280,7 @@ class _UserHomePageState extends State<UserHomePage> {
                     },
                     buttonText: 'Request a driver',
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
                 ],
               ),
       ),
