@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile/components/animated_bin.dart';
 import 'package:mobile/components/my_button.dart';
 import 'package:mobile/components/my_container.dart';
 import 'package:mobile/consts.dart';
@@ -17,16 +18,27 @@ class UserHomePage extends StatefulWidget {
 class _UserHomePageState extends State<UserHomePage> {
   List<Map<String, dynamic>> containers = [];
   bool isLoading = true;
+  late PageController _pageController;
+  int _currentPage = 0;
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController();
     fetchContainers();
   }
 
   Future<void> fetchContainers() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(KEY_ACCESS_TOKEN);
+
+    if (token == null || token.isEmpty) {
+      print('No token found');
+      setState(() {
+        isLoading = false;
+      });
+      return;
+    }
 
     final response = await http.get(
       Uri.parse('$HOST/containers'),
@@ -37,11 +49,18 @@ class _UserHomePageState extends State<UserHomePage> {
     );
 
     if (response.statusCode == 200) {
-      setState(() {
-        containers = List<Map<String, dynamic>>.from(
-            jsonDecode(response.body)['containers']);
-        isLoading = false;
-      });
+      final data = jsonDecode(response.body);
+      if (data != null && data['containers'] != null) {
+        setState(() {
+          containers = List<Map<String, dynamic>>.from(data['containers']);
+          isLoading = false;
+        });
+      } else {
+        print('No containers found in response');
+        setState(() {
+          isLoading = false;
+        });
+      }
     } else {
       print('Failed to load containers data');
       setState(() {
@@ -60,6 +79,11 @@ class _UserHomePageState extends State<UserHomePage> {
   Future<void> sendDriverRequest() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(KEY_ACCESS_TOKEN);
+
+    if (token == null || token.isEmpty) {
+      print('No token found');
+      return;
+    }
 
     final response = await http.post(
       Uri.parse('$HOST/driverRequest'),
@@ -108,6 +132,20 @@ class _UserHomePageState extends State<UserHomePage> {
     }
   }
 
+  void _onArrowTapped(int direction) {
+    int newPage = _currentPage + direction;
+    if (newPage >= 0 && newPage < containers.length) {
+      _pageController.animateToPage(
+        newPage,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      setState(() {
+        _currentPage = newPage;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,52 +179,68 @@ class _UserHomePageState extends State<UserHomePage> {
                 child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
               ))
-            : Container(
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 40),
-                    Expanded(
-                      child: RefreshIndicator(
-                        onRefresh: refreshContainers,
-                        color: Colors.green,
-                        child: ListView.builder(
+            : Column(
+                children: [
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        PageView.builder(
+                          controller: _pageController,
                           itemCount: containers.length,
+                          onPageChanged: (index) {
+                            setState(() {
+                              _currentPage = index;
+                            });
+                          },
                           itemBuilder: (BuildContext context, int index) {
-                            if (index == 0) {
-                              return MyContainer(
-                                color: MyContainer.getColorFromType(
-                                    containers[index]['type']['name']),
-                                type: containers[index]['type']['name'],
-                                percentage: containers[index]['capacity'],
-                              );
-                            } else {
-                              return Column(
-                                children: [
-                                  const SizedBox(height: 20),
-                                  MyContainer(
-                                    color: MyContainer.getColorFromType(
-                                        containers[index]['type']['name']),
-                                    type: containers[index]['type']['name'],
-                                    percentage: containers[index]['capacity'],
-                                  ),
-                                ],
-                              );
-                            }
+                            final container = containers[index];
+                            final type =
+                                container['type']?['name'] ?? 'Unknown';
+                            final percentage = container['capacity'] ?? 0;
+
+                            return Center(
+                              child: AnimatedBin(
+                                color: MyContainer.getColorFromType(type),
+                                type: type,
+                                percentage: percentage,
+                              ),
+                            );
                           },
                         ),
-                      ),
+                        Positioned(
+                          bottom: 16,
+                          left: 0,
+                          right: 0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(
+                              containers.length,
+                              (index) => Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                width: 6,
+                                height: 6,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _currentPage == index
+                                      ? Colors.green
+                                      : Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    MyButton(
-                      onTap: () {
-                        sendDriverRequest();
-                      },
-                      buttonText: 'Request a driver',
-                    ),
-                    const SizedBox(height: 12),
-                  ],
-                ),
+                  ),
+                  MyButton(
+                    onTap: () {
+                      sendDriverRequest();
+                    },
+                    buttonText: 'Request a driver',
+                  ),
+                  const SizedBox(height: 12),
+                ],
               ),
       ),
     );
