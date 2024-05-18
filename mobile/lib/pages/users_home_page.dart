@@ -181,12 +181,13 @@ class _UserHomePageState extends State<UserHomePage> {
               ))
             : Column(
                 children: [
+                  const SizedBox(height: 40),
                   Expanded(
                     child: Stack(
                       children: [
                         PageView.builder(
                           controller: _pageController,
-                          itemCount: containers.length + 1, // Include ListView page
+                          itemCount: containers.length + 1,
                           onPageChanged: (index) {
                             setState(() {
                               _currentPage = index;
@@ -194,7 +195,6 @@ class _UserHomePageState extends State<UserHomePage> {
                           },
                           itemBuilder: (BuildContext context, int index) {
                             if (index == 0) {
-                              // ListView as the first page
                               return ListView.builder(
                                 itemCount: containers.length,
                                 itemBuilder: (BuildContext context, int index) {
