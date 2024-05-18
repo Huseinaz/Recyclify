@@ -187,7 +187,7 @@ class _UserHomePageState extends State<UserHomePage> {
                       children: [
                         PageView.builder(
                           controller: _pageController,
-                          itemCount: containers.length + 1,
+                          itemCount: containers.length + 1, // Include ListView page
                           onPageChanged: (index) {
                             setState(() {
                               _currentPage = index;
@@ -195,30 +195,34 @@ class _UserHomePageState extends State<UserHomePage> {
                           },
                           itemBuilder: (BuildContext context, int index) {
                             if (index == 0) {
-                              return ListView.builder(
-                                itemCount: containers.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  if (index == 0) {
-                                    return MyContainer(
-                                      color: MyContainer.getColorFromType(
-                                          containers[index]['type']['name']),
-                                      type: containers[index]['type']['name'],
-                                      percentage: containers[index]['capacity'],
-                                    );
-                                  } else {
-                                    return Column(
-                                      children: [
-                                        const SizedBox(height: 20),
-                                        MyContainer(
-                                          color: MyContainer.getColorFromType(
-                                              containers[index]['type']['name']),
-                                          type: containers[index]['type']['name'],
-                                          percentage: containers[index]['capacity'],
-                                        ),
-                                      ],
-                                    );
-                                  }
-                                },
+                              // ListView as the first page
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 20, right: 20),
+                                child: ListView.builder(
+                                  itemCount: containers.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    if (index == 0) {
+                                      return MyContainer(
+                                        color: MyContainer.getColorFromType(
+                                            containers[index]['type']['name']),
+                                        type: containers[index]['type']['name'],
+                                        percentage: containers[index]['capacity'],
+                                      );
+                                    } else {
+                                      return Column(
+                                        children: [
+                                          const SizedBox(height: 20),
+                                          MyContainer(
+                                            color: MyContainer.getColorFromType(
+                                                containers[index]['type']['name']),
+                                            type: containers[index]['type']['name'],
+                                            percentage: containers[index]['capacity'],
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                  },
+                                ),
                               );
                             } else {
                               final container = containers[index - 1];
