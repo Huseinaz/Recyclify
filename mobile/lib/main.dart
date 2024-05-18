@@ -10,7 +10,9 @@ import 'package:mobile/pages/signup_page.dart';
 import 'package:mobile/pages/get_location.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:mobile/providers/loader_provider.dart';
 import 'package:mobile/services/notification_service.dart';
+import 'package:provider/provider.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -20,7 +22,15 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await FirebaseApi().initNotifications();
   await NotificationService.instance.initNotifications();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LoaderProvider()),
+        // Add other providers here
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
