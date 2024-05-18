@@ -134,7 +134,7 @@ class _UserHomePageState extends State<UserHomePage> {
 
   void _onArrowTapped(int direction) {
     int newPage = _currentPage + direction;
-    if (newPage >= 0 && newPage < containers.length) {
+    if (newPage >= 0 && newPage < containers.length + 1) {
       _pageController.animateToPage(
         newPage,
         duration: Duration(milliseconds: 300),
@@ -186,25 +186,53 @@ class _UserHomePageState extends State<UserHomePage> {
                       children: [
                         PageView.builder(
                           controller: _pageController,
-                          itemCount: containers.length,
+                          itemCount: containers.length + 1, // Include ListView page
                           onPageChanged: (index) {
                             setState(() {
                               _currentPage = index;
                             });
                           },
                           itemBuilder: (BuildContext context, int index) {
-                            final container = containers[index];
-                            final type =
-                                container['type']?['name'] ?? 'Unknown';
-                            final percentage = container['capacity'] ?? 0;
+                            if (index == 0) {
+                              // ListView as the first page
+                              return ListView.builder(
+                                itemCount: containers.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (index == 0) {
+                                    return MyContainer(
+                                      color: MyContainer.getColorFromType(
+                                          containers[index]['type']['name']),
+                                      type: containers[index]['type']['name'],
+                                      percentage: containers[index]['capacity'],
+                                    );
+                                  } else {
+                                    return Column(
+                                      children: [
+                                        const SizedBox(height: 20),
+                                        MyContainer(
+                                          color: MyContainer.getColorFromType(
+                                              containers[index]['type']['name']),
+                                          type: containers[index]['type']['name'],
+                                          percentage: containers[index]['capacity'],
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                },
+                              );
+                            } else {
+                              final container = containers[index - 1];
+                              final type = container['type']?['name'] ?? 'Unknown';
+                              final percentage = container['capacity'] ?? 0;
 
-                            return Center(
-                              child: AnimatedBin(
-                                color: MyContainer.getColorFromType(type),
-                                type: type,
-                                percentage: percentage,
-                              ),
-                            );
+                              return Center(
+                                child: AnimatedBin(
+                                  color: MyContainer.getColorFromType(type),
+                                  type: type,
+                                  percentage: percentage,
+                                ),
+                              );
+                            }
                           },
                         ),
                         Positioned(
@@ -214,10 +242,9 @@ class _UserHomePageState extends State<UserHomePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: List.generate(
-                              containers.length,
+                              containers.length + 1,
                               (index) => Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 4),
+                                margin: const EdgeInsets.symmetric(horizontal: 4),
                                 width: 6,
                                 height: 6,
                                 decoration: BoxDecoration(
