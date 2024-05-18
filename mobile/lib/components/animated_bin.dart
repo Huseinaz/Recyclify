@@ -23,7 +23,7 @@ class AnimatedBin extends StatelessWidget {
             width: 258,
             height: 327,
             child: Stack(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               children: [
                 Positioned.fill(
                   child: Center(
@@ -41,15 +41,16 @@ class AnimatedBin extends StatelessWidget {
                       height: (percentage / 100) * 327,
                       width: 258,
                       color: color.withOpacity(0.5),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '$percentage%',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    '$percentage%',
+                    style: TextStyle(
+                      color: color,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 32,
                     ),
                   ),
                 ),
@@ -59,9 +60,10 @@ class AnimatedBin extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             type,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
+              color: color,
             ),
           ),
         ],
