@@ -13,10 +13,12 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mobile/providers/loader_provider.dart';
 import 'package:mobile/services/notification_service.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
