@@ -76,8 +76,8 @@
 | Splash screen | Login screen  | Register screen | Loading screen |
 | ---| ---| ---| ---|
 | ![Landing](./readme/SplashScreen.gif) | ![fsdaf](./readme/Login.gif) | ![fsdaf](./readme/SignUp.gif) | ![fsdaf](./readme/Loading.gif) |
-| Home screen  | Menu Screen | Order Screen | Checkout Screen |
-| ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
+| Home screen  | Messages screen | Notification screen | Profile screen |
+| ![Landing](./readme/UserHome.gif) | ![fsdaf](./readme/UserMessage.gif) | ![fsdaf](./readme/UserNotification.jpg) | ![fsdaf](./readme/UserProfile.jpg) |
 
 ### Admin Screens (Web)
 | Login Screen  | Dashboard |
