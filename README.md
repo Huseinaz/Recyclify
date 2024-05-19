@@ -114,7 +114,7 @@
 
 - This project focuses on testing every part of the code carefully to make sure it works well. By checking each piece of the software closely, we build a strong base, catching and fixing any problems early in development.
 
-<img src="./readme/UnitTesting.png" height="350" />
+<img src="./readme/UnitTesting.png" height="450" />
 
 <br><br>
 
