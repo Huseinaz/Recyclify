@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/chat_bubble.dart';
-import 'package:mobile/components/my_textfield.dart';
 import 'package:mobile/consts.dart';
 import 'package:mobile/services/chat_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,6 +54,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         backgroundColor: Colors.transparent,
         title: Text(widget.receiverUserName),
       ),
+      backgroundColor: const Color(0xFFF3F5F8),
       body: Column(
         children: [
           Expanded(
@@ -96,7 +96,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     return Container(
       alignment: alignment,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10,3,10,3),
+        padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
         child: Column(
           crossAxisAlignment: (data['senderId'] == userId)
               ? CrossAxisAlignment.end
@@ -116,21 +116,53 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   }
 
   Widget _buildMessageInput() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Row(children: [
-        Expanded(
-          child: MyTextField(
-            controller: _messageController,
-            hintText: 'Message',
-            obscureText: false,
+  return Align(
+    alignment: Alignment.bottomCenter,
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: const EdgeInsets.only(left: 15, right: 50),
+            child: TextField(
+              controller: _messageController,
+              decoration: const InputDecoration(
+                hintText: 'Message',
+                border: InputBorder.none,
+              ),
+            ),
           ),
-        ),
-        IconButton(
-          onPressed: sendMessage,
-          icon: const Icon(Icons.send, size: 30),
-        )
-      ]),
-    );
-  }
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(20),
+                onTap: sendMessage,
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.send,
+                    size: 25,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 }
