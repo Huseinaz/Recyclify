@@ -62,7 +62,7 @@
 
 ###  Architecting Data Excellence: Innovative Database Design Strategies:
 
-<img src="./readme/ERD.png" height="1000" />
+<img src="./readme/ERD.png" height="500" />
 
 
 <br><br>
@@ -134,16 +134,50 @@ This is an example of how to list things you need to use the software and how to
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [example](https://example.com)
-2. Clone the repo
-   git clone [github](https://github.com/your_username_/Project-Name.git)
-3. Install NPM packages
+1. Clone the repo
+
+    ```sh
+    git clone https://github.com/Huseinaz/Recyclify
+    ```
+
+2. Install Laravel dependencies by navigating to the Laravel project directory:
+
    ```sh
-   npm install
+   cd backend
+   composer install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+
+3. Set up your Laravel environment and configure the .env file with your database settings.
+
+   Run Laravel migrations to set up the database:
+
+   ```sh
+   php artisan migrate --seed
+   ```
+
+4. Navigate to the Flutter app directory:
+
+   ```sh
+   cd mobile
+   ```
+
+5. Install Flutter dependencies and run the Flutter app on your emulator or connected device:
+
+   ```sh
+   flutter pub get
+   flutter run
+   ```
+
+6. Navigate to the ReactJS project directory:
+
+   ```sh
+   cd frontend
+   ```
+
+7. Install ReactJS dependencies and run the ReactJS app:
+
+   ```sh
+   npm start
    ```
 
 Now, you should be able to run Recyclify locally and explore its features.
