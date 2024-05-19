@@ -79,6 +79,11 @@
 | Home screen  | Messages screen | Notification screen | Profile screen |
 | ![Landing](./readme/UserHome.gif) | ![fsdaf](./readme/UserMessage.gif) | ![fsdaf](./readme/UserNotification.jpg) | ![fsdaf](./readme/UserProfile.jpg) |
 
+### User Screens (Mobile)
+| Home screen  | Messages screen | Notification screen | Profile screen |
+| ---| ---| ---| ---|
+| ![Landing](./readme/DriverHome.gif) | ![fsdaf](./readme/DriverMessage.gif) | ![fsdaf](./readme/DriverNotification.jpg) | ![fsdaf](./readme/DriverProfile.jpg) |
+
 ### Admin Screens (Web)
 | Login Screen  | Dashboard |
 | ---| ---|
