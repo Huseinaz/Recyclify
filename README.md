@@ -75,7 +75,7 @@
 ### User Screens (Mobile)
 | Splash screen | Login screen  | Register screen | Loading screen |
 | ---| ---| ---| ---|
-| ![Landing](./readme/SplashScreen.jpg) | ![fsdaf](./readme/Login.jpg) | ![fsdaf](./readme/SignUp.jpg) | ![fsdaf](./readme/Loading.gif) |
+| ![Landing](./readme/SplashScreen.jpg) | ![fsdaf](./readme/Login.gif) | ![fsdaf](./readme/SignUp.gif) | ![fsdaf](./readme/Loading.gif) |
 | Home screen  | Menu Screen | Order Screen | Checkout Screen |
 | ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
 
