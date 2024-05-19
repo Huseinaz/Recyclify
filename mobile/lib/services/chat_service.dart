@@ -52,4 +52,24 @@ class ChatService extends ChangeNotifier {
         .orderBy('timestamp', descending: false)
         .snapshots();
   }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>?> getLastMessage(String userId, String otherUserId) async {
+    List<String> ids = [userId, otherUserId];
+    ids.sort();
+    String chatRoomId = ids.join("_");
+
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+        .collection('chat_rooms')
+        .doc(chatRoomId)
+        .collection('messages')
+        .orderBy('timestamp', descending: true)
+        .limit(1)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      return querySnapshot.docs.first;
+    } else {
+      return null;
+    }
+  }
 }
