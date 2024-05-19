@@ -51,9 +51,9 @@
 
 
 ### Mockups
-| Home screen  | Menu Screen | Order Screen |
+| Home screen  | Home Screen | Messages |
 | ---| ---| ---|
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| ![Landing](./readme/HomePage.png) | ![fsdaf](./readme/HomePage1.png) | ![fsdaf](./readme/ChatRoom.png) |
 
 <br><br>
 
