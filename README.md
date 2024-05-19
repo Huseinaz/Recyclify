@@ -112,7 +112,9 @@
 
 ###  Precision in Development: Harnessing the Power of Unit Testing:
 
-- This project employs rigorous unit testing methodologies to ensure the reliability and accuracy of code components. By systematically evaluating individual units of the software, we guarantee a robust foundation, identifying and addressing potential issues early in the development process.
+- This project focuses on testing every part of the code carefully to make sure it works well. By checking each piece of the software closely, we build a strong base, catching and fixing any problems early in development.
+
+<img src="./readme/UnitTesting.png" height="500" />
 
 <br><br>
 
@@ -120,7 +122,7 @@
 <!-- How to run -->
 <img src="./readme/title10.svg"/>
 
-> To set up Coffee Express locally, follow these steps:
+> To set up Recyclify locally, follow these steps:
 
 ### Prerequisites
 
