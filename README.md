@@ -80,11 +80,11 @@
 | ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
 
 ### Admin Screens (Web)
-| Login Screen  | Dashboard |  Drivers Table |
-| ---| ---| ---|
-| ![Landing](./readme/AdminLogin.png) | ![fsdaf](./readme/Dashboard.png) | ![fsdaf](./readme/DriversTable.png) |
-| Home screen  | Menu Screen | Order Screen |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| Login Screen  | Dashboard |
+| ---| ---|
+| ![Landing](./readme/AdminLogin.png) | ![fsdaf](./readme/Dashboard.png) |
+| Users Table  | Create driver |
+| ![Landing](./readme/UsersTable.png) | ![fsdaf](./readme/CreateDriver.png) |
 
 <br><br>
 
