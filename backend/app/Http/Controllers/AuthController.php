@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Container;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -59,6 +61,8 @@ class AuthController extends Controller
             'longitude' => 'nullable|numeric',
         ]);
 
+    DB::beginTransaction();
+    try {
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -68,6 +72,17 @@ class AuthController extends Controller
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
         ]);
+
+        $typeIds = [1, 2, 3, 4];
+        foreach ($typeIds as $typeId) {
+            Container::create([
+                'user_id' => $user->id,
+                'type_id' => $typeId,
+                'capacity' => 0,
+            ]);
+        }
+
+        DB::commit();
 
         $token = Auth::login($user);
         return response()->json([
@@ -79,7 +94,15 @@ class AuthController extends Controller
                 'type' => 'bearer',
             ]
         ]);
+    } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+            'status' => 'error',
+            'message' => 'User registration failed',
+            'error' => $e->getMessage(),
+        ], 500);
     }
+}
 
     public function createDriver(Request $request)
     {
