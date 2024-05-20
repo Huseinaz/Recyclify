@@ -13,6 +13,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
+    Route::post('users/{id}/activate', [UsersController::class, 'activateUser']);
+    Route::post('users/{id}/shutdown', [UsersController::class, 'shutdownUser']);
 
 Route::middleware('admin')->group(function(){
     Route::get('users/get', [UsersController::class, 'getUser']);
