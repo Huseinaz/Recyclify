@@ -28,16 +28,14 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LoaderProvider()),
-        // Add other providers here
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print("Handling a background message: ${message.messageId}");
 }
 
 class MyApp extends StatelessWidget {
