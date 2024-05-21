@@ -62,7 +62,7 @@
 
 ###  Architecting Data Excellence: Innovative Database Design Strategies:
 
-<img src="./readme/ERD.png" height="500" />
+<img src="./readme/ERD.png" height="400" />
 
 
 <br><br>
@@ -169,6 +169,8 @@ Below were the steps taken to deploy recyclify's Laravel backend to AWS, after [
 - **Step 7**: Install MySQL on your instance. A good guide can be found here: [How To Install MySQL on Ubuntu 20.04 (DigitalOcean)](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04)
 
 - **Step 8**: Once MySQL is installed, follow the steps in the "How To Run?" section below (Backend Setup).
+
+<img src="./readme/AWSTest.png" height="400" />
 
 <br><br>
 
