@@ -62,7 +62,7 @@
 
 ###  Architecting Data Excellence: Innovative Database Design Strategies:
 
-<img src="./readme/ERD.png" height="400" />
+<img src="./readme/ERD.png" height="500" />
 
 
 <br><br>
@@ -170,7 +170,7 @@ Below were the steps taken to deploy recyclify's Laravel backend to AWS, after [
 
 - **Step 8**: Once MySQL is installed, follow the steps in the "How To Run?" section below (Backend Setup).
 
-<img src="./readme/AWSTest.png" height="400" />
+<img src="./readme/AWSTest.png" height="500" />
 
 <br><br>
 
